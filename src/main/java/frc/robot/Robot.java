@@ -7,9 +7,21 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
+import org.opencv.core.Core;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,6 +34,11 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  NetworkTable table = inst.getTable("GRIP/myContoursReport");
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -31,6 +48,15 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    NetworkTableEntry xEntry = table.getEntry("x");
+    xEntry.setDouble(5.0);
+
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+    camera.setResolution(320, 240);
+    camera.setBrightness(4);
+
+    System.out.println("hello world");
   }
 
   /**
@@ -46,7 +72,15 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    NetworkTableEntry entry = table.getEntry("x");
+    System.out.println(entry.getDouble(0.0));
+
+    NetworkTableEntry areaEntry = table.getEntry("area");
+    System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
+
     CommandScheduler.getInstance().run();
+    
+    // System.out.print(table.getKeys());
   }
 
   /**
