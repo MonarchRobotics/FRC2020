@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final Drivetrain m_subsystem;
     // VideoCapture camera;
 
     /**

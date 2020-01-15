@@ -12,7 +12,6 @@ import frc.robot.commands.ExampleCommand;
 
 public class ExampleSubsystem extends SubsystemBase {
 
-
   /**
    * Creates a new ExampleSubsystem.
    */
