@@ -76,11 +76,13 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     NetworkTableEntry areaEntry = table.getEntry("area");
-    System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
+    // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
 
     Color detectedColor = colorSensor.getColor();
 
-    System.out.println("R:"+ detectedColor.red + ",G:" + detectedColor.green + ",B:" + detectedColor.blue);
+    System.out.println("R:"+ detectedColor.red); 
+    System.out.println("G:" + detectedColor.green); 
+    System.out.println("B:" + detectedColor.blue);
     int proximity = colorSensor.getProximity();
     System.out.println("Proximity:"+proximity);
 
