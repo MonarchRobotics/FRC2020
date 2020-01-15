@@ -8,10 +8,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.PullUp;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-
-
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -48,13 +44,6 @@ public class Climb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("myContoursReport");
-    System.out.print(table.getKeys());
-  
-    
-    // Mat frame = new Mat();
-    // camera.read(frame);
 
   }
 
