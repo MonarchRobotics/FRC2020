@@ -113,6 +113,10 @@ public class WheelOfFortune extends CommandBase {
           countedColors[detectedColor-1]++;//add to the count of the number of times the sensor has seen each color
           if(countedColors[0]>=7 && countedColors[1]>=7 && countedColors[2]>=7 && countedColors[3]>=7){//once we've seen each color 7 times (so 3.5 rotations), stop it from rotating.
             System.out.println("STOP. ROTATION IS DONE");
+            System.out.println("STOP. ROTATION IS DONE");
+            System.out.println("STOP. ROTATION IS DONE");
+            System.out.println("STOP. ROTATION IS DONE");
+            System.out.println("STOP. ROTATION IS DONE");
             Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
             doingRotation = false;
           }
@@ -126,6 +130,10 @@ public class WheelOfFortune extends CommandBase {
       if(detectedColor!=lastDetectedColor){//the color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor==colorForPosition){//we have arrived at the correct color, so stop rotating
+          System.out.println("STOP. POSITION IS DONE");
+          System.out.println("STOP. POSITION IS DONE");
+          System.out.println("STOP. POSITION IS DONE");
+          System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
           doingPosition = false;
