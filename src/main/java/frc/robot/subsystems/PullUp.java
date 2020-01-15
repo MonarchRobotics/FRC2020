@@ -8,15 +8,27 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Climb;
 
-public class ExampleSubsystem extends SubsystemBase {
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
+public class PullUp extends SubsystemBase {
+
+  private DoubleSolenoid climbSolenoid;
 
 
-  /**
-   * Creates a new ExampleSubsystem.
-   */
-  public ExampleSubsystem() {
+  public PullUp() {
+
+  }
+
+
+  public void extendClimb()
+  {
+      climbSolenoid.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void retractClimb()
+  {
 
   }
 
