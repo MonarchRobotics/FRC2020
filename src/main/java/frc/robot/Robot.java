@@ -81,6 +81,8 @@ public class Robot extends TimedRobot {
 
     Color color = colorSensor.getColor();
     int thisColor = 0;
+    // System.out.println(color.red);
+    // System.out.println(colorSensorMargin(color.red, 0.54));
     if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
       thisColor = 1;
     }
@@ -115,7 +117,7 @@ public class Robot extends TimedRobot {
     }
 
     int proximity = colorSensor.getProximity();
-    System.out.println("Proximity:"+proximity);
+    // System.out.println("Proximity:"+proximity);
 
     CommandScheduler.getInstance().run();
 
@@ -125,7 +127,7 @@ public class Robot extends TimedRobot {
 
   boolean colorSensorMargin(double detected, double test){
     double error = 0.03;
-    return detected>=test+error && detected<=test-error;
+    return detected<=test+error && detected>=test-error;
   }
 
   /**
