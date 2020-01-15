@@ -11,18 +11,10 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-// import org.opencv.core.Mat;
-// import org.opencv.videoio.VideoCapture;
+
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import java.awt.image.BufferedImage;
-// import java.awt.image.DataBufferByte;
 
-// import javax.swing.ImageIcon;
-// import javax.swing.JFrame;
-// import javax.swing.JLabel;
-
-// import java.awt.FlowLayout;
 
 
 /**
@@ -66,27 +58,7 @@ public class ExampleCommand extends CommandBase {
 
   }
 
-  // public BufferedImage mat2BufferedImage(Mat m){
-  //   int bufferSize = m.channels()*m.cols()*m.rows();
-  //   byte [] b = new byte[bufferSize];
-  //   m.get(0,0,b);
-  //   BufferedImage image = new BufferedImage(m.cols(), m.rows(), BufferedImage.TYPE_INT_RGB);
-  //   final byte [] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-  //   System.arraycopy(b, 0, targetPixels, 0, b.length);
-  //   return image;
-  // }
-
-  // public void displayImage(BufferedImage img2){
-  //   ImageIcon icon = new ImageIcon(img2);
-  //   JFrame frame = new JFrame();
-  //   frame.setLayout(new FlowLayout());
-  //   frame.setSize(img2.getWidth(null)+50,img2.getHeight(null)+50);
-  //   JLabel label = new JLabel();
-  //   label.setIcon(icon);
-  //   frame.add(label);
-  //   frame.setVisible(true);
-  //   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  // }
+  
 
   // Called once the command ends or is interrupted.
   @Override
