@@ -25,6 +25,7 @@ public class WheelManipulator extends SubsystemBase {
     public WheelManipulator(int spinnerPort) {
         spinner = new TalonSRX(spinnerPort);
         spinner.setNeutralMode(NeutralMode.Brake);
+        setDefaultCommand(new WheelOfFortune(this));
     }
 
     private boolean colorSensorMargin(double detected, double test){
@@ -58,10 +59,10 @@ public class WheelManipulator extends SubsystemBase {
         return spinner;
     }
 
-    //     @Override
-//     public void initDefaultCommand(){
-//       setDefaultCommand(new WheelOfFortune());
-//     }
+    // @Override
+    // public void initDefaultCommand(){
+    //   setDefaultCommand(new WheelOfFortune());
+    // }
 
     @Override
     public void periodic() {

@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static WheelManipulator wheelManipulator = new WheelManipulator(0);//TODO: replace with the correct port (and it should probably be in RobotMap)
+  // public static WheelManipulator wheelManipulator = new WheelManipulator(6);//TODO: replace with the correct port (and it should probably be in RobotMap)
 
 
 //  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/myContoursReport");
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
+
+  private OI oi;
 
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
   int lastDetectedColor = 0; //0=none,1=R,2=Y,3=G,4=B
@@ -60,6 +62,7 @@ public class Robot extends TimedRobot {
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     NetworkTableEntry xEntry = table.getEntry("x");
     xEntry.setDouble(5.0);
+    oi = new OI();
 
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
