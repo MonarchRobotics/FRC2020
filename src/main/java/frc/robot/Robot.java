@@ -9,6 +9,9 @@ package frc.robot;
 
 import java.util.Arrays;
 
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import org.opencv.core.Core;
 
 import edu.wpi.cscore.UsbCamera;
@@ -19,9 +22,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,10 +35,14 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/myContoursReport");
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
+
+  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -55,8 +60,6 @@ public class Robot extends TimedRobot {
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
     camera.setBrightness(4);
-
-    System.out.println("hello world");
   }
 
   /**
@@ -72,11 +75,14 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    NetworkTableEntry entry = table.getEntry("x");
-    System.out.println(entry.getDouble(0.0));
-
     NetworkTableEntry areaEntry = table.getEntry("area");
     System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
+
+    Color detectedColor = colorSensor.getColor();
+
+    System.out.println("R:"+ detectedColor.red + ",G:" + detectedColor.green + ",B:" + detectedColor.blue);
+    int proximity = colorSensor.getProximity();
+    System.out.println("Proximity:"+proximity);
 
     CommandScheduler.getInstance().run();
     
