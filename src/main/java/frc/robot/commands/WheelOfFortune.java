@@ -106,7 +106,7 @@ public class WheelOfFortune extends CommandBase {
       doingRotation = false;
     }
     else if(doingRotation){
-      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,1.0);
+      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor!=0){
@@ -117,7 +117,7 @@ public class WheelOfFortune extends CommandBase {
             System.out.println("STOP. ROTATION IS DONE");
             System.out.println("STOP. ROTATION IS DONE");
             System.out.println("STOP. ROTATION IS DONE");
-            Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
+            Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
             doingRotation = false;
           }
         }
@@ -126,7 +126,7 @@ public class WheelOfFortune extends CommandBase {
 
     }
     else if(doingPosition){
-      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,1.0);
+      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//the color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor==colorForPosition){//we have arrived at the correct color, so stop rotating
@@ -135,7 +135,7 @@ public class WheelOfFortune extends CommandBase {
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
-          Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
+          Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
           doingPosition = false;
         }
       }
