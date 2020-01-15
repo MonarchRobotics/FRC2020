@@ -17,8 +17,8 @@ public class PullUp extends SubsystemBase {
   private DoubleSolenoid climbSolenoid;
 
 
-  public PullUp() {
-
+  public PullUp(int openChannel, int closeChannel) {
+      climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }
 
 
@@ -29,9 +29,14 @@ public class PullUp extends SubsystemBase {
 
   public void retractClimb()
   {
-
+      climbSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
+
+  public DoubleSolenoid.Value getValue()
+  {
+    return climbSolenoid.get();
+  }
   // @Override
   // public void initDefaultCommand(){
   //   setDefaultCommand(new ExampleCommand());
