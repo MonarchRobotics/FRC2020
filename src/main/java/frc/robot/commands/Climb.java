@@ -18,29 +18,26 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
-
-
-
-
 /**
- * An example command that uses an example subsystem.
+ * The Pnumatic climbing system
  */
 public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final PullUp m_subsystem;
   
-  // controller stuff
+  
 
 
   /**
-   * Creates a new ExampleCommand.
-   *
    * @param subsystem The subsystem used by this command.
    */
   public Climb(PullUp subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+
+
+
     // camera = new VideoCapture(0);
     // if(camera.isOpened()){
     //   System.out.println("Camera is ready");
@@ -60,6 +57,7 @@ public class Climb extends CommandBase {
     NetworkTable table = inst.getTable("myContoursReport");
     System.out.print(table.getKeys());
 
+    // When A on the xbox controller is pressed toggle climbing
     if (OI.xboxController.getAButtonPressed()) {
       if (m_subsystem.getValue() != DoubleSolenoid.Value.kForward) {
         m_subsystem.extendClimb();
