@@ -13,6 +13,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.OI;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -81,14 +82,14 @@ public class WheelOfFortune extends CommandBase {
     }
 
     //button checking to activate the two modes
-    if(1==2 && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
+    if(OI.xboxController.getBButtonPressed() && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       doingRotation = true;
       lastDetectedColor = 0;
       for(int i=0; i<countedColors.length; i++){
         countedColors[i]=0;
       }
     }
-    else if (1==3 && !doingPosition && !doingRotation){//some button to activate for Position control
+    else if (OI.xboxController.getXButtonPressed() && !doingPosition && !doingRotation){//some button to activate for Position control
       if(colorForPosition!=-1){
         doingPosition = true;
       }
