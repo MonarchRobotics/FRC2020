@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.OI;
 import frc.robot.subsystems.PullUp;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -17,7 +18,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
-import edu.wpi.first.wpilibj.XboxController;
 
 
 
@@ -29,7 +29,6 @@ public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final PullUp m_subsystem;
   
-  private XboxController XBController;
   // controller stuff
 
 
@@ -38,7 +37,7 @@ public class Climb extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Climb(PullUp subsystem, XboxController controller) {
+  public Climb(PullUp subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -47,7 +46,6 @@ public class Climb extends CommandBase {
     //   System.out.println("Camera is ready");
     // }
 
-    XBController = controller;
   }
 
   // Called when the command is initially scheduled.
@@ -62,7 +60,7 @@ public class Climb extends CommandBase {
     NetworkTable table = inst.getTable("myContoursReport");
     System.out.print(table.getKeys());
 
-    if (XBController.getAButtonPressed()) {
+    if (OI.xboxController.getAButtonPressed()) {
       if (m_subsystem.getValue() != DoubleSolenoid.Value.kForward) {
         m_subsystem.extendClimb();
       }
