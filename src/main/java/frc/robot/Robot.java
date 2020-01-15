@@ -12,6 +12,7 @@ import java.util.Arrays;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.subsystems.WheelManipulator;
 import org.opencv.core.Core;
 
 import edu.wpi.cscore.UsbCamera;
@@ -22,7 +23,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ExampleSubsystem;
+//import frc.robot.subsystems.ExampleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,8 +36,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public static WheelManipulator wheelManipulator = new WheelManipulator(0);//TODO: replace with the correct port (and it should probably be in RobotMap)
 
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+
+//  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/myContoursReport");
@@ -79,42 +82,40 @@ public class Robot extends TimedRobot {
     NetworkTableEntry areaEntry = table.getEntry("area");
     // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
 
-    Color color = colorSensor.getColor();
-    int thisColor = 0;
-    // System.out.println(color.red);
-    // System.out.println(colorSensorMargin(color.red, 0.54));
-    if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
-      thisColor = 1;
-    }
-    else if(colorSensorMargin(color.red,0.37) && colorSensorMargin(color.green,0.54) && colorSensorMargin(color.blue,0.10)){//yellow
-      thisColor = 2;
-    }
-    else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
-      thisColor = 3;
-    }
-    else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//green
-      thisColor = 4;
-    }
-    if(thisColor!=lastDetectedColor){
-      lastDetectedColor = thisColor;
-      switch (thisColor){
-        case 1:
-          System.out.println("Color changed: red");
-          break;
-        case 2:
-          System.out.println("Color changed: yellow");
-          break;
-        case 3:
-          System.out.println("Color changed: green");
-          break;
-        case 4:
-          System.out.println("Color changed: blue");
-          break;
-        default:
-          System.out.println("Color changed: none");
-          break;
-      }
-    }
+//    Color color = colorSensor.getColor();
+//    int thisColor = 0;
+//    if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
+//      thisColor = 1;
+//    }
+//    else if(colorSensorMargin(color.red,0.37) && colorSensorMargin(color.green,0.54) && colorSensorMargin(color.blue,0.10)){//yellow
+//      thisColor = 2;
+//    }
+//    else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
+//      thisColor = 3;
+//    }
+//    else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//green
+//      thisColor = 4;
+//    }
+//    if(thisColor!=lastDetectedColor){
+//      lastDetectedColor = thisColor;
+//      switch (thisColor){
+//        case 1:
+//          System.out.println("Color changed: red");
+//          break;
+//        case 2:
+//          System.out.println("Color changed: yellow");
+//          break;
+//        case 3:
+//          System.out.println("Color changed: green");
+//          break;
+//        case 4:
+//          System.out.println("Color changed: blue");
+//          break;
+//        default:
+//          System.out.println("Color changed: none");
+//          break;
+//      }
+//    }
 
     int proximity = colorSensor.getProximity();
     // System.out.println("Proximity:"+proximity);
