@@ -8,10 +8,6 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -60,8 +56,8 @@ public class WheelOfFortune extends CommandBase {
       gameData = DriverStation.getInstance().getGameSpecificMessage();
       if(gameData.length() > 0)
       {
-        switch (gameData.charAt(0))
-        {//colors are offset because we detect from the middle of the wheel, but the field sensor is on the side. So in theory, if we see blue, the field senses red, etc.
+        System.out.println("We received data: "+gameData);
+        switch (gameData.charAt(0)){//colors are offset because we detect from the middle of the wheel, but the field sensor is on the side. So in theory, if we see blue, the field senses red, etc.
           case 'B' :
             colorForPosition = 0;//detect red
             break;
@@ -83,6 +79,7 @@ public class WheelOfFortune extends CommandBase {
 
     //button checking to activate the two modes
     if(OI.xboxController.getBButtonPressed() && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
+      System.out.println("Starting rotational control...");
       doingRotation = true;
       lastDetectedColor = 0;
       for(int i=0; i<countedColors.length; i++){
@@ -91,6 +88,7 @@ public class WheelOfFortune extends CommandBase {
     }
     else if (OI.xboxController.getXButtonPressed() && !doingPosition && !doingRotation){//some button to activate for Position control
       if(colorForPosition!=-1){
+        System.out.println("Starting position control...");
         doingPosition = true;
       }
       else{
