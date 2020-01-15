@@ -61,7 +61,7 @@ public class WheelOfFortune extends CommandBase {
       if(gameData.length() > 0)
       {
         switch (gameData.charAt(0))
-        {
+        {//colors are offset because we detect from the middle of the wheel, but the field sensor is on the side. So in theory, if we see blue, the field senses red, etc.
           case 'B' :
             colorForPosition = 0;//detect red
             break;
@@ -107,11 +107,11 @@ public class WheelOfFortune extends CommandBase {
     }
     else if(doingRotation){
       Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,1.0);
-      if(detectedColor!=lastDetectedColor){
+      if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor!=0){
-          countedColors[detectedColor-1]++;
-          if(countedColors[0]>=7 && countedColors[1]>=7 && countedColors[2]>=7 && countedColors[3]>=7){
+          countedColors[detectedColor-1]++;//add to the count of the number of times the sensor has seen each color
+          if(countedColors[0]>=7 && countedColors[1]>=7 && countedColors[2]>=7 && countedColors[3]>=7){//once we've seen each color 7 times (so 3.5 rotations), stop it from rotating.
             System.out.println("STOP. ROTATION IS DONE");
             Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
             doingRotation = false;
@@ -123,9 +123,9 @@ public class WheelOfFortune extends CommandBase {
     }
     else if(doingPosition){
       Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,1.0);
-      if(detectedColor!=lastDetectedColor){
+      if(detectedColor!=lastDetectedColor){//the color has changed
         lastDetectedColor = detectedColor;
-        if(detectedColor==colorForPosition){
+        if(detectedColor==colorForPosition){//we have arrived at the correct color, so stop rotating
           System.out.println("STOP. POSITION IS DONE");
           Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.Current,0.0);
           doingPosition = false;
