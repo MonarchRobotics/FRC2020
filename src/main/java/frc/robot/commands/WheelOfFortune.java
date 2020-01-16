@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.subsystems.WheelManipulator;
 import edu.wpi.first.wpilibj.DriverStation;
 
 
@@ -27,11 +28,13 @@ public class WheelOfFortune extends CommandBase {
   private int[] countedColors;
   private int lastDetectedColor;
   private int colorForPosition;
+  private final WheelManipulator subsystem;
 
 
-  public WheelOfFortune() {
+  public WheelOfFortune(WheelManipulator subsystem) {
+    this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.wheelManipulator);
+    addRequirements(subsystem);
     doingRotation = false;
     doingPosition = false;
     countedColors = new int[4];//0=R,1=Y,2=B,3=G
@@ -96,7 +99,7 @@ public class WheelOfFortune extends CommandBase {
       }
     }
 
-    int detectedColor = Robot.wheelManipulator.detectColor();
+    int detectedColor = subsystem.detectColor();
     //the actual logic for the wheels to work
     if(doingRotation && doingPosition){
       //This should NEVER get triggered, if it does I'm probably an idiot but I'm putting it here just in case I screw something up.
@@ -104,7 +107,7 @@ public class WheelOfFortune extends CommandBase {
       doingRotation = false;
     }
     else if(doingRotation){
-      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
+      subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor!=0){
@@ -115,7 +118,7 @@ public class WheelOfFortune extends CommandBase {
             System.out.println("STOP. ROTATION IS DONE");
             System.out.println("STOP. ROTATION IS DONE");
             System.out.println("STOP. ROTATION IS DONE");
-            Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
+            subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
             doingRotation = false;
           }
         }
@@ -124,7 +127,7 @@ public class WheelOfFortune extends CommandBase {
 
     }
     else if(doingPosition){
-      Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
+      subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//the color has changed
         lastDetectedColor = detectedColor;
         if(detectedColor==colorForPosition){//we have arrived at the correct color, so stop rotating
@@ -133,7 +136,7 @@ public class WheelOfFortune extends CommandBase {
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
-          Robot.wheelManipulator.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
+          subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
           doingPosition = false;
         }
       }

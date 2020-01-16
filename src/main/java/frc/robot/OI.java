@@ -9,7 +9,6 @@ public class OI {
 
     public OI(){
         xboxController = new XboxController(0);
-
     }
 
     public static double deadZone (double val, double deadZone){
