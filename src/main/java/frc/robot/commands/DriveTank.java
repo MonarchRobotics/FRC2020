@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 
@@ -21,16 +22,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final Drivetrain m_drive;
-    // VideoCapture camera;
-    Drivetrain m_subsystem;
+    private final Drivetrain drivetrain;
     /**
      * Creates a new ExampleCommand.
      *
      * @param drive The subsystem used by this command.
      */
     public DriveTank(Drivetrain drive) {
-        m_drive = drive;
+        drivetrain = drive;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drive);
         // camera = new VideoCapture(0);
@@ -48,11 +47,11 @@ public class DriveTank extends CommandBase {
     @Override
     public void execute() {
         //If this breaks change to x
-            m_subsystem.ldrive(OI.joystick1.getY());
-            m_subsystem.rdrive(OI.joystick2.getY());
+//            drivetrain.ldrive(OI.joystick1.getY());
+//            drivetrain.rdrive(OI.joystick2.getY());
+            drivetrain.ldrive(OI.xboxController.getY(GenericHID.Hand.kLeft));
+            drivetrain.rdrive(OI.xboxController.getY(GenericHID.Hand.kRight));
 
-        // Mat frame = new Mat();
-        // camera.read(frame);
 
     }
 

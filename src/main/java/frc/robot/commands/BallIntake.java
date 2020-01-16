@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class BallIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final BallSuck m_subsystem;
+  private final BallSuck ballSuck;
   
   
 
@@ -35,7 +35,7 @@ public class BallIntake extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public BallIntake(BallSuck subsystem) {
-    m_subsystem = subsystem;
+    ballSuck = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
 
@@ -63,26 +63,26 @@ public class BallIntake extends CommandBase {
     // Toggle for intake motor
     if (OI.xboxController.getBumperPressed(Hand.kRight))
     {
-      if (m_subsystem.intakeStat())
+      if (ballSuck.intakeStat())
       {
-        m_subsystem.turnOffIntake();
+        ballSuck.turnOffIntake();
       }
       else
       {
-        m_subsystem.turnOnIntake();
+        ballSuck.turnOnIntake();
       }
     }
 
     // Toggle for handle motor
     if (OI.xboxController.getBumperPressed(Hand.kLeft))
     {
-      if (m_subsystem.handleStat())
+      if (ballSuck.handleStat())
       {
-        m_subsystem.turnOffHandle();
+        ballSuck.turnOffHandle();
       }
       else
       {
-        m_subsystem.turnOnHandle();
+        ballSuck.turnOnHandle();
       }
     }
     // Mat frame = new Mat();

@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final PullUp m_subsystem;
+  private final PullUp pullUp;
   
   
 
@@ -32,7 +32,7 @@ public class Climb extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public Climb(PullUp subsystem) {
-    m_subsystem = subsystem;
+    pullUp = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
 
@@ -59,11 +59,11 @@ public class Climb extends CommandBase {
 
     // When A on the xbox controller is pressed toggle climbing
     if (OI.xboxController.getAButtonPressed()) {
-      if (m_subsystem.getValue() != DoubleSolenoid.Value.kForward) {
-        m_subsystem.extendClimb();
+      if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
+        pullUp.extendClimb();
       }
       else {
-        m_subsystem.retractClimb();
+        pullUp.retractClimb();
       }
     }
     
