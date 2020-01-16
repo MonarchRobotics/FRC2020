@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.BallIntake;
-
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 //Subsystem for climbing system
@@ -26,7 +26,24 @@ public class BallSuck extends SubsystemBase {
     Handle = new TalonSRX(handle);
   }
 
+  public void turnOnIntake()
+  {
+    Intake.set(ControlMode.PercentOutput,1);
+  }
+  public void turnOffIntake()
+  {
+    Intake.set(ControlMode.PercentOutput, 0);
+  }
 
+
+  public void turnOnHandle()
+  {
+    Handle.set(ControlMode.PercentOutput,1);
+  }
+  public void turnOffHandle()
+  {
+    Handle.set(ControlMode.PercentOutput, 0);
+  }
 
   
   // @Override
