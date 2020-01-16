@@ -17,7 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
@@ -60,10 +60,30 @@ public class BallIntake extends CommandBase {
     NetworkTable table = inst.getTable("myContoursReport");
     System.out.print(table.getKeys());
 
-    // Call things from ball suck
-    if (OI.xboxController.getBumperPressed())
+    // Toggle for intake motor
+    if (OI.xboxController.getBumperPressed(Hand.kRight))
     {
-      
+      if (m_subsystem.intakeStat())
+      {
+        m_subsystem.turnOffIntake();
+      }
+      else
+      {
+        m_subsystem.turnOnIntake();
+      }
+    }
+
+    // Toggle for handle motor
+    if (OI.xboxController.getBumperPressed(Hand.kLeft))
+    {
+      if (m_subsystem.handleStat())
+      {
+        m_subsystem.turnOffHandle();
+      }
+      else
+      {
+        m_subsystem.turnOnHandle();
+      }
     }
     // Mat frame = new Mat();
     // camera.read(frame);
