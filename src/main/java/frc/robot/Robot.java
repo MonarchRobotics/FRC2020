@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+  int lastDetectedColor = 0; //0=none,1=R,2=Y,3=G,4=B
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -78,17 +79,55 @@ public class Robot extends TimedRobot {
     NetworkTableEntry areaEntry = table.getEntry("area");
     // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
 
-    Color detectedColor = colorSensor.getColor();
+    Color color = colorSensor.getColor();
+    int thisColor = 0;
+    // System.out.println(color.red);
+    // System.out.println(colorSensorMargin(color.red, 0.54));
+    if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
+      thisColor = 1;
+    }
+    else if(colorSensorMargin(color.red,0.37) && colorSensorMargin(color.green,0.54) && colorSensorMargin(color.blue,0.10)){//yellow
+      thisColor = 2;
+    }
+    else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
+      thisColor = 3;
+    }
+    else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//green
+      thisColor = 4;
+    }
+    if(thisColor!=lastDetectedColor){
+      lastDetectedColor = thisColor;
+      switch (thisColor){
+        case 1:
+          System.out.println("Color changed: red");
+          break;
+        case 2:
+          System.out.println("Color changed: yellow");
+          break;
+        case 3:
+          System.out.println("Color changed: green");
+          break;
+        case 4:
+          System.out.println("Color changed: blue");
+          break;
+        default:
+          System.out.println("Color changed: none");
+          break;
+      }
+    }
 
-    System.out.println("R:"+ detectedColor.red); 
-    System.out.println("G:" + detectedColor.green); 
-    System.out.println("B:" + detectedColor.blue);
     int proximity = colorSensor.getProximity();
-    System.out.println("Proximity:"+proximity);
+    // System.out.println("Proximity:"+proximity);
 
     CommandScheduler.getInstance().run();
+
     
     // System.out.print(table.getKeys());
+  }
+
+  boolean colorSensorMargin(double detected, double test){
+    double error = 0.03;
+    return detected<=test+error && detected>=test-error;
   }
 
   /**

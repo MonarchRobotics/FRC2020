@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ColorSensorV3-java-1.0.1-sources" level="project" />
+    <orderEntry type="library" name="api-java-5.17.4-sources" level="project" />
   </component>
 </module>
