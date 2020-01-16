@@ -12,10 +12,6 @@ import frc.robot.commands.Shoot;
 
 public class Turret extends SubsystemBase {
 
-
-    /**
-     * Creates a new ExampleSubsystem.
-     */
     public Turret() {
 
     }

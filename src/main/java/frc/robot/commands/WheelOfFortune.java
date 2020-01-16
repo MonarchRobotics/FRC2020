@@ -98,6 +98,14 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("No color received from driver station yet");
       }
     }
+    else if(OI.xboxController.getBButtonPressed() && doingRotation && !doingPosition){
+      doingRotation = false;
+      System.out.println("Stopped rotation control");
+    }
+    else if(OI.xboxController.getXButtonPressed() && !doingRotation && doingPosition){
+      doingRotation = false;
+      System.out.println("Stopped position control");
+    }
 
     int detectedColor = subsystem.detectColor();
     //the actual logic for the wheels to work
