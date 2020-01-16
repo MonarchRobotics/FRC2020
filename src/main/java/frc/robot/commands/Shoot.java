@@ -8,8 +8,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Turret;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 
@@ -44,9 +42,6 @@ public class Shoot extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        NetworkTable table = inst.getTable("myContoursReport");
-        System.out.print(table.getKeys());
     }
 
 

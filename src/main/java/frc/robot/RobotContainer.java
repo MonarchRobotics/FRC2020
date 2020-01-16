@@ -21,11 +21,17 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+//  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final WheelManipulator wheelManipulator = new WheelManipulator(6);
+  private final PullUp pullUp = new PullUp(0,1);//TODO replace with correct numbers
+  private final Turret turret = new Turret();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+//  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveTank m_driveTank = new DriveTank(m_drivetrain);
+  private final WheelOfFortune wheelOfFortune = new WheelOfFortune(wheelManipulator);
+  private final Climb climb = new Climb(pullUp);
+  private final Shoot shoot = new Shoot(turret);
 
 
 
@@ -54,6 +60,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+//    return m_autoCommand;
+      return null;
   }
 }

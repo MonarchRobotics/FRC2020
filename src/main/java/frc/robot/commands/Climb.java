@@ -7,37 +7,42 @@
 
 package frc.robot.commands;
 
+import frc.robot.OI;
 import frc.robot.subsystems.PullUp;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
-
 /**
- * An example command that uses an example subsystem.
+ * The Pnumatic climbing system
  */
 public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final PullUp m_subsystem;
-  // VideoCapture camera;
+  
+  
+
 
   /**
-   * Creates a new ExampleCommand.
-   *
    * @param subsystem The subsystem used by this command.
    */
   public Climb(PullUp subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+
+
+
     // camera = new VideoCapture(0);
     // if(camera.isOpened()){
     //   System.out.println("Camera is ready");
     // }
+
   }
 
   // Called when the command is initially scheduled.
@@ -51,7 +56,16 @@ public class Climb extends CommandBase {
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable table = inst.getTable("myContoursReport");
     System.out.print(table.getKeys());
-  
+
+    // When A on the xbox controller is pressed toggle climbing
+    if (OI.xboxController.getAButtonPressed()) {
+      if (m_subsystem.getValue() != DoubleSolenoid.Value.kForward) {
+        m_subsystem.extendClimb();
+      }
+      else {
+        m_subsystem.retractClimb();
+      }
+    }
     
     // Mat frame = new Mat();
     // camera.read(frame);

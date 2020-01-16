@@ -12,6 +12,7 @@ import frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
+//Subsystem for climbing system
 public class PullUp extends SubsystemBase {
 
   private DoubleSolenoid climbSolenoid;
@@ -21,18 +22,19 @@ public class PullUp extends SubsystemBase {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }
 
-
+  // Extends the pnumatic ram
   public void extendClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
+  // Retracts the pnumatic ram
   public void retractClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
-
+  // Finds the position of the [numatic]
   public DoubleSolenoid.Value getValue()
   {
     return climbSolenoid.get();
