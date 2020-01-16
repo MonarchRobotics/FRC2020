@@ -29,7 +29,7 @@ public class RobotContainer {
 
 //  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveTank m_driveTank = new DriveTank(m_drivetrain);
-  private final WheelOfFortune wheelOfFortune = new WheelOfFortune(wheelManipulator);
+  // private final WheelOfFortune wheelOfFortune = new WheelOfFortune(wheelManipulator);
   private final Climb climb = new Climb(pullUp);
   private final Shoot shoot = new Shoot(turret);
 
