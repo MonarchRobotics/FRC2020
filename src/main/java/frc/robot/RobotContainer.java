@@ -24,14 +24,13 @@ public class RobotContainer {
 //  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final WheelManipulator wheelManipulator = new WheelManipulator(6);
-  private final PullUp pullUp = new PullUp(0,1);//TODO replace with correct numbers
   private final Turret turret = new Turret();
+  private final PullUp pullup = new PullUp(0, 1);
 
 //  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveTank m_driveTank = new DriveTank(m_drivetrain);
-  // private final WheelOfFortune wheelOfFortune = new WheelOfFortune(wheelManipulator);
-  private final Climb climb = new Climb(pullUp);
-  private final Shoot shoot = new Shoot(turret);
+  private final Shoot shooter = new Shoot(turret);
+  private final Climb climb = new Climb(pullup);
 
 
 
@@ -50,6 +49,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
   }
 
 

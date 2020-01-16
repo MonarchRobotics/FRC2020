@@ -20,17 +20,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    private final Drivetrain m_drive;
     // VideoCapture camera;
 
     /**
      * Creates a new ExampleCommand.
      *
-     * @param subsystem The subsystem used by this command.
+     * @param drive The subsystem used by this command.
      */
-    public DriveTank(Drivetrain subsystem) {
-        m_subsystem = subsystem;
+    public DriveTank(Drivetrain drive) {
+        m_drive = drive;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(drive);
         // camera = new VideoCapture(0);
         // if(camera.isOpened()){
         //   System.out.println("Camera is ready");
