@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -22,13 +23,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 //  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort(), Constants.getRightWheelPort());
   private final WheelManipulator wheelManipulator = new WheelManipulator(6);
-  private final Turret turret = new Turret();
+  private final Turret turret = new Turret(Constants.getShooterPort());
   private final PullUp pullup = new PullUp(0, 1);
 
 //  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final DriveTank m_driveTank = new DriveTank(m_drivetrain);
+  private final DriveTank driveTank = new DriveTank(drivetrain);
   private final Shoot shooter = new Shoot(turret);
   private final Climb climb = new Climb(pullup);
 
@@ -49,7 +50,6 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
   }
 
 

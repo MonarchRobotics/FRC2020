@@ -15,5 +15,23 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+
+//TODO: find out real motor ports
+
+//Set all ports here
 public final class Constants {
+    private static final int shooterPort = 1;
+    private static final int leftWheelPort = 2;
+    private static final int rightWheelPort = 3;
+
+    public static int getShooterPort() {
+        return shooterPort;
+    }
+    public static int getLeftWheelPort() {
+        return leftWheelPort;
+    }
+
+    public static int getRightWheelPort() {
+        return rightWheelPort;
+    }
 }

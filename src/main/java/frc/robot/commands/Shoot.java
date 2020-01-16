@@ -7,29 +7,33 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.OI;
 import frc.robot.subsystems.Turret;
 
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import javax.naming.ldap.Control;
 
 
 /**
- * An example command that uses an example subsystem.
+ * Command for turret subsystem.
  */
 public class Shoot extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final Turret m_turret;
+    private final Turret turret;
     // VideoCapture camera;
 
     /**
-     * Creates a new ExampleCommand.
+     * Creates a new Shoot.
      *
      * @param turret The subsystem used by this command.
      */
     public Shoot(Turret turret) {
-        m_turret = turret;
+        this.turret = turret;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
     }
@@ -40,8 +44,15 @@ public class Shoot extends CommandBase {
     }
 
     // Called every time the scheduler runs while the command is scheduled.
+    //TODO: figure out what the real trigger axis is
     @Override
     public void execute() {
+        if (OI.xboxController.getTriggerAxis(GenericHID.Hand.kRight) > 1 && OI.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 1) {
+            turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
+        }
+        else {
+            turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
+        }
     }
 
 
