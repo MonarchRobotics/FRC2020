@@ -79,9 +79,10 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
-
+    boolean bButton = OI.xboxController.getBButtonPressed();
+    boolean xButton = OI.xboxController.getXButtonPressed();
     //button checking to activate the two modes
-    if(OI.xboxController.getBButtonPressed() && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
+    if(bButton && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
       doingRotation = true;
       lastDetectedColor = 0;
@@ -89,7 +90,7 @@ public class WheelOfFortune extends CommandBase {
         countedColors[i]=0;
       }
     }
-    else if (OI.xboxController.getXButtonPressed() && !doingPosition && !doingRotation){//some button to activate for Position control
+    else if (xButton && !doingPosition && !doingRotation){//some button to activate for Position control
       if(colorForPosition!=-1){
         System.out.println("Starting position control...");
         doingPosition = true;
@@ -98,12 +99,14 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("No color received from driver station yet");
       }
     }
-    else if(OI.xboxController.getBButtonPressed() && doingRotation && !doingPosition){
+    else if(bButton && doingRotation && !doingPosition){
       doingRotation = false;
+      subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
       System.out.println("Stopped rotation control");
     }
-    else if(OI.xboxController.getXButtonPressed() && !doingRotation && doingPosition){
-      doingRotation = false;
+    else if(xButton && !doingRotation && doingPosition){
+      doingPosition = false;
+      subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
       System.out.println("Stopped position control");
     }
 
