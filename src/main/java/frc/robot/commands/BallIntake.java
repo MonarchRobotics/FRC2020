@@ -60,15 +60,7 @@ public class BallIntake extends CommandBase {
     NetworkTable table = inst.getTable("myContoursReport");
     System.out.print(table.getKeys());
 
-    // When A on the xbox controller is pressed toggle climbing
-    if (OI.xboxController.getAButtonPressed()) {
-      if (m_subsystem.getValue() != DoubleSolenoid.Value.kForward) {
-        m_subsystem.extendClimb();
-      }
-      else {
-        m_subsystem.retractClimb();
-      }
-    }
+    // Call things from ball suck
     
     // Mat frame = new Mat();
     // camera.read(frame);

@@ -45,6 +45,6 @@ public final class Constants {
     }
     public static int getInternalManipulation()
     {
-        return internalManipulation;
+        return internalmanipulation;
     }
 }
