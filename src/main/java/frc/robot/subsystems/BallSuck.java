@@ -19,13 +19,12 @@ public class BallSuck extends SubsystemBase {
   // Motor to intake balls into the chassie
   private TalonSRX Intake;
 
-  public BallSuck(int intake) {
+  public BallSuck(int intake, int handle) {
 
     Intake = new TalonSRX(intake);
   }
 
-  // 
-  public void 
+
 
   
   // @Override

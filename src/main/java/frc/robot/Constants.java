@@ -24,6 +24,10 @@ public final class Constants {
     private static final int leftWheelPort = 2;
     private static final int rightWheelPort = 3;
 
+    private static final int ballintake = 4;
+    // May need to modify based on what people decide for balls
+    private static final int internalmanipulation = 5;
+
     public static int getShooterPort() {
         return shooterPort;
     }
@@ -33,5 +37,14 @@ public final class Constants {
 
     public static int getRightWheelPort() {
         return rightWheelPort;
+    }
+
+    public static int getBallIntake()
+    {
+        return ballintake;
+    }
+    public static int getInternalManipulation()
+    {
+        return internalManipulation;
     }
 }
