@@ -18,33 +18,50 @@ public class BallSuck extends SubsystemBase {
   
   // Motor to intake balls into the chassie
   private TalonSRX Intake;
+  private boolean intakeS;
   private TalonSRX Handle;
+  private boolean handleS;
 
   public BallSuck(int intake, int handle) {
 
     Intake = new TalonSRX(intake);
+    intakeS = false;
     Handle = new TalonSRX(handle);
+    handleS = false;
   }
 
   public void turnOnIntake()
   {
     Intake.set(ControlMode.PercentOutput,1);
+    intakeS = true;
   }
   public void turnOffIntake()
   {
     Intake.set(ControlMode.PercentOutput, 0);
+    intakeS = false;
+  }
+
+  public boolean intakeStat()
+  {
+    return intakeS;
   }
 
 
   public void turnOnHandle()
   {
     Handle.set(ControlMode.PercentOutput,1);
+    handleS = true;
   }
   public void turnOffHandle()
   {
     Handle.set(ControlMode.PercentOutput, 0);
+    handleS = false;
   }
 
+  public boolean handleStat()
+  {
+    return handleS;
+  }
   
   // @Override
   // public void initDefaultCommand(){

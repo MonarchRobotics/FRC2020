@@ -23,15 +23,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 //  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort(), Constants.getRightWheelPort());
-  private final Turret turret = new Turret(Constants.getShooterPort());
-  private final PullUp pullup = new PullUp(0, 1);
-  private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
-//  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final DriveTank driveTank = new DriveTank(drivetrain);
-  private final Shoot shooter = new Shoot(turret);
-  private final Climb climb = new Climb(pullup);
-  private final BallIntake ballintake = new BallIntake(ballsuck);
+  // private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort(), Constants.getRightWheelPort());
+  private final WheelManipulator wheelManipulator = new WheelManipulator(6);
+  // private final Turret turret = new Turret(Constants.getShooterPort());
+  // private final PullUp pullup = new PullUp(0, 1);
+  // private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
+
+  //  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // private final DriveTank driveTank = new DriveTank(drivetrain);
+  // private final Shoot shooter = new Shoot(turret);
+  // private final Climb climb = new Climb(pullup);
+  // private final BallIntake ballintake = new BallIntake(ballsuck);
 
 
 
