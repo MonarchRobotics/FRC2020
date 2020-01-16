@@ -61,7 +61,10 @@ public class BallIntake extends CommandBase {
     System.out.print(table.getKeys());
 
     // Call things from ball suck
-    
+    if (OI.xboxController.getBumperPressed())
+    {
+      
+    }
     // Mat frame = new Mat();
     // camera.read(frame);
 
