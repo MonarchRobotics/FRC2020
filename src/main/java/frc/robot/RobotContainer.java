@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
+import frc.robot.commands.auto.SpinWheel;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -24,7 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 //  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   // private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort(), Constants.getRightWheelPort());
-  // private final WheelManipulator wheelManipulator = new WheelManipulator(6);
+   private final WheelManipulator wheelManipulator = new WheelManipulator(6);
   // private final Turret turret = new Turret(Constants.getShooterPort());
   // private final PullUp pullup = new PullUp(0, 1);
   // private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
@@ -34,6 +35,8 @@ public class RobotContainer {
   // private final Shoot shooter = new Shoot(turret);
   // private final Climb climb = new Climb(pullup);
   // private final BallIntake ballintake = new BallIntake(ballsuck);
+
+  private final SpinWheel autoCommand = new SpinWheel(wheelManipulator);
 
 
 
@@ -62,7 +65,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-//    return m_autoCommand;
-      return null;
+    return autoCommand;
   }
 }
