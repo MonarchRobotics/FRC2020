@@ -43,12 +43,10 @@ public class Robot extends TimedRobot {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/myContoursReport");
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
+  private WheelManipulator wheelManipulator;
   private OI oi;
 
-  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
-  int lastDetectedColor = 0; //0=none,1=R,2=Y,3=G,4=B
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -67,6 +65,7 @@ public class Robot extends TimedRobot {
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
     camera.setBrightness(4);
+    wheelManipulator = new WheelManipulator(6);
   }
 
   /**
@@ -85,43 +84,6 @@ public class Robot extends TimedRobot {
     NetworkTableEntry areaEntry = table.getEntry("area");
     // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
 
-//    Color color = colorSensor.getColor();
-//    int thisColor = 0;
-//    if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
-//      thisColor = 1;
-//    }
-//    else if(colorSensorMargin(color.red,0.37) && colorSensorMargin(color.green,0.54) && colorSensorMargin(color.blue,0.10)){//yellow
-//      thisColor = 2;
-//    }
-//    else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
-//      thisColor = 3;
-//    }
-//    else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//green
-//      thisColor = 4;
-//    }
-//    if(thisColor!=lastDetectedColor){
-//      lastDetectedColor = thisColor;
-//      switch (thisColor){
-//        case 1:
-//          System.out.println("Color changed: red");
-//          break;
-//        case 2:
-//          System.out.println("Color changed: yellow");
-//          break;
-//        case 3:
-//          System.out.println("Color changed: green");
-//          break;
-//        case 4:
-//          System.out.println("Color changed: blue");
-//          break;
-//        default:
-//          System.out.println("Color changed: none");
-//          break;
-//      }
-//    }
-
-    int proximity = colorSensor.getProximity();
-    // System.out.println("Proximity:"+proximity);
 
     CommandScheduler.getInstance().run();
 
@@ -163,6 +125,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+      
   }
 
   @Override
