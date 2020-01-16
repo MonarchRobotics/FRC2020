@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 
 
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     // VideoCapture camera;
-
+    Drivetrain m_subsystem;
     /**
      * Creates a new ExampleCommand.
      *
@@ -45,7 +46,9 @@ public class DriveTank extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+        //If this breaks change to x
+            m_subsystem.ldrive(OI.joystick1.getY());
+            m_subsystem.rdrive(OI.joystick2.getY());
 
         // Mat frame = new Mat();
         // camera.read(frame);

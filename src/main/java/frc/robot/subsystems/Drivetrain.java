@@ -7,26 +7,33 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi
+import edu.wpi.first.wpilibj.*;
+import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.drive.*;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import frc.robot.commands.DriveTank;
-import edu.wpi.first.wpilibj.*;
 
 public class Drivetrain extends SubsystemBase {
     protected DifferentialDrive drive;
 
-    WPI_TalonSRX talonL1 = new WPI_TalonSRX();
 
 
     public TalonSRX left, right;
-    public Drivetrain(int left, int right) {
+    public Drivetrain(int Left, int Right) {
+        left = new TalonSRX(Left);
+        right = new TalonSRX(Right);
 
+    }
+    
+    public void rdrive(double speed){
+    right.set(ControlMode.PercentOutput, speed);
+    }
+    public void ldrive(double speed){
+        left.set(ControlMode.PercentOutput, speed);
     }
 
     @Override
