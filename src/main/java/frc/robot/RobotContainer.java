@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
    private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort1(), Constants.getLeftWheelPort2(), Constants.getRightWheelPort1(), Constants.getRightWheelPort2());
-   private final WheelManipulator wheelManipulator = new WheelManipulator(6); //change back to constant spinnerPort
+   private final WheelManipulator wheelManipulator = new WheelManipulator(Constants.getWheelOfFortunePort()); //change back to constant spinnerPort
   // private final Turret turret = new Turret(Constants.getShooterPort());
   // private final PullUp pullup = new PullUp(0, 1);
   // private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());

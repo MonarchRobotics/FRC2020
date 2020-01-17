@@ -35,9 +35,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  // public static WheelManipulator wheelManipulator = new WheelManipulator(6);//TODO: replace with the correct port (and it should probably be in RobotContainer)
-
-
 //  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -82,16 +79,8 @@ public class Robot extends TimedRobot {
     NetworkTableEntry areaEntry = table.getEntry("area");
     // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
 
-
     CommandScheduler.getInstance().run();
 
-    
-    // System.out.print(table.getKeys());
-  }
-
-  boolean colorSensorMargin(double detected, double test){
-    double error = 0.03;
-    return detected<=test+error && detected>=test-error;
   }
 
   /**
