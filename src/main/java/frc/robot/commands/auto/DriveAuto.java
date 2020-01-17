@@ -52,8 +52,8 @@ public class DriveAuto extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        subsystem.ldrive(0.5);
-        subsystem.rdrive(0.5);
+        subsystem.ldrive(0.75);
+        subsystem.rdrive(0.75);
     }
 
 

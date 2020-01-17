@@ -35,6 +35,7 @@ public class WheelManipulator extends SubsystemBase {
 
     public int detectColor(){
         Color color = colorSensor.getColor();
+        // System.out.println("R:"+Math.floor(color.red*1000)+"G:"+Math.floor(color.green*1000)+"B:"+Math.floor(color.blue*1000));
         int thisColor = 0;
         if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
             thisColor = 1;
@@ -45,7 +46,7 @@ public class WheelManipulator extends SubsystemBase {
         else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
             thisColor = 4;
         }
-        else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//green
+        else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//blue
             thisColor = 3;
         }
         return thisColor;

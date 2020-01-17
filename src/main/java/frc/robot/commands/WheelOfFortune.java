@@ -42,12 +42,12 @@ public class WheelOfFortune extends CommandBase {
       countedColors[i]=0;
     }
     lastDetectedColor = 0;//0=none,1=R,2=Y,3=B,4=G
-    colorForPosition = -1;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    colorForPosition = -1;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -62,16 +62,16 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("We received data: "+gameData);
         switch (gameData.charAt(0)){//colors are offset because we detect from the middle of the wheel, but the field sensor is on the side. So in theory, if we see blue, the field senses red, etc.
           case 'B' :
-            colorForPosition = 0;//detect red
+            colorForPosition = 1;//detect red
             break;
           case 'G' :
-            colorForPosition = 1;//detect yellow
+            colorForPosition = 2;//detect yellow
             break;
           case 'R' :
-            colorForPosition = 2;//detect blue
+            colorForPosition = 3;//detect blue
             break;
           case 'Y' :
-            colorForPosition = 3;//detect green
+            colorForPosition = 4;//detect green
             break;
           default :
             colorForPosition = -1;//data is corrupt
@@ -111,6 +111,7 @@ public class WheelOfFortune extends CommandBase {
     }
 
     int detectedColor = subsystem.detectColor();
+    // System.out.println(detectedColor);
     //the actual logic for the wheels to work
     if(doingRotation && doingPosition){
       //This should NEVER get triggered, if it does I'm probably an idiot but I'm putting it here just in case I screw something up.
@@ -121,6 +122,7 @@ public class WheelOfFortune extends CommandBase {
       subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
+        System.out.println(detectedColor);
         if(detectedColor!=0){
           countedColors[detectedColor-1]++;//add to the count of the number of times the sensor has seen each color
           if(countedColors[0]>=7 && countedColors[1]>=7 && countedColors[2]>=7 && countedColors[3]>=7){//once we've seen each color 7 times (so 3.5 rotations), stop it from rotating.
@@ -141,12 +143,14 @@ public class WheelOfFortune extends CommandBase {
       subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
       if(detectedColor!=lastDetectedColor){//the color has changed
         lastDetectedColor = detectedColor;
+        System.out.println(lastDetectedColor);
         if(detectedColor==colorForPosition){//we have arrived at the correct color, so stop rotating
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
+          colorForPosition = -1;
           subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
           doingPosition = false;
         }
