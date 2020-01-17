@@ -35,6 +35,7 @@ public class SpinWheel extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
         timer = new Timer();
+        timer.reset();
         isDone = false;
     }
 
