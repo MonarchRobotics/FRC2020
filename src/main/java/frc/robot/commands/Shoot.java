@@ -12,11 +12,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.OI;
 import frc.robot.subsystems.Turret;
 
-
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import javax.naming.ldap.Control;
 
 
 /**
@@ -47,11 +44,12 @@ public class Shoot extends CommandBase {
     //TODO: figure out what the real trigger axis is
     @Override
     public void execute() {
-        if (OI.xboxController.getTriggerAxis(GenericHID.Hand.kRight) > 1 && OI.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) > 1) {
+        //If both triggers are pulled, motors run.
+        if (OI.xboxController.getTriggerAxis(GenericHID.Hand.kRight) >= 1 && OI.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) >= 1) {
             turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
         }
         else {
-            turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
+            turret.getWheelMotor().set(ControlMode.PercentOutput, 0.0);
         }
     }
 

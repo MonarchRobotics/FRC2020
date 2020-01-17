@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import frc.robot.OI;
 import frc.robot.subsystems.PullUp;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -19,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * The Pnumatic climbing system
+ * The Pneumatic climbing system
  */
 public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -35,14 +33,6 @@ public class Climb extends CommandBase {
     pullUp = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
-
-
-
-    // camera = new VideoCapture(0);
-    // if(camera.isOpened()){
-    //   System.out.println("Camera is ready");
-    // }
-
   }
   
   // Called when the command is initially scheduled.
@@ -53,9 +43,6 @@ public class Climb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("myContoursReport");
-    System.out.print(table.getKeys());
 
     // When A on the xbox controller is pressed toggle climbing
     if (OI.xboxController.getAButtonPressed()) {
@@ -66,10 +53,6 @@ public class Climb extends CommandBase {
         pullUp.retractClimb();
       }
     }
-    
-    // Mat frame = new Mat();
-    // camera.read(frame);
-
   }
 
   

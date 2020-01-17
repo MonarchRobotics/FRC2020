@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * An example command that uses an example subsystem.
+ * Shockingly, it's how we drive.
  */
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -32,10 +32,6 @@ public class DriveTank extends CommandBase {
         drivetrain = drive;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drive);
-        // camera = new VideoCapture(0);
-        // if(camera.isOpened()){
-        //   System.out.println("Camera is ready");
-        // }
     }
 
     // Called when the command is initially scheduled.
@@ -49,10 +45,12 @@ public class DriveTank extends CommandBase {
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
-            drivetrain.ldrive(OI.xboxController.getY(GenericHID.Hand.kLeft));
-            drivetrain.rdrive(OI.xboxController.getY(GenericHID.Hand.kRight));
 
+        //Literally just sets the motor speed to the joystick axis.
+        drivetrain.ldrive(OI.xboxController.getY(GenericHID.Hand.kLeft));
+        drivetrain.rdrive(OI.xboxController.getY(GenericHID.Hand.kRight));
 
+        //TODO: Look into differential drive
     }
 
 

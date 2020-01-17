@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 
 /**
- * An example command that uses an example subsystem.
+ * Rotation and position control using a colour sensor for the control panel.
  */
 public class WheelOfFortune extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

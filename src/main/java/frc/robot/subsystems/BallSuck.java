@@ -12,11 +12,11 @@ import frc.robot.commands.BallIntake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-//Subsystem for climbing system
+//Subsystem for ball intake system
 public class BallSuck extends SubsystemBase {
 
   
-  // Motor to intake balls into the chassie
+  // Motor to intake balls into the chassis
   private TalonSRX Intake;
   private boolean intakeS;
   private TalonSRX Handle;
@@ -63,10 +63,10 @@ public class BallSuck extends SubsystemBase {
     return handleS;
   }
   
-  // @Override
-  // public void initDefaultCommand(){
-  //   setDefaultCommand(new ExampleCommand());
-  // }
+//   @Override
+//   public void initDefaultCommand(){
+//     setDefaultCommand(new BallIntake());
+//   }
 
   @Override
   public void periodic() {

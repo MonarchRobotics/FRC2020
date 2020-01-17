@@ -22,19 +22,19 @@ public class PullUp extends SubsystemBase {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }
 
-  // Extends the pnumatic ram
+  // Extends the pneumatic ram
   public void extendClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
-  // Retracts the pnumatic ram
+  // Retracts the pneumatic ram
   public void retractClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
-  // Finds the position of the [numatic]
+  // Finds the position of the [pneumatic]
   public DoubleSolenoid.Value getValue()
   {
     return climbSolenoid.get();

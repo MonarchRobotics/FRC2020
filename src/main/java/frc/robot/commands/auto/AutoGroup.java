@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.WheelManipulator;
 
+/**
+* Collects commands used for autonomous
+*/
 public class AutoGroup extends SequentialCommandGroup {
     public AutoGroup(WheelManipulator wheelManipulator, Drivetrain drivetrain){
         addCommands(new SpinWheel(wheelManipulator), new DriveAuto(drivetrain));

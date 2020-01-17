@@ -10,20 +10,13 @@ package frc.robot.commands.auto;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
 import frc.robot.subsystems.WheelManipulator;
 
-
-import frc.robot.OI;
-
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * The Pnumatic climbing system
+ * Just kind of spins a wheel
  */
 public class SpinWheel extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -42,6 +35,7 @@ public class SpinWheel extends CommandBase {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
         timer = new Timer();
+        timer.reset();
         isDone = false;
     }
 

@@ -21,10 +21,12 @@ package frc.robot;
 //Set all ports here
 public final class Constants {
     private static final int shooterPort = 1;
-    private static final int leftWheelPort1 = 6;//TODO: CHANGE BACK TO 2
+    private static final int leftWheelPort1 = 2;//TODO: CHANGE BACK TO 2. this was just for testing... altho we should probably figure out the IDs of all of the motors we're using
     private static final int leftWheelPort2 = 8;
     private static final int rightWheelPort1 = 3;
     private static final int rightWheelPort2 = 7;
+
+    private static final int wheelOfFortunePort = 6;
 
     private static final int ballintake = 4;
     // May need to modify based on what people decide for balls
@@ -54,5 +56,9 @@ public final class Constants {
     public static int getInternalManipulation()
     {
         return internalmanipulation;
+    }
+
+    public static int getWheelOfFortunePort() {
+        return wheelOfFortunePort;
     }
 }
