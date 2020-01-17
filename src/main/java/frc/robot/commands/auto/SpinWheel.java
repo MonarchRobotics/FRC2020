@@ -9,6 +9,7 @@ package frc.robot.commands.auto;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.subsystems.WheelManipulator;
 
@@ -27,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SpinWheel extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final WheelManipulator subsystem;
+    Timer timer;
+    boolean isDone;
 
 
 
@@ -38,14 +41,10 @@ public class SpinWheel extends CommandBase {
         this.subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
-
-
-
-        // camera = new VideoCapture(0);
-        // if(camera.isOpened()){
-        //   System.out.println("Camera is ready");
-        // }
-
+        timer = new Timer();
+        timer.reset();
+        timer.start();
+        isDone = false;
     }
 
     // Called when the command is initially scheduled.
@@ -57,6 +56,9 @@ public class SpinWheel extends CommandBase {
     @Override
     public void execute() {
         subsystem.getSpinnerMotor().set(ControlMode.PercentOutput, 0.5);
+        if(timer.get()>5.0){
+            isDone = true;
+        }
     }
 
 
@@ -70,6 +72,6 @@ public class SpinWheel extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return isDone;
     }
 }

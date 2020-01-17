@@ -21,7 +21,7 @@ package frc.robot;
 //Set all ports here
 public final class Constants {
     private static final int shooterPort = 1;
-    private static final int leftWheelPort = 2;
+    private static final int leftWheelPort = 6;//TODO: CHANGE BACK TO 2
     private static final int rightWheelPort = 3;
 
     private static final int ballintake = 4;
