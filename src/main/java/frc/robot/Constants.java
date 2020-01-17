@@ -22,7 +22,7 @@ package frc.robot;
 public final class Constants {
     private static final int shooterPort = 1;
     private static final int leftWheelPort1 = 6;//TODO: CHANGE BACK TO 2
-    private static final int leftWheelPort2 = 8
+    private static final int leftWheelPort2 = 8;
     private static final int rightWheelPort1 = 3;
     private static final int rightWheelPort2 = 7;
 
