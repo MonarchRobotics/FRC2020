@@ -22,18 +22,21 @@ public class Drivetrain extends SubsystemBase {
 
 
 
-    public TalonSRX left, right;
-    public Drivetrain(int Left, int Right) {
-        left = new TalonSRX(Left);
-        right = new TalonSRX(Right);
-
+    public TalonSRX left1, left2, right1, right2;
+    public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
+        left1 = new TalonSRX(Left1);
+        left2 = new TalonSRX(Left2);
+        right1 = new TalonSRX(Right1);
+        right2 = new TalonSRX(Right2);
     }
     
     public void rdrive(double speed){
-    right.set(ControlMode.PercentOutput, speed);
+        right1.set(ControlMode.PercentOutput, speed);
+        right2.set(ControlMode.PercentOutput, speed);
     }
     public void ldrive(double speed){
-        left.set(ControlMode.PercentOutput, speed);
+        left1.set(ControlMode.PercentOutput, speed);
+        left2.set(ControlMode.PercentOutput, speed);
     }
 
     @Override

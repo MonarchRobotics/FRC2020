@@ -21,8 +21,10 @@ package frc.robot;
 //Set all ports here
 public final class Constants {
     private static final int shooterPort = 1;
-    private static final int leftWheelPort = 6;//TODO: CHANGE BACK TO 2
-    private static final int rightWheelPort = 3;
+    private static final int leftWheelPort1 = 6;//TODO: CHANGE BACK TO 2
+    private static final int leftWheelPort2 = 8
+    private static final int rightWheelPort1 = 3;
+    private static final int rightWheelPort2 = 7;
 
     private static final int ballintake = 4;
     // May need to modify based on what people decide for balls
@@ -31,12 +33,18 @@ public final class Constants {
     public static int getShooterPort() {
         return shooterPort;
     }
-    public static int getLeftWheelPort() {
-        return leftWheelPort;
+    public static int getLeftWheelPort1() {
+        return leftWheelPort1;
+    }
+    public static int getLeftWheelPort2() {
+        return leftWheelPort2;
     }
 
-    public static int getRightWheelPort() {
-        return rightWheelPort;
+    public static int getRightWheelPort1() {
+        return rightWheelPort1;
+    }
+    public static int getRightWheelPort2() {
+        return rightWheelPort2;
     }
 
     public static int getBallIntake()
