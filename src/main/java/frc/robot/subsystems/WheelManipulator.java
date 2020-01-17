@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.WheelOfFortune;
 import com.ctre.phoenix.motorcontrol.can.*;
 
+/**
+ * Colour sensor and wheel for the Control Panel.
+ */
 public class WheelManipulator extends SubsystemBase {
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
 

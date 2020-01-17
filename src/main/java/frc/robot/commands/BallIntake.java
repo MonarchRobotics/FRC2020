@@ -12,17 +12,14 @@ import frc.robot.subsystems.BallSuck;
 
 
 import frc.robot.OI;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * The Pnumatic climbing system
+ * Ball intake system
  */
 public class BallIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -38,14 +35,6 @@ public class BallIntake extends CommandBase {
     ballSuck = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
-
-
-
-    // camera = new VideoCapture(0);
-    // if(camera.isOpened()){
-    //   System.out.println("Camera is ready");
-    // }
-
   }
   
   // Called when the command is initially scheduled.
@@ -56,9 +45,6 @@ public class BallIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("myContoursReport");
-    System.out.print(table.getKeys());
 
     // Toggle for intake motor
     if (OI.xboxController.getBumperPressed(Hand.kRight))
@@ -85,9 +71,6 @@ public class BallIntake extends CommandBase {
         ballSuck.turnOnHandle();
       }
     }
-    // Mat frame = new Mat();
-    // camera.read(frame);
-
   }
 
   

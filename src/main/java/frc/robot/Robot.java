@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  // public static WheelManipulator wheelManipulator = new WheelManipulator(6);//TODO: replace with the correct port (and it should probably be in RobotMap)
+  // public static WheelManipulator wheelManipulator = new WheelManipulator(6);//TODO: replace with the correct port (and it should probably be in RobotContainer)
 
 
 //  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();

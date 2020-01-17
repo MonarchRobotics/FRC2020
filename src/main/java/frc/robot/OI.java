@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 
-
+//TODO: Figure out what we're putting in Robot, RobotContainer, and OI
 public class OI {
 
     public static XboxController xboxController;
