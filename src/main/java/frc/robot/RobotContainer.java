@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
+import frc.robot.commands.auto.AutoGroup;
 import frc.robot.commands.auto.SpinWheel;
 import frc.robot.commands.auto.DriveAuto;
 import frc.robot.subsystems.*;
@@ -39,7 +40,7 @@ public class RobotContainer {
   // private final BallIntake ballintake = new BallIntake(ballsuck);
 
 //  private final SpinWheel autoCommand = new SpinWheel(wheelManipulator);
-  private final DriveAuto autoCommand = new DriveAuto(drivetrain);
+  private final AutoGroup autoCommand = new AutoGroup(wheelManipulator,drivetrain);
 
 
 
