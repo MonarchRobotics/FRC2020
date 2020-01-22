@@ -15,7 +15,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+// Talons
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+// Vicor spx
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 /**
  * It's the drivetrain. I don't know what you expected.
@@ -25,12 +32,12 @@ public class Drivetrain extends SubsystemBase {
 
 
 
-    public TalonSRX left1, left2, right1, right2;
+    public VictorSPX left1, left2, right1, right2;
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
-        left1 = new TalonSRX(Left1);
-        left2 = new TalonSRX(Left2);
-        right1 = new TalonSRX(Right1);
-        right2 = new TalonSRX(Right2);
+        left1 = new VictorSPX(Left1);
+        left2 = new VictorSPX(Left2);
+        right1 = new VictorSPX(Right1);
+        right2 = new VictorSPX(Right2);
     }
     
     public void rdrive(double speed){
