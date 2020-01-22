@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
 //  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  NetworkTable table = inst.getTable("GRIP/myContoursReport");
+  NetworkTable table = inst.getTable("GRIP/findLoadingStation");
 
   private WheelManipulator wheelManipulator;
   private OI oi;
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
-    camera.setExposureManual(10);
+    camera.setExposureManual(3);
   }
 
   /**
@@ -77,8 +77,23 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    NetworkTableEntry areaEntry = table.getEntry("area");
-    // System.out.println(Arrays.toString(areaEntry.getDoubleArray(new double[0])));
+    double[] widths = table.getEntry("width").getDoubleArray(new double[0]);
+    double[] heights = table.getEntry("height").getDoubleArray(new double[0]);
+    if(widths.length>0 && heights.length>0){
+      double stationWidth = widths[0];
+      double stationHeight = heights[0];
+
+      double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.959309);
+      double distanceFromHeight = 3308.193206*Math.pow(stationHeight,-0.959337969);
+
+      double average = (distanceFromWidth + distanceFromHeight)/2;
+
+      System.out.println("Distance: "+average+"in");
+    }
+    
+
+    // System.out.println("W:"+Arrays.toString(widthEntry.getDoubleArray(new double[0])));
+    // System.out.println("H:"+Arrays.toString(heightEntry.getDoubleArray(new double[0])));
 
     CommandScheduler.getInstance().run();
 
