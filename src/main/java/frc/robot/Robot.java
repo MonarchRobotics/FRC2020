@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
       double stationWidth = widths[0];
       double stationHeight = heights[0];
 
-      double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.959309);
+      double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
       double distanceFromHeight = 3308.193206*Math.pow(stationHeight,-0.959337969);
 
       double average = (distanceFromWidth + distanceFromHeight)/2;
