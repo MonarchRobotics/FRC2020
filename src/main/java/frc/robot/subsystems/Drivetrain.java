@@ -15,14 +15,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.DriveTank;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 // Talons
 //import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-// Vicor spx
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+// Victor spx
 
 /**
  * It's the drivetrain. I don't know what you expected.
@@ -40,17 +40,17 @@ public class Drivetrain extends SubsystemBase {
         left2 = new VictorSPX(Left2);
         right1 = new VictorSPX(Right1);
         right2 = new VictorSPX(Right2);
+
+        setDefaultCommand(new DriveTank(this));
     }
     
     public void rdrive(double speed){
-        // Controls the right side drive speed of both motors.
-        right1.set(ControlMode.PercentOutput, speed);
-        right2.set(ControlMode.PercentOutput, speed);
+        right1.set(ControlMode.PercentOutput, -speed);
+        right2.set(ControlMode.PercentOutput, -speed);
     }
     public void ldrive(double speed){
-        // Controls the left side drive speed of both motors.
-        left1.set(ControlMode.PercentOutput, speed);
-        left2.set(ControlMode.PercentOutput, speed);
+        left1.set(ControlMode.PercentOutput, -speed);
+        left2.set(ControlMode.PercentOutput, -speed);
     }
 
     @Override
