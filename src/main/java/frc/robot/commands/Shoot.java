@@ -45,7 +45,7 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.
-        if (OI.xboxController.getTriggerAxis(GenericHID.Hand.kRight) >= 0.5 && OI.xboxController.getTriggerAxis(GenericHID.Hand.kLeft) >= 0.5) {
+        if (OI.joystick1.getTrigger()) {
             turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
             turret.getWheel2Motor().set(ControlMode.PercentOutput, 1.0);
         }
