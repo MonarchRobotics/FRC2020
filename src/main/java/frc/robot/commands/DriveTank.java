@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 
@@ -45,12 +46,8 @@ public class DriveTank extends CommandBase {
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
-
-        //Literally just sets the motor speed to the joystick axis.
-        drivetrain.ldrive(OI.xboxController.getY(GenericHID.Hand.kLeft));
-        drivetrain.rdrive(OI.xboxController.getY(GenericHID.Hand.kRight));
-
-        //TODO: Look into differential drive
+         drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(GenericHID.Hand.kRight), Constants.getRightDeadZone()));
+        drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(GenericHID.Hand.kLeft), Constants.getLeftDeadZone()));
     }
 
 
