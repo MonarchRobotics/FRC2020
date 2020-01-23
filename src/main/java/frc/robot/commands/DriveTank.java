@@ -46,8 +46,12 @@ public class DriveTank extends CommandBase {
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
+
          drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(GenericHID.Hand.kRight), Constants.getRightDeadZone()));
         drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(GenericHID.Hand.kLeft), Constants.getLeftDeadZone()));
+
+
+        //TODO: Look into differential drive
     }
 
 

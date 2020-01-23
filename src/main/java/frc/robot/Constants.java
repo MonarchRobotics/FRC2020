@@ -20,8 +20,9 @@ package frc.robot;
 
 //Set all ports here
 public final class Constants {
-    private static final int shooterPort = 69;
-    private static final int leftWheelPort1 = 3;//TODO: CHANGE BACK TO 2. this was just for testing... altho we should probably figure out the IDs of all of the motors we're using
+    private static final int shooterPort1 = 1;
+    private static final int shooterPort2 = 2;
+    private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
     private static final int rightWheelPort2 = 2;
@@ -36,6 +37,14 @@ public final class Constants {
     private static final double leftDeadZone = 0.05;
     public static int getShooterPort() {
         return shooterPort;
+    }
+
+    public static int getShooterPort1() {
+        return shooterPort1;
+    }
+    public static int getShooterPort2() {
+        return shooterPort2;
+
     }
     public static int getLeftWheelPort1() {
         return leftWheelPort1;

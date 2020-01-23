@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.Shoot;
 
@@ -17,20 +19,20 @@ import frc.robot.commands.Shoot;
  */
 public class Turret extends SubsystemBase {
 
-    private TalonSRX wheel;
-    private TalonSRX wheel2;
+    private VictorSPX wheel;
+    private VictorSPX wheel2;
 
     public Turret(int wheelPort, int wheel2Port) {
-        wheel = new TalonSRX(wheelPort);
-        wheel2= new TalonSRX(wheel2Port);
+        wheel = new VictorSPX(wheelPort);
+        wheel2= new VictorSPX(wheel2Port);
         wheel.setNeutralMode(NeutralMode.Brake);
         wheel2.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new Shoot(this));
     }
 
-    public TalonSRX getWheelMotor() { return wheel; }
+    public VictorSPX getWheelMotor() { return wheel; }
 
-    public TalonSRX getWheel2Motor() { return wheel2;}
+    public VictorSPX getWheel2Motor() { return wheel2;}
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());
