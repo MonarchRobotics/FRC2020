@@ -47,8 +47,8 @@ public class DriveTank extends CommandBase {
 //            drivetrain.rdrive(OI.joystick2.getY());
 
         //Literally just sets the motor speed to the joystick axis.
-        drivetrain.ldrive(OI.xboxController.getY(GenericHID.Hand.kLeft));
-        drivetrain.rdrive(OI.xboxController.getY(GenericHID.Hand.kRight));
+        drivetrain.ldrive(OI.joystick1.getY(GenericHID.Hand.kLeft));
+        drivetrain.rdrive(OI.joystick2.getY(GenericHID.Hand.kRight));
 
         //TODO: Look into differential drive
     }
