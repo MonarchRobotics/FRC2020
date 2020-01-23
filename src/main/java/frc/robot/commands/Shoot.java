@@ -45,7 +45,7 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.
-        if (OI.joystick1.getTrigger()) {
+        if (OI.joystick1.getTrigger() && OI.joystick2.getTrigger()){
             turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
             turret.getWheel2Motor().set(ControlMode.PercentOutput, 1.0);
         }
