@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,16 +21,24 @@ import com.ctre.phoenix.motorcontrol.can.*;
  */
 public class WheelManipulator extends SubsystemBase {
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
     private TalonSRX spinner;
 
-    public WheelManipulator(int spinnerPort) {
+    private DoubleSolenoid controlSolenoid;
+
+    public WheelManipulator(int spinnerPort, int openChannel, int closeChannel) {
         spinner = new TalonSRX(spinnerPort);
         spinner.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new WheelOfFortune(this));
+        controlSolenoid = new DoubleSolenoid(openChannel, closeChannel);
     }
+
+    public void DropWheel(){controlSolenoid.set(DoubleSolenoid.Value.kForward);}
+
+    public void PullWheel(){controlSolenoid.set(DoubleSolenoid.Value.kReverse);}
+
+    public DoubleSolenoid.Value getValue(){return controlSolenoid.get();}
 
     private boolean colorSensorMargin(double detected, double test){
         double error = 0.03;

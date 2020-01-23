@@ -28,12 +28,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
  * It's the drivetrain. I don't know what you expected.
  */
 public class Drivetrain extends SubsystemBase {
+    // Creates the differential drive.
     protected DifferentialDrive drive;
 
 
 
     public VictorSPX left1, left2, right1, right2;
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
+        //Initialises each of the 4 motors for both sides of the drivetrain.
         left1 = new VictorSPX(Left1);
         left2 = new VictorSPX(Left2);
         right1 = new VictorSPX(Right1);
@@ -41,10 +43,12 @@ public class Drivetrain extends SubsystemBase {
     }
     
     public void rdrive(double speed){
+        // Controls the right side drive speed of both motors.
         right1.set(ControlMode.PercentOutput, speed);
         right2.set(ControlMode.PercentOutput, speed);
     }
     public void ldrive(double speed){
+        // Controls the left side drive speed of both motors.
         left1.set(ControlMode.PercentOutput, speed);
         left2.set(ControlMode.PercentOutput, speed);
     }

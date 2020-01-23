@@ -18,15 +18,19 @@ import frc.robot.commands.Shoot;
 public class Turret extends SubsystemBase {
 
     private TalonSRX wheel;
+    private TalonSRX wheel2;
 
-    public Turret(int wheelPort) {
+    public Turret(int wheelPort, int wheel2Port) {
         wheel = new TalonSRX(wheelPort);
+        wheel2= new TalonSRX(wheel2Port);
         wheel.setNeutralMode(NeutralMode.Brake);
+        wheel2.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new Shoot(this));
     }
 
     public TalonSRX getWheelMotor() { return wheel; }
 
+    public TalonSRX getWheel2Motor() { return wheel2;}
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());
