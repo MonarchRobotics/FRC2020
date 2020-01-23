@@ -35,9 +35,7 @@ public final class Constants {
     //Constants for Deadzone
     private static final double rightDeadZone = 0.05;
     private static final double leftDeadZone = 0.05;
-    public static int getShooterPort() {
-        return shooterPort;
-    }
+    
 
     public static int getShooterPort1() {
         return shooterPort1;
