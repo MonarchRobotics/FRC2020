@@ -22,6 +22,8 @@ package frc.robot;
 public final class Constants {
     private static final int shooterPort1 = 1;
     private static final int shooterPort2 = 2;
+    private static final int shooterInputPort = 7;
+
     private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
@@ -43,6 +45,10 @@ public final class Constants {
     public static int getShooterPort2() {
         return shooterPort2;
 
+    }
+    public static int getShooterInputPort()
+    {
+        return shooterInputPort;
     }
     public static int getLeftWheelPort1() {
         return leftWheelPort1;

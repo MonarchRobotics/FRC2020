@@ -21,18 +21,26 @@ public class Turret extends SubsystemBase {
 
     private VictorSPX wheel;
     private VictorSPX wheel2;
+    private TalonSRX inputWheel;
 
-    public Turret(int wheelPort, int wheel2Port) {
+    public Turret(int wheelPort, int wheel2Port, int inputWheelPort) {
         wheel = new VictorSPX(wheelPort);
         wheel2= new VictorSPX(wheel2Port);
+
+        inputWheel = new TalonSRX(inputWheelPort);
+        
         wheel.setNeutralMode(NeutralMode.Brake);
         wheel2.setNeutralMode(NeutralMode.Brake);
+
+        
         setDefaultCommand(new Shoot(this));
     }
 
-    public VictorSPX getWheelMotor() { return wheel; }
+    public VictorSPX getWheelMotor() { return wheel;}
 
     public VictorSPX getWheel2Motor() { return wheel2;}
+
+    public TalonSRX getInputWheelMotor() { return inputWheel;}
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());
