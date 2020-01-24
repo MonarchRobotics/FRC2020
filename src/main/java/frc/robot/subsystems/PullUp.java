@@ -17,7 +17,6 @@ public class PullUp extends SubsystemBase {
 
   private DoubleSolenoid climbSolenoid;
 
-
   public PullUp(int openChannel, int closeChannel) {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }
