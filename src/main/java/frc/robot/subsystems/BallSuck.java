@@ -41,6 +41,7 @@ public class BallSuck extends SubsystemBase {
     intakeS = false;
   }
 
+  
   public boolean intakeStat()
   {
     return intakeS;

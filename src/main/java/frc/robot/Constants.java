@@ -20,18 +20,21 @@ package frc.robot;
 
 //Set all ports here
 public final class Constants {
-    private static final int shooterPort1 = 1;
-    private static final int shooterPort2 = 2;
+
+    private static final int shooterPort1 = 7;
+    private static final int shooterPort2 = 8;
+    private static final int shooterInputPort = 9;
+
     private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
     private static final int rightWheelPort2 = 2;
 
-    private static final int wheelOfFortunePort = 6;
+    private static final int wheelOfFortunePort = 10;
 
-    private static final int ballintake = 4;
-    // May need to modify based on what people decide for balls
-    private static final int internalmanipulation = 5;
+    private static final int ballIntakePort = 5;
+    private static final int internalmanipulation = 6;
+
     //Constants for Deadzone
     private static final double rightDeadZone = 0.05;
     private static final double leftDeadZone = 0.05;
@@ -43,6 +46,10 @@ public final class Constants {
     public static int getShooterPort2() {
         return shooterPort2;
 
+    }
+    public static int getShooterInputPort()
+    {
+        return shooterInputPort;
     }
     public static int getLeftWheelPort1() {
         return leftWheelPort1;
@@ -61,7 +68,7 @@ public final class Constants {
 
     public static int getBallIntake()
     {
-        return ballintake;
+        return ballIntakePort;
     }
     public static int getInternalManipulation()
     {

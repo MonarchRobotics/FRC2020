@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -9,8 +10,13 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
     public static XboxController xboxController;
-
+    // Joystick1 is right
+    // Joystick2 is left
     public static Joystick joystick1, joystick2;
+
+    public static JoystickButton rightButton2;
+
+    public static JoystickButton leftButton2;
 
     // joystick 1 buttons
     // public static JoystickButton button1;
@@ -19,7 +25,13 @@ public class OI {
         xboxController = new XboxController(0);
         joystick1 = new Joystick(1);
         joystick2 = new Joystick(2);
+        
 
+        //Right buttons
+        rightButton2 = new JoystickButton(joystick1, 2);
+
+        // Left buttons
+        leftButton2 = new JoystickButton(joystick2, 2);
         // button1 = new JoystickButton(joystick1, )
     }
 

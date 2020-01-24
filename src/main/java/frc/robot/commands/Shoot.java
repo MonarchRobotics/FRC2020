@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.OI;
 import frc.robot.subsystems.Turret;
 
@@ -22,6 +23,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Shoot extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Turret turret;
+
+    Timer inputTimer;
+
+    boolean timerStart;
+    boolean timerDone;
+
     // VideoCapture camera;
 
     /**
@@ -31,6 +38,11 @@ public class Shoot extends CommandBase {
      */
     public Shoot(Turret turret) {
         this.turret = turret;
+
+        inputTimer = new Timer();
+        inputTimer.reset();
+        timerStart = true;
+        timerDone = false;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
     }
@@ -48,10 +60,31 @@ public class Shoot extends CommandBase {
         if (OI.joystick1.getTrigger() && OI.joystick2.getTrigger()){
             turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
             turret.getWheel2Motor().set(ControlMode.PercentOutput, 1.0);
+            
+            // Waites a moment for shooter to spin up
+            if (timerStart)
+            {
+                inputTimer.reset();
+                inputTimer.start();
+                timerStart = false;
+                timerDone = false;
+            }
+
+            if (inputTimer.get() >= 0.1)
+            {
+                timerDone = true;        
+            }
+
+            if (timerDone)
+            {
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput, 1.0);
+            }
+            
         }
         else {
             turret.getWheelMotor().set(ControlMode.PercentOutput, 0.0);
             turret.getWheel2Motor().set(ControlMode.PercentOutput, 0.0);
+            turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
         }
     }
 
