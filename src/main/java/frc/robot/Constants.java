@@ -20,6 +20,7 @@ package frc.robot;
 
 //Set all ports here
 public final class Constants {
+
     private static final int shooterPort1 = 1;
     private static final int shooterPort2 = 2;
     private static final int shooterInputPort = 7;
