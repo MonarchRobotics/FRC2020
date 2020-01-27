@@ -40,8 +40,8 @@ public class Drivetrain extends SubsystemBase {
     
     public void rdrive(double speed){
         // Sets the right motors speed %output.
-        right1.set(ControlMode.PercentOutput, speed);
-        right2.set(ControlMode.PercentOutput, speed);
+        right1.set(ControlMode.PercentOutput, -speed);
+        right2.set(ControlMode.PercentOutput, -speed);
     }
     public void ldrive(double speed){
         // Sets the left motors speed %output.
