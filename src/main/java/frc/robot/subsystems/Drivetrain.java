@@ -12,6 +12,8 @@ package frc.robot.subsystems;
 //import edu.wpi.first.wpilibj.drive.*;
 //import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DriveTank;
@@ -35,6 +37,10 @@ public class Drivetrain extends SubsystemBase {
         left2 = new VictorSPX(Left2);
         right1 = new VictorSPX(Right1);
         right2 = new VictorSPX(Right2);
+        // left2.setNeutralMode(NeutralMode.Brake);
+        // left1.setNeutralMode(NeutralMode.Brake);
+        // right2.setNeutralMode(NeutralMode.Brake);
+        // right1.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new DriveTank(this));
     }
     

@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-    camera.setResolution(640, 480);
+    camera.setResolution(320, 240);
     // camera.setBrightness(4);
     camera.setExposureManual(3);
   }
@@ -80,15 +80,17 @@ public class Robot extends TimedRobot {
     double[] widths = table.getEntry("width").getDoubleArray(new double[0]);
     double[] heights = table.getEntry("height").getDoubleArray(new double[0]);
     if(widths.length>0 && heights.length>0){
-      double stationWidth = widths[0]/2.0;
-      double stationHeight = heights[0]/2.0;
+      double stationWidth = widths[0];
+      double stationHeight = heights[0];
 
-      double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
-      double distanceFromHeight = 3308.923206*Math.pow(stationHeight,-0.959337969);
+      // double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
+      double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
+      // System.out.println(stationWidth/stationHeight);
+      double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0))*180/Math.PI;
+      // System.out.println("Distance: "+distanceFromHeight+"in");
+      System.out.println("Angle: "+ angle+"deg");
 
-      double average = (distanceFromWidth + distanceFromHeight)/2;
-
-      System.out.println("Distance: "+average+"in");
+      // System.out.println("Ratio: "+stationHeight/stationWidth);
     }
     
 
