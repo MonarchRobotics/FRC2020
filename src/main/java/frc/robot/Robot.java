@@ -150,36 +150,46 @@ public class Robot extends TimedRobot {
         // double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
         double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
         // System.out.println(stationWidth/stationHeight);
-        double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0));
+        double cosRatio = stationWidth / (stationHeight*2.0/3.0);
+        if(cosRatio>1){
+          cosRatio = 1;
+        }
+        double angle = Math.acos(cosRatio);
         // System.out.println("Distance: "+distanceFromHeight+"in");
         // Adjusted distance
-        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
+        double tempAdjustedDistance = distanceFromHeight/Math.sin(Math.PI/2-angle) * Math.sin(Math.PI/2 + angle - Math.asin(3.5 * Math.sin(Math.PI/2 - angle)/distanceFromHeight));
+//        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
         double a = stationWidth * Math.abs(160-centerX) / 7.0;
         double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
         
         //System.out.println("Distance: "+adjustedDistance+"in");
 
+        int xCords, yCords;
+
+        xCords = Math.round((float) (adjustedDistance*Math.cos(Math.PI/2 - angle)));
+        yCords = Math.round((float) (adjustedDistance*Math.sin(Math.PI/2 - angle)));
+
+//        System.out.println(xCords);
+//        System.out.println(yCords);
+
         if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
-          //System.out.println("Angle:-"+ angle+"rad");
+//          System.out.println("Angle: "+ angle+"rad");
+          System.out.println(" "+xCords+","+yCords);
         }
         else if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
-          //System.out.println("Angle: "+ angle+"rad");
+          //System.out.println("Angle:-"+ angle+"rad");
+          System.out.println("-"+xCords+","+yCords);
         }
         else{
           //System.out.println("PRBLM: "+angle+"rad");
+          System.out.println("P"+xCords+","+yCords);
         }
 
         // System.out.println("Ratio: "+stationHeight/stationWidth);
 
 
         // Get the cordinates on the field
-        double xCords, yCords;
 
-        xCords = adjustedDistance*Math.cos(Math.PI/2 - angle);
-        yCords = adjustedDistance*Math.sin(Math.PI/2 - angle);
-
-        System.out.println(xCords);
-        System.out.println(yCords);
       }
     }
     
