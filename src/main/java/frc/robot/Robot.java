@@ -141,9 +141,9 @@ public class Robot extends TimedRobot {
         double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
         // System.out.println(stationWidth/stationHeight);
         double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0))*180/Math.PI;
-        // System.out.println("Distance: "+distanceFromHeight+"in");
+        System.out.println("Distance: "+distanceFromHeight+"in");
         
-
+        
         if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
           System.out.println("Angle:-"+ angle+"deg");
         }
