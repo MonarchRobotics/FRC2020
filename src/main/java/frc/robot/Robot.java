@@ -35,7 +35,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-//  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/findLoadingStation");

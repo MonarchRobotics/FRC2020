@@ -12,7 +12,9 @@ import frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-//Subsystem for climbing system
+/**
+ * Subsystem for climbing system
+ */
 public class PullUp extends SubsystemBase {
 
   private DoubleSolenoid climbSolenoid;
