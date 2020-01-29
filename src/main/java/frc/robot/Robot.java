@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
 
   NetworkTableInstance inst = NetworkTableInstance.getDefault();
   NetworkTable table = inst.getTable("GRIP/findLoadingStation");
+  NetworkTable linesTable = inst.getTable("GRIP/linesReport");
 
   private WheelManipulator wheelManipulator;
   private OI oi;
@@ -82,15 +83,78 @@ public class Robot extends TimedRobot {
     if(widths.length>0 && heights.length>0){
       double stationWidth = widths[0];
       double stationHeight = heights[0];
+      double[] x1s = linesTable.getEntry("x1").getDoubleArray(new double[0]);
+      double[] x2s = linesTable.getEntry("x2").getDoubleArray(new double[0]);
+      double[] y1s = linesTable.getEntry("x1").getDoubleArray(new double[0]);
+      double[] y2s = linesTable.getEntry("x2").getDoubleArray(new double[0]);
+      double centerX = table.getEntry("centerX").getDoubleArray(new double[0])[0];
+      double centerY = table.getEntry("centerY").getDoubleArray(new double[0])[0];
+      if(y2s.length > 0 && x1s.length == x2s.length && x1s.length == y1s.length && x1s.length == y2s.length){//this should always return true. If it doesn't we have BIG problems
+        double[][] cords = new double[x1s.length*2][2];//0 is x, 1 is y
+        for(int i=0; i<x1s.length; i++){
+          double[] set = new double[2];
+          set[0] = x1s[i];
+          set[1] = y1s[i];
+          cords[i*2] = set;
+          double[] set2 = new double[2];
+          set2[0] = x2s[i];
+          set2[1] = y2s[i];
+          cords[i*2+1] = set2;
+        }
+        double distanceTopRight =0;
+        double[] topRight = new double[2];
+        double distanceTopLeft = 0;
+        double[] topLeft = new double[2];
+        double distanceBottomRight = 0;
+        double[] bottomRight = new double[2];
+        double distanceBottomLeft = 0;
+        double[] bottomLeft = new double[2];
+        for(int i=0; i<cords.length; i++){
+          double[] cord = cords[i];
+          double distance = Math.pow(cord[0]-centerX,2)+Math.pow(cord[1]-centerY,2);
+          if(cord[0]>centerX && cord[1]>centerY){//topRight
+            if(distance>distanceTopRight){
+              distanceTopRight = distance;
+              topRight = cord;
+            }
+          }
+          else if(cord[0]<centerX && cord[1]>centerY){//topLeft
+            if(distance>distanceTopLeft){
+              distanceTopLeft = distance;
+              topLeft = cord;
+            }
+          }
+          else if(cord[0]>centerX && cord[1]<centerY){//bottomRight
+            if(distance>distanceBottomRight){
+              distanceBottomRight = distance;
+              bottomRight = cord;
+            }
+          }
+          else if(cord[0]<centerX && cord[1]<centerY){//bottomLeft
+            if(distance>distanceBottomLeft){
+              distanceBottomLeft = distance;
+              bottomLeft = cord;
+            }
+          }
+        }
+        if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
+          System.out.println("RIGHT");
+        }
+        else if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
+          System.out.println("LEFT");
+        }
+        else{
+          System.out.println("BIG PROBLEMS");
+        }
+        // double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
+        double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
+        // System.out.println(stationWidth/stationHeight);
+        double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0))*180/Math.PI;
+        // System.out.println("Distance: "+distanceFromHeight+"in");
+        System.out.println("Angle: "+ angle+"deg");
 
-      // double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
-      double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
-      // System.out.println(stationWidth/stationHeight);
-      double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0))*180/Math.PI;
-      // System.out.println("Distance: "+distanceFromHeight+"in");
-      System.out.println("Angle: "+ angle+"deg");
-
-      // System.out.println("Ratio: "+stationHeight/stationWidth);
+        // System.out.println("Ratio: "+stationHeight/stationWidth);
+      }
     }
     
 
