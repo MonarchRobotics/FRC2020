@@ -157,16 +157,16 @@ public class Robot extends TimedRobot {
         double a = stationWidth * Math.abs(160-centerX) / 7.0;
         double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
         
-        System.out.println("Distance: "+adjustedDistance+"in");
+        //System.out.println("Distance: "+adjustedDistance+"in");
 
         if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
-          System.out.println("Angle:-"+ angle+"rad");
+          //System.out.println("Angle:-"+ angle+"rad");
         }
         else if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
-          System.out.println("Angle: "+ angle+"rad");
+          //System.out.println("Angle: "+ angle+"rad");
         }
         else{
-          System.out.println("PRBLM: "+angle+"rad");
+          //System.out.println("PRBLM: "+angle+"rad");
         }
 
         // System.out.println("Ratio: "+stationHeight/stationWidth);
@@ -174,9 +174,12 @@ public class Robot extends TimedRobot {
 
         // Get the cordinates on the field
         double xCords, yCords;
-        
+
         xCords = adjustedDistance*Math.cos(Math.PI/2 - angle);
         yCords = adjustedDistance*Math.sin(Math.PI/2 - angle);
+
+        System.out.println(xCords);
+        System.out.println(yCords);
       }
     }
     
