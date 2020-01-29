@@ -149,7 +149,7 @@ public class Robot extends TimedRobot {
         // Adjusted distance
         double adjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
         
-        System.out.println("Distance: "+distanceFromHeight+"in");
+        System.out.println("Distance: "+adjustedDistance+"in");
 
         if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
           System.out.println("Angle:-"+ angle+"rad");
