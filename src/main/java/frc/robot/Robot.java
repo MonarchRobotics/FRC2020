@@ -147,7 +147,9 @@ public class Robot extends TimedRobot {
         double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0));
         // System.out.println("Distance: "+distanceFromHeight+"in");
         // Adjusted distance
-        double adjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
+        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
+        double a = stationWidth * Math.abs(160-centerX) / 7.0;
+        double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
         
         System.out.println("Distance: "+adjustedDistance+"in");
 
