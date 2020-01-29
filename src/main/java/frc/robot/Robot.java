@@ -81,6 +81,12 @@ public class Robot extends TimedRobot {
     double[] widths = table.getEntry("width").getDoubleArray(new double[0]);
     double[] heights = table.getEntry("height").getDoubleArray(new double[0]);
 
+    // Right left idicaor
+      // 0 = left
+      // 1 = center
+      // 2 = right
+    int side;
+
     if(widths.length>0 && heights.length>0){
       double stationWidth = widths[0];
       double stationHeight = heights[0];
@@ -162,6 +168,13 @@ public class Robot extends TimedRobot {
         }
 
         // System.out.println("Ratio: "+stationHeight/stationWidth);
+
+
+        // Get the cordinates on the field
+        double xCords, yCords;
+        
+        xCords = adjustedDistance*Math.cos(Math.PI/2 - angle);
+        yCords = adjustedDistance*Math.sin(Math.PI/2 - angle);
       }
     }
     
