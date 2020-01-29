@@ -55,17 +55,6 @@ public class Drivetrain extends SubsystemBase {
         left2.set(ControlMode.PercentOutput, speed);
     }
 
-    public void rdrive2(double v){
-        // Sets the right motors speed %output.
-        right1.set(ControlMode.Velocity, -v);
-        right2.set(ControlMode.Velocity, -v);
-    }
-    public void ldrive2(double v){
-        // Sets the left motors speed %output.
-        left1.set(ControlMode.Velocity, v);
-        left2.set(ControlMode.Velocity, v);
-    }
-
     @Override
     public void periodic() {
         // This method will be called once per scheduler run, doesn't do anything at the moment
