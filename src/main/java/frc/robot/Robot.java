@@ -55,8 +55,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    NetworkTableEntry xEntry = table.getEntry("x");
-    xEntry.setDouble(5.0);
+    table.delete("height");
     oi = new OI();
 
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
@@ -78,15 +77,31 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    double[] widths = table.getEntry("width").getDoubleArray(new double[0]);
-    double[] heights = table.getEntry("height").getDoubleArray(new double[0]);
+    double[] widths; 
+    widths = table.getEntry("width").getDoubleArray(new double[0]);
+    double[] heights;
+    heights = table.getEntry("height").getDoubleArray(new double[0]);
+    // if(widths.length==0){
+    //   double w = table.getEntry("width").getDouble(0);
+    //   if(w!=0){
+    //     widths= new double[1];
+    //     widths[0] =w;
+    //   }
+    // }
+    // if(heights.length==0){
+    //   double h = table.getEntry("height").getDouble(0);
+    //   if(h!=0){
+    //     heights= new double[1];
+    //     heights[0] =h;
+    //   }
+    // }
 
     // Right left idicaor
       // 0 = left
       // 1 = center
       // 2 = right
     int side;
-
+    
     if(widths.length>0 && heights.length>0){
       double stationWidth = widths[0];
       double stationHeight = heights[0];
@@ -157,20 +172,21 @@ public class Robot extends TimedRobot {
         double angle = Math.acos(cosRatio);
         // System.out.println("Distance: "+distanceFromHeight+"in");
         // Adjusted distance
-        double tempAdjustedDistance = distanceFromHeight/Math.sin(Math.PI/2-angle) * Math.sin(Math.PI/2 + angle - Math.asin(3.5 * Math.sin(Math.PI/2 - angle)/distanceFromHeight));
-//        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
-        double a = stationWidth * Math.abs(160-centerX) / 7.0;
+        // double tempAdjustedDistance = distanceFromHeight/Math.sin(Math.PI/2-angle) * Math.sin(Math.PI/2 + angle - Math.asin(3.5 * Math.sin(Math.PI/2 - angle)/distanceFromHeight));
+       double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
+        double a = stationWidth * 7.0 /  Math.abs(160-centerX);
+        // System.out.println("centerX: "+centerX);
         double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
         
-        //System.out.println("Distance: "+adjustedDistance+"in");
+        // System.out.println("Distance: "+adjustedDistance+"in");
 
         int xCords, yCords;
 
         xCords = Math.round((float) (adjustedDistance*Math.cos(Math.PI/2 - angle)));
         yCords = Math.round((float) (adjustedDistance*Math.sin(Math.PI/2 - angle)));
 
-//        System.out.println(xCords);
-//        System.out.println(yCords);
+      //  System.out.println(xCords);
+      //  System.out.println(yCords);
 
         if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
 //          System.out.println("Angle: "+ angle+"rad");
