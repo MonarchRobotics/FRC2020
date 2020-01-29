@@ -47,12 +47,8 @@ public class DriveTank extends CommandBase {
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
 
-//        drivetrain.rdrive(OI.deadZone(-OI.joystick1.getY(), Constants.getRightDeadZone()));
-//        drivetrain.ldrive(OI.deadZone(-OI.joystick2.getY(), Constants.getLeftDeadZone()));
-        if(OI.joystick1.getTrigger()){
-            drivetrain.rdrive2(1);
-            drivetrain.ldrive2(1);
-        }
+        drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(), Constants.getRightDeadZone()));
+        drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(), Constants.getLeftDeadZone()));
 
 
 
