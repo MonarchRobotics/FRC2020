@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     double[] widths = table.getEntry("width").getDoubleArray(new double[0]);
     double[] heights = table.getEntry("height").getDoubleArray(new double[0]);
+
     if(widths.length>0 && heights.length>0){
       double stationWidth = widths[0];
       double stationHeight = heights[0];
@@ -89,8 +90,10 @@ public class Robot extends TimedRobot {
       double[] y2s = linesTable.getEntry("y2").getDoubleArray(new double[0]);
       double centerX = table.getEntry("centerX").getDoubleArray(new double[0])[0];
       double centerY = table.getEntry("centerY").getDoubleArray(new double[0])[0];
+
       if(y2s.length > 0 && x1s.length == x2s.length && x1s.length == y1s.length && x1s.length == y2s.length){//this should always return true. If it doesn't we have BIG problems
         double[][] cords = new double[x1s.length*2][2];//0 is x, 1 is y
+
         for(int i=0; i<x1s.length; i++){
           double[] set = new double[2];
           set[0] = x1s[i];
@@ -101,6 +104,7 @@ public class Robot extends TimedRobot {
           set2[1] = y2s[i];
           cords[i*2+1] = set2;
         }
+        
         double distanceTopRight =0;
         double[] topRight = new double[2];
         double distanceTopLeft = 0;
