@@ -85,8 +85,8 @@ public class Robot extends TimedRobot {
       double stationHeight = heights[0];
       double[] x1s = linesTable.getEntry("x1").getDoubleArray(new double[0]);
       double[] x2s = linesTable.getEntry("x2").getDoubleArray(new double[0]);
-      double[] y1s = linesTable.getEntry("x1").getDoubleArray(new double[0]);
-      double[] y2s = linesTable.getEntry("x2").getDoubleArray(new double[0]);
+      double[] y1s = linesTable.getEntry("y1").getDoubleArray(new double[0]);
+      double[] y2s = linesTable.getEntry("y2").getDoubleArray(new double[0]);
       double centerX = table.getEntry("centerX").getDoubleArray(new double[0])[0];
       double centerY = table.getEntry("centerY").getDoubleArray(new double[0])[0];
       if(y2s.length > 0 && x1s.length == x2s.length && x1s.length == y1s.length && x1s.length == y2s.length){//this should always return true. If it doesn't we have BIG problems
@@ -137,21 +137,22 @@ public class Robot extends TimedRobot {
             }
           }
         }
-        if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
-          System.out.println("RIGHT");
-        }
-        else if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
-          System.out.println("LEFT");
-        }
-        else{
-          System.out.println("BIG PROBLEMS");
-        }
         // double distanceFromWidth = 2037.642978* Math.pow(stationWidth, -0.930927117);
         double distanceFromHeight = 4298.880337*Math.pow(stationHeight,-1.020576785);
         // System.out.println(stationWidth/stationHeight);
         double angle = Math.acos(stationWidth / (stationHeight*2.0/3.0))*180/Math.PI;
         // System.out.println("Distance: "+distanceFromHeight+"in");
-        System.out.println("Angle: "+ angle+"deg");
+        
+
+        if(topRight[1]>topLeft[1] && bottomLeft[1]>bottomRight[1]){
+          System.out.println("Angle:-"+ angle+"deg");
+        }
+        else if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
+          System.out.println("Angle: "+ angle+"deg");
+        }
+        else{
+          System.out.println("PRBLM: "+angle+"deg");
+        }
 
         // System.out.println("Ratio: "+stationHeight/stationWidth);
       }
