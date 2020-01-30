@@ -20,17 +20,22 @@ package frc.robot;
 //Set all ports here
 public final class Constants {
 
+    // Ports
+    // Ball shooter pors
     private static final int shooterPort1 = 7;
     private static final int shooterPort2 = 8;
     private static final int shooterInputPort = 9;
 
+    // Drive wheel ports
     private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
     private static final int rightWheelPort2 = 2;
 
+    // Wheel of fortun spinner wheel port
     private static final int wheelOfFortunePort = 10;
 
+    // Ball intake and roller coaster ports
     private static final int ballIntakePort = 5;
     private static final int internalManipulation = 6;
 
@@ -41,6 +46,7 @@ public final class Constants {
     private static final double deadZone = 0.05;
     
 
+    
     public static int getShooterPort1() {
         return shooterPort1;
     }
@@ -78,8 +84,12 @@ public final class Constants {
         return wheelOfFortunePort;
     }
 
-    public static double getDeadZone(){ return deadZone;}
+    // Get dead zone constants
+    public static double getDeadZone(){ 
+        return deadZone;
+    }
 
+    // Get auto constants
     public static double getDistanceAuto() {
         return distanceAuto;
     }
@@ -89,5 +99,8 @@ public final class Constants {
 
     public static double getTimeToTravelDistance(double inches, double speed){
         return inches / getDistanceAuto() / speed;
+    }
+    public static double getTimeToRotate(double radians, double speed) {
+        return radians / (getRotationAuto()*2*Math.PI) / speed;
     }
 }

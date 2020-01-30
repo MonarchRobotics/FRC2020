@@ -47,7 +47,7 @@ public class BallIntake extends CommandBase {
   public void execute() {
 
     // If right 2 is pressed both are on
-    // If left is pressed only handling is on
+    // If left 2 is pressed only handling is on
     // If neither neither are on
     if (OI.rightButton2.get())
     {

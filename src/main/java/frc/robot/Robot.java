@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
   }
 
   public static double[] getCoordinates(){
-    //grab the widths and heights from GRIP
+    //Get the widths and heights from GRIP
     double[] widths;
     widths = table.getEntry("width").getDoubleArray(new double[0]);
     double[] heights;
@@ -171,15 +171,24 @@ public class Robot extends TimedRobot {
 
         //get the ratio of the adjacent side to the hypotenuse of the triangle to the port
         double cosRatio = stationWidth / (stationHeight*2.0/3.0);
+
+        // Cos doesnt work on values greater than 1
+          // Assumes if it is very close to 1 it should be 1
         if(cosRatio>1){//this happens if we are close to straight on
           cosRatio = 1;
         }
+
         //calculate the angle we are from the target in radians.
         double angle = Math.acos(cosRatio);
-        // Make the calculated distance better with law of sines and law of cosines
-        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
+
+        /* Finds the distance from the center of the port, and takes into 
+        account he fact that we might not be centered on the target */
+        // Finds the distance from the camera to the center of the retro-reflective tape
+        double tempAdjustedDistance = Math.sqrt(12.25 + Math.pow(distanceFromHeight, 2) - 
+          2*3.5*distanceFromHeight*Math.cos(angle + Math.PI/2));
         double a = stationWidth * 7.0 /  Math.abs(160-centerX);
-        double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
+        double adjustedDistance = Math.sqrt(Math.pow(a,2) + Math.pow(tempAdjustedDistance, 2) - 
+          2*a*tempAdjustedDistance*Math.cos(angle + Math.PI/2));
 
         //convert the final distance and radian angle to coordinates.
         int xCords, yCords;
@@ -191,7 +200,7 @@ public class Robot extends TimedRobot {
         if(topRight[1]<topLeft[1] && bottomLeft[1]<bottomRight[1]){
           xCords*=-1;
         }
-
+        // Stores the cordinates and the angle in a format to be returned
         double[] finalCoordinates = new double[3];
         finalCoordinates[0] = xCords; //pos. is right of target, neg. is left of target
         finalCoordinates[1] = yCords; //distance from target
