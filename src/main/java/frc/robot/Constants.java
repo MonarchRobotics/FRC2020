@@ -34,8 +34,8 @@ public final class Constants {
     private static final int ballIntakePort = 5;
     private static final int internalManipulation = 6;
 
-    private static final double distanceAuto = 123.91;
-    private static final double rotationAuto = 1.6; //
+    private static final double distanceAuto = 125.0;//in/sec at 100% power
+    private static final double rotationAuto = 1.6; //rotations/sec at 100% power
 
     //Constants for Deadzone
     private static final double deadZone = 0.05;

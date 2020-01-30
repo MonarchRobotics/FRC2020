@@ -41,8 +41,8 @@ public class DriveAuto extends CommandBase {
         this.subsystem = subsystem;
         timer = new Timer();
 
-        distanceToTravel = 25;
-        travelSpeed = 0.25;
+        distanceToTravel = 60;
+        travelSpeed = 0.5;
 
         seconds = Constants.getTimeToTravelDistance(distanceToTravel,travelSpeed);
 

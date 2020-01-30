@@ -37,22 +37,22 @@ public class Drivetrain extends SubsystemBase {
         left2 = new VictorSPX(Left2);
         right1 = new VictorSPX(Right1);
         right2 = new VictorSPX(Right2);
-        // left2.setNeutralMode(NeutralMode.Brake);
-        // left1.setNeutralMode(NeutralMode.Brake);
-        // right2.setNeutralMode(NeutralMode.Brake);
-        // right1.setNeutralMode(NeutralMode.Brake);
+        left2.setNeutralMode(NeutralMode.Brake);
+        left1.setNeutralMode(NeutralMode.Brake);
+        right2.setNeutralMode(NeutralMode.Brake);
+        right1.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new DriveTank(this));
     }
     
     public void rdrive(double speed){
         // Sets the right motors speed %output.
-        right1.set(ControlMode.PercentOutput, speed);
-        right2.set(ControlMode.PercentOutput, speed);
+        right1.set(ControlMode.PercentOutput, -speed);
+        right2.set(ControlMode.PercentOutput, -speed);
     }
     public void ldrive(double speed){
         // Sets the left motors speed %output.
-        left1.set(ControlMode.PercentOutput, -speed);
-        left2.set(ControlMode.PercentOutput, -speed);
+        left1.set(ControlMode.PercentOutput, speed);
+        left2.set(ControlMode.PercentOutput, speed);
     }
 
     @Override
