@@ -8,6 +8,8 @@ import frc.robot.subsystems.WheelManipulator;
 
 /**
 * Collects commands used for autonomous
+ *
+ *
 */
 public class AutoGroup extends SequentialCommandGroup {
     public AutoGroup(WheelManipulator wheelManipulator, Drivetrain drivetrain){

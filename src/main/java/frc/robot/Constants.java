@@ -35,6 +35,9 @@ public final class Constants {
     private static final int ballIntakePort = 5;
     private static final int internalmanipulation = 6;
 
+    private static final double distanceAuto = 123.91;
+    private static final double rotationAuto = 1.6;
+
     //Constants for Deadzone
     private static final double deadZone = 0.05;
     
@@ -75,5 +78,12 @@ public final class Constants {
 
     public static int getWheelOfFortunePort() {
         return wheelOfFortunePort;
+    }
+
+    public static double getDistanceAuto() {
+        return distanceAuto;
+    }
+    public static double getRotationAuto() {
+        return rotationAuto;
     }
 }
