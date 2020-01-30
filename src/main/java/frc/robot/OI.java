@@ -10,12 +10,15 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
     public static XboxController xboxController;
+
     // Joystick1 is right
     // Joystick2 is left
     public static Joystick joystick1, joystick2;
 
+    // Buttons for the RIGHT joystick
     public static JoystickButton rightButton2;
 
+    // Buttons for the LEFT joystick
     public static JoystickButton leftButton2;
 
     // joystick 1 buttons
@@ -23,7 +26,10 @@ public class OI {
 
     public OI(){
         xboxController = new XboxController(0);
+
+        // Right joystick
         joystick1 = new Joystick(1);
+        // Left joystick
         joystick2 = new Joystick(2);
         
 
@@ -35,6 +41,8 @@ public class OI {
         // button1 = new JoystickButton(joystick1, )
     }
 
+    /* Creats a dead zone for the joysticks/triggers that must be 
+    called and passed the joystick values */
     public static double deadZone (double val, double deadZone){
         if (Math.abs(val) > deadZone){
             if (val > 0){
