@@ -9,6 +9,7 @@ package frc.robot.commands.auto;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.commands.DriveTank;
 import frc.robot.subsystems.Drivetrain;
@@ -28,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveAuto extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
-//    private final Timer timer;
+    private final Timer timer;
 
 
 
@@ -38,7 +39,8 @@ public class DriveAuto extends CommandBase {
      */
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
-//        timer = new Timer();
+        timer = new Timer();
+
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
 
@@ -47,6 +49,8 @@ public class DriveAuto extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        timer.reset();
+        timer.start();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -55,8 +59,6 @@ public class DriveAuto extends CommandBase {
         subsystem.ldrive(0.75);
         subsystem.rdrive(0.75);
     }
-
-
 
     // Called once the command ends or is interrupted.
     @Override
