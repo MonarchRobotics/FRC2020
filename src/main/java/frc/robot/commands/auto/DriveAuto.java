@@ -30,9 +30,9 @@ public class DriveAuto extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
     private final Timer timer;
-
-
-
+    double distanceToTravel;
+    double seconds;
+    double travelSpeed;
 
     /**
      * @param subsystem The subsystem used by this command.
@@ -40,6 +40,11 @@ public class DriveAuto extends CommandBase {
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
         timer = new Timer();
+
+        distanceToTravel = 25;
+        travelSpeed = 0.25;
+
+        seconds = Constants.getTimeToTravelDistance(distanceToTravel,travelSpeed);
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -56,20 +61,20 @@ public class DriveAuto extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        subsystem.ldrive(0.75);
-        subsystem.rdrive(0.75);
+        subsystem.rdrive(travelSpeed);
+        subsystem.ldrive(travelSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        subsystem.ldrive(0.0);
-        subsystem.rdrive(0.0);
+        subsystem.ldrive(0);
+        subsystem.rdrive(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return timer.get()>seconds;
     }
 }

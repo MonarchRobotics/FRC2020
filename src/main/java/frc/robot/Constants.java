@@ -86,4 +86,8 @@ public final class Constants {
     public static double getRotationAuto() {
         return rotationAuto;
     }
+
+    public static double getTimeToTravelDistance(double inches, double speed){
+        return inches / getDistanceAuto() / speed;
+    }
 }
