@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
 
   }
 
-  static int[] getCoordinates(){
+  public static double[] getCoordinates(){
     //grab the widths and heights from GRIP
     double[] widths;
     widths = table.getEntry("width").getDoubleArray(new double[0]);
@@ -192,13 +192,14 @@ public class Robot extends TimedRobot {
           xCords*=-1;
         }
 
-        int[] finalCoordinates = new int[2];
-        finalCoordinates[0] = xCords;
-        finalCoordinates[1] = yCords;
+        double[] finalCoordinates = new double[3];
+        finalCoordinates[0] = xCords; //pos. is right of target, neg. is left of target
+        finalCoordinates[1] = yCords; //distance from target
+        finalCoordinates[2] = angle; //angle in radians
         return finalCoordinates;
       }
     }
-    return null;
+    return new double[0];
   }
 
   /**

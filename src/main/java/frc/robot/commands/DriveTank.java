@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.Robot;
 
 
 
@@ -46,14 +47,28 @@ public class DriveTank extends CommandBase {
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
+//
+//        drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
+//        drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
 
-        drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-        drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+        if (OI.joystick1.getTrigger()) {
+            if (Robot.getCoordinates().length > 0) {
+                if (Robot.getCoordinates()[0] > 0) {
+                    while (Robot.getCoordinates()[2] != Math.PI/2) {
+                        drivetrain.ldrive(.25);
+                        drivetrain.rdrive(.25);
+                    }
+                }
+                else if (Robot.getCoordinates()[0] < 0) {
+                    while (Robot.getCoordinates()[2] != Math.PI/2) {
 
+                    }
+                }
+                else {
 
-
-
-        //TODO: Look into differential drive
+                }
+            }
+        }
     }
 
 

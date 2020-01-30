@@ -53,7 +53,6 @@ public class Shoot extends CommandBase {
     }
 
     // Called every time the scheduler runs while the command is scheduled.
-    //TODO: figure out what the real trigger axis is
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.
@@ -61,7 +60,7 @@ public class Shoot extends CommandBase {
             turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
             turret.getWheel2Motor().set(ControlMode.PercentOutput, 1.0);
             
-            // Waites a moment for shooter to spin up
+            // Waits a moment for shooter to spin up
             if (timerStart)
             {
                 inputTimer.reset();
