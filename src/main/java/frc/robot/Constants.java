@@ -35,9 +35,11 @@ public final class Constants {
     private static final int ballIntakePort = 5;
     private static final int internalmanipulation = 6;
 
+    private static final double distanceAuto = 123.91;
+    private static final double rotationAuto = 1.6;
+
     //Constants for Deadzone
-    private static final double rightDeadZone = 0.05;
-    private static final double leftDeadZone = 0.05;
+    private static final double deadZone = 0.05;
     
 
     public static int getShooterPort1() {
@@ -57,8 +59,7 @@ public final class Constants {
     public static int getLeftWheelPort2() {
         return leftWheelPort2;
     }
-    public static double getRightDeadZone(){ return rightDeadZone;}
-    public static double getLeftDeadZone(){ return leftDeadZone;}
+    public static double getDeadZone(){ return deadZone;}
     public static int getRightWheelPort1() {
         return rightWheelPort1;
     }
@@ -77,5 +78,12 @@ public final class Constants {
 
     public static int getWheelOfFortunePort() {
         return wheelOfFortunePort;
+    }
+
+    public static double getDistanceAuto() {
+        return distanceAuto;
+    }
+    public static double getRotationAuto() {
+        return rotationAuto;
     }
 }

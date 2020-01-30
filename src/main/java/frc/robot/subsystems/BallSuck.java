@@ -12,7 +12,9 @@ import frc.robot.commands.BallIntake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-//Subsystem for ball intake system
+/**
+ * Subsystem for ball intake system
+ */
 public class BallSuck extends SubsystemBase {
 
   
