@@ -41,8 +41,8 @@ public final class Constants {
 
     
     // Constants 
-    private static final double distanceAuto = 123.91;
-    private static final double rotationAuto = 1.6; //
+    private static final double distanceAuto = 123.91; // in/sec
+    private static final double rotationAuto = 1.6; // rotations/sec
 
     //Constants for Deadzone
     private static final double deadZone = 0.05;
@@ -101,5 +101,8 @@ public final class Constants {
 
     public static double getTimeToTravelDistance(double inches, double speed){
         return inches / getDistanceAuto() / speed;
+    }
+    public static double getTimeToRotate(double radians, double speed) {
+        return radians / (getRotationAuto()*2*Math.PI) / speed;
     }
 }

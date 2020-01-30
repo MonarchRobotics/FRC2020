@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain drivetrain;
+    private final Timer timer;
     /**
      * Creates a new ExampleCommand.
      *
@@ -32,6 +34,7 @@ public class DriveTank extends CommandBase {
      */
     public DriveTank(Drivetrain drive) {
         drivetrain = drive;
+        timer = new Timer();
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drive);
     }
@@ -44,31 +47,29 @@ public class DriveTank extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        timer.reset();
+        double rotateTime;
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
 //
-//        drivetrain.rdrive(OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-//        drivetrain.ldrive(OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+//        drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
+//        drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
 
-        if (OI.joystick1.getTrigger()) {
+        if (OI.joystick1.getTriggerPressed()) {
             if (Robot.getCoordinates().length > 0) {
-                if (Robot.getCoordinates()[0] > 0) {
-                    while (Robot.getCoordinates()[2] != Math.PI/2) {
-                        drivetrain.ldrive(.25);
-                        drivetrain.rdrive(.25);
-                    }
+                double startAngle = Robot.getCoordinates()[2];
+                if (Robot.getCoordinates()[2] >= 0) {
+                    rotateTime = Constants.getTimeToRotate(Math.PI/2, .25);
                 }
-                else if (Robot.getCoordinates()[0] < 0) {
-                    while (Robot.getCoordinates()[2] != Math.PI/2) {
-
-                    }
+                else if (Robot.getCoordinates()[2] < 0) {
                 }
-                else {
-
-                }
+                timer.start();
+                drivetrain.ldrive(.25);
+                drivetrain.rdrive(-.25);
             }
         }
+        else { rotateTime = 0; }
     }
 
 
