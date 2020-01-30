@@ -21,6 +21,7 @@ public class BallSuck extends SubsystemBase {
   // Motor to intake balls into the chassis
   private TalonSRX Intake;
   private boolean intakeS;
+  // Motor for handling the balls inside the chassy
   private TalonSRX Handle;
   private boolean handleS;
 
@@ -32,6 +33,10 @@ public class BallSuck extends SubsystemBase {
     handleS = false;
   }
 
+  // System based on toggle for the intake and internal handling of the balls
+
+
+  // Initiate motor/systems
   public void turnOnIntake()
   {
     Intake.set(ControlMode.PercentOutput,1);
@@ -49,7 +54,7 @@ public class BallSuck extends SubsystemBase {
     return intakeS;
   }
 
-
+  // Stops the motors
   public void turnOnHandle()
   {
     Handle.set(ControlMode.PercentOutput,1);
