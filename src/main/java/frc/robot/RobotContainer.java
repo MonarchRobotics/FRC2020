@@ -31,7 +31,7 @@ public class RobotContainer {
   // private final PullUp pullup = new PullUp(0, 1);
   // private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
 
-  // private final DriveTank driveTank = new DriveTank(drivetrain);
+  private final DriveTank driveTank = new DriveTank(drivetrain);
   // private final Shoot shooter = new Shoot(turret);
   // private final Climb climb = new Climb(pullup);
   // private final BallIntake ballintake = new BallIntake(ballsuck);
@@ -58,6 +58,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
   }
 
+
+  // get the drive tank command class
+  public DriveTank getDriveTank()
+  {
+    return driveTank;
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

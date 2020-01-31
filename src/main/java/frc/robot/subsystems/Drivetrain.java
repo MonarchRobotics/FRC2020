@@ -13,6 +13,7 @@ package frc.robot.subsystems;
 //import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,6 +32,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class Drivetrain extends SubsystemBase {
 
     public VictorSPX left1, left2, right1, right2;
+
+
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
         //Initialises each of the 4 motors for both sides of the drivetrain.
         left1 = new VictorSPX(Left1);

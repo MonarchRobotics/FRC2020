@@ -18,6 +18,9 @@ public class OI {
     // Buttons for the RIGHT joystick
     public static JoystickButton rightButton2;
 
+    // Test turn to a certain degree button
+public static JoystickButton leftButton7;
+
     // Buttons for the LEFT joystick
     public static JoystickButton leftButton2;
 
@@ -39,6 +42,9 @@ public class OI {
         // Left buttons
         leftButton2 = new JoystickButton(joystick2, 2);
         // button1 = new JoystickButton(joystick1, )
+
+        // Test turn to a certain attitude
+        leftButton7 = new JoystickButton(joystick2, 7);
     }
 
     /* Creats a dead zone for the joysticks/triggers that must be 

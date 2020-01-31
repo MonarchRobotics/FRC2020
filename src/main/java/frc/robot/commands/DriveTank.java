@@ -47,12 +47,13 @@ public class DriveTank extends CommandBase {
     @Override
     public void initialize() {
         encoder.reset();
+        timer.reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        timer.reset();
+        
         double rotateTime;
         // encoder.reset();
 
@@ -81,7 +82,19 @@ public class DriveTank extends CommandBase {
 //        else { rotateTime = 0; }
     }
 
+    // Driving test
+    public void turnFullSP()
+    {
+        drivetrain.rdrive(-1);
+        drivetrain.ldrive(1);
+    }
 
+    //Good stuff but not necessary (just for testing)
+    public void FullStop()
+    {
+        drivetrain.rdrive(0);
+        drivetrain.ldrive(0);
+    }
 
     // Called once the command ends or is interrupted.
     @Override

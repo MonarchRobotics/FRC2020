@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   private OI oi;
 
   private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-
+  private double gyroValue;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -85,10 +85,31 @@ public class Robot extends TimedRobot {
     // System.out.println("W:"+Arrays.toString(widthEntry.getDoubleArray(new double[0])));
     // System.out.println("H:"+Arrays.toString(heightEntry.getDoubleArray(new double[0])));
 
+    
     CommandScheduler.getInstance().run();
-
+    
 
     System.out.println(gyro.getAngle()+","+gyro.getRate());
+
+    double remainder = gyro.getAngle() % 360;
+    gyroValue = gyro.getAngle() / remainder;
+    // Test thing for turning 90 degrees
+    double endTurn = gyro.getAngle() + 90.0;
+    if (OI.leftButton7.get())
+    {
+      if (gyro.getAngle() < endTurn)
+      {
+        m_robotContainer.getDriveTank().turnFullSP();
+      }
+    }
+    //
+    //Important Will Kill the whole thing if it is not commented out 
+    //Only uncomment for testing purposes
+    // else
+    // {
+      
+    //   m_robotContainer.getDriveTank().FullStop();
+    // }
 
   }
 
