@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
     camera.setExposureManual(3);
-    System.out.println(gyro.getAngle());
+    gyro.calibrate();
   }
 
   /**
@@ -86,6 +86,9 @@ public class Robot extends TimedRobot {
     // System.out.println("H:"+Arrays.toString(heightEntry.getDoubleArray(new double[0])));
 
     CommandScheduler.getInstance().run();
+
+
+    System.out.println(gyro.getAngle());
 
   }
 
