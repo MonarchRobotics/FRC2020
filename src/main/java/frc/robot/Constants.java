@@ -98,8 +98,13 @@ public final class Constants {
     }
 
     public static double getTimeToTravelDistance(double inches, double speed){
-        return inches / getDistanceAuto() / speed;
+        return (inches/(1.67+0.914*Math.log(speed))+7.89)/74.4;
     }
+
+    public static double getDistanceFromTime(double time, double speed){
+        return (74.4*time-7.89)*(1.67+0.914*Math.log(speed));
+    }
+
     public static double getTimeToRotate(double radians, double speed) {
         return radians / (getRotationAuto()*2*Math.PI) / speed;
     }

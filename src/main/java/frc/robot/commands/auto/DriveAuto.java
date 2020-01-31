@@ -41,10 +41,12 @@ public class DriveAuto extends CommandBase {
         this.subsystem = subsystem;
         timer = new Timer();
 
-        distanceToTravel = 60;
-        travelSpeed = 0.5;
+        distanceToTravel = 48;
+        travelSpeed = 0.3;
+        seconds = Constants.getTimeToTravelDistance(distanceToTravel, travelSpeed);
+        // seconds = 1.3;
 
-        seconds = Constants.getTimeToTravelDistance(distanceToTravel,travelSpeed);
+
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -56,6 +58,8 @@ public class DriveAuto extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
+        System.out.println("Distance: "+Constants.getDistanceFromTime(seconds, travelSpeed));
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
