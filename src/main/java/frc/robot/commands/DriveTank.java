@@ -65,20 +65,20 @@ public class DriveTank extends CommandBase {
        drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
        drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
 
-        if (OI.joystick1.getTriggerPressed()) {
-            if (Robot.getCoordinates().length > 0) {
-                double startAngle = Robot.getCoordinates()[2];
-                if (Robot.getCoordinates()[2] >= 0) {
-                    rotateTime = Constants.getTimeToRotate(Math.PI/2, .25);
-                }
-                else if (Robot.getCoordinates()[2] < 0) {
-                }
-                timer.start();
-                drivetrain.ldrive(.25);
-                drivetrain.rdrive(-.25);
-            }
-        }
-        else { rotateTime = 0; }
+//        if (OI.joystick1.getTriggerPressed()) {
+//            if (Robot.getCoordinates().length > 0) {
+//                double startAngle = Robot.getCoordinates()[2];
+//                if (Robot.getCoordinates()[2] >= 0) {
+//                    rotateTime = Constants.getTimeToRotate(Math.PI/2, .25);
+//                }
+//                else if (Robot.getCoordinates()[2] < 0) {
+//                }
+//                timer.start();
+//                drivetrain.ldrive(.25);
+//                drivetrain.rdrive(-.25);
+//            }
+//        }
+//        else { rotateTime = 0; }
     }
 
 

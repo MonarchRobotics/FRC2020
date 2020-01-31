@@ -10,7 +10,8 @@ package frc.robot;
 import java.util.Arrays;
 
 import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.WheelManipulator;
 import org.opencv.core.Core;
@@ -20,7 +21,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -43,6 +43,8 @@ public class Robot extends TimedRobot {
   private WheelManipulator wheelManipulator;
   private OI oi;
 
+  private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kMXP);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot {
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
     camera.setExposureManual(3);
+    System.out.println(gyro.getAngle());
   }
 
   /**
