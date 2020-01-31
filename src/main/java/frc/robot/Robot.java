@@ -46,6 +46,10 @@ public class Robot extends TimedRobot {
   private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
   private double gyroValue;
 
+
+  // Test stuff
+  boolean testGyroSet = true;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -93,13 +97,26 @@ public class Robot extends TimedRobot {
 
     double remainder = gyro.getAngle() % 360;
     gyroValue = gyro.getAngle() / remainder;
-    // Test thing for turning 90 degrees
-    double endTurn = gyro.getAngle() + 90.0;
+
+    // TEST THING for turning 90 degrees
+    double endTurn;
+    if (testGyroSet)
+    {
+      endTurn = gyro.getAngle() + 90.0;
+    }
+    else
+    {
+      endTurn = 0;
+    }
     if (OI.leftButton7.get())
     {
       if (gyro.getAngle() < endTurn)
       {
         m_robotContainer.getDriveTank().turnFullSP();
+      }
+      else
+      {
+        m_robotContainer.getDriveTank().FullStop();;
       }
     }
     //
@@ -110,6 +127,8 @@ public class Robot extends TimedRobot {
       
     //   m_robotContainer.getDriveTank().FullStop();
     // }
+    //END OF TEST STUFF
+
 
   }
 
