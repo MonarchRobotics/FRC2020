@@ -56,7 +56,7 @@ public class DriveTank extends CommandBase {
         double rotateTime;
         // encoder.reset();
 
-        System.out.println("D: "+encoder.getDistance());
+        // System.out.println("D: "+encoder.getDistance());
         
         //If this breaks change to x
 //            drivetrain.ldrive(OI.joystick1.getY());

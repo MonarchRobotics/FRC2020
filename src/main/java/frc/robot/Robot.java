@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   private WheelManipulator wheelManipulator;
   private OI oi;
 
-  private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kMXP);
+  private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
 
   /**
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
 
-    System.out.println(gyro.getAngle());
+    System.out.println(gyro.getAngle()+","+gyro.getRate());
 
   }
 
