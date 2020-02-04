@@ -29,9 +29,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveAuto extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
-    private final Timer timer;
     double distanceToTravel;
-    double seconds;
     double travelSpeed;
 
     /**
@@ -39,7 +37,6 @@ public class DriveAuto extends CommandBase {
      */
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
-        timer = new Timer();
 
         distanceToTravel = 2;//for now this is # of rotations, eventually this will be in inches
         travelSpeed = 0.3;
@@ -52,8 +49,8 @@ public class DriveAuto extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        timer.reset();
-        timer.start();
+        subsystem.getEncoderLeft().reset();
+        subsystem.getEncoderRight().reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
