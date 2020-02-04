@@ -43,8 +43,6 @@ public class Robot extends TimedRobot {
   private WheelManipulator wheelManipulator;
   private OI oi;
 
-  private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-  private double gyroValue;
 
 
   // Test stuff
@@ -67,7 +65,6 @@ public class Robot extends TimedRobot {
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
     camera.setExposureManual(3);
-    gyro.calibrate();
   }
 
   /**
@@ -93,32 +90,6 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     
 
-    System.out.println(gyro.getAngle()+","+gyro.getRate());
-
-    double remainder = gyro.getAngle() % 360;
-    gyroValue = gyro.getAngle() / remainder;
-
-    // TEST THING for turning 90 degrees
-    double endTurn;
-    if (testGyroSet)
-    {
-      endTurn = gyro.getAngle() + 90.0;
-    }
-    else
-    {
-      endTurn = 0;
-    }
-    if (OI.leftButton7.get())
-    {
-      if (gyro.getAngle() < endTurn)
-      {
-        m_robotContainer.getDriveTank().turnFullSP();
-      }
-      else
-      {
-        m_robotContainer.getDriveTank().FullStop();;
-      }
-    }
     //
     //Important Will Kill the whole thing if it is not commented out 
     //Only uncomment for testing purposes

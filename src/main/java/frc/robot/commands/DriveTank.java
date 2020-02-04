@@ -28,6 +28,7 @@ public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain drivetrain;
     private final Timer timer;
+    private double endTurn;
 
     /**
      * Creates a new ExampleCommand.
@@ -45,8 +46,9 @@ public class DriveTank extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivetrain.getEncoder().reset();
+        drivetrain.getEncoderLeft().reset();
         timer.reset();
+        endTurn = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -62,8 +64,28 @@ public class DriveTank extends CommandBase {
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
 //
-       drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-       drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+        if(OI.joystick1.getRawButtonPressed(7)){
+            endTurn = drivetrain.getGyro().getAngle() + 90.0;
+        }
+        if(OI.joystick1.getRawButton(7)){
+            System.out.println(drivetrain.getGyro().getAngle()+","+drivetrain.getGyro().getRate());
+
+            // TEST THING for turning 90 degrees
+            if (drivetrain.getGyro().getAngle() % 360 < endTurn)
+            {
+                drivetrain.rdrive(-0.25);
+                drivetrain.ldrive(0.25);
+            }
+            else
+            {
+                drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
+                drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+            }
+        }
+        else{
+            drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
+            drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+        }
 
 //        if (OI.joystick1.getTriggerPressed()) {
 //            if (Robot.getCoordinates().length > 0) {

@@ -13,7 +13,9 @@ package frc.robot.subsystems;
 //import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
@@ -33,8 +35,9 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class Drivetrain extends SubsystemBase {
 
     public VictorSPX left1, left2, right1, right2;
-    private Encoder encoderLeft = new Encoder(0, 1);
-    private Encoder encoderRight = new Encoder(2, 3);
+    private Encoder encoderLeft = new Encoder(2, 3);
+    private Encoder encoderRight = new Encoder(0, 1);
+    private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
 
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
@@ -53,6 +56,8 @@ public class Drivetrain extends SubsystemBase {
         //link the command to the subsystem
         setDefaultCommand(new DriveTank(this));
 
+        gyro.calibrate();
+
         //set up the distance to pulse ratio for each of the two encoders.
         encoderLeft.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
         encoderRight.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
@@ -69,14 +74,16 @@ public class Drivetrain extends SubsystemBase {
         left2.set(ControlMode.PercentOutput, speed);
     }
 
-    //returns the left encoder (in ports 0 and 1)
-    public Encoder getEncoderLeft(){
-        return encoderLeft;
-    }
+    //returns the left encoder (in ports 2 and 3)
+    public Encoder getEncoderLeft() {return encoderLeft;}
 
-    //returns the right encoder (in ports 2 and 3)
+    //returns the right encoder (in ports 0 and 1)
     public Encoder getEncoderRight() {
         return encoderRight;
+    }
+
+    public Gyro getGyro() {
+        return gyro;
     }
 
     @Override

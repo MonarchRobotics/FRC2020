@@ -51,8 +51,8 @@ public class DriveAuto extends CommandBase {
     public void initialize() {
 
         //reset the values of the encoders to zero.
-        subsystem.getEncoderLeft().reset();
         subsystem.getEncoderRight().reset();
+        subsystem.getEncoderLeft().reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -61,7 +61,7 @@ public class DriveAuto extends CommandBase {
         //travel at the travelSpeed
         subsystem.rdrive(travelSpeed);
         subsystem.ldrive(travelSpeed);
-        System.out.println(subsystem.getEncoderLeft().getDistance()+"revolutions");
+        System.out.println(subsystem.getEncoderRight().getDistance()+"revolutions");
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
@@ -75,6 +75,6 @@ public class DriveAuto extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.getEncoderLeft().getDistance()>distanceToTravel;
+        return subsystem.getEncoderRight().getDistance()>distanceToTravel;
     }
 }
