@@ -41,12 +41,8 @@ public class DriveAuto extends CommandBase {
         this.subsystem = subsystem;
         timer = new Timer();
 
-        distanceToTravel = 48;
+        distanceToTravel = 2;//for now this is # of rotations, eventually this will be in inches
         travelSpeed = 0.3;
-        seconds = Constants.getTimeToTravelDistance(distanceToTravel, travelSpeed);
-        // seconds = 1.3;
-
-
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -58,8 +54,6 @@ public class DriveAuto extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
-        System.out.println("Distance: "+Constants.getDistanceFromTime(seconds, travelSpeed));
-
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -67,6 +61,7 @@ public class DriveAuto extends CommandBase {
     public void execute() {
         subsystem.rdrive(travelSpeed);
         subsystem.ldrive(travelSpeed);
+        System.out.println(subsystem.getEncoderLeft().getDistance()+"revolutions");
     }
 
     // Called once the command ends or is interrupted.
@@ -79,6 +74,6 @@ public class DriveAuto extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.get()>seconds;
+        return subsystem.getEncoderLeft().getDistance()>distanceToTravel;
     }
 }

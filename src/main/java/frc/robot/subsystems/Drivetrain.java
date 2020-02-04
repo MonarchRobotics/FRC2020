@@ -13,6 +13,7 @@ package frc.robot.subsystems;
 //import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 //import com.ctre.phoenix.motorcontrol.can.BaseMotorController.*;
@@ -32,6 +33,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class Drivetrain extends SubsystemBase {
 
     public VictorSPX left1, left2, right1, right2;
+    private Encoder encoderLeft = new Encoder(0, 1);
+    private Encoder encoderRight = new Encoder(2, 3);
 
 
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
@@ -45,6 +48,8 @@ public class Drivetrain extends SubsystemBase {
         right2.setNeutralMode(NeutralMode.Brake);
         right1.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new DriveTank(this));
+        encoderLeft.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually when its in inches using Math.PI * Diameter
+        encoderRight.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually when its in inches using Math.PI * Diameter
     }
     
     public void rdrive(double speed){
@@ -56,6 +61,14 @@ public class Drivetrain extends SubsystemBase {
         // Sets the left motors speed %output.
         left1.set(ControlMode.PercentOutput, speed);
         left2.set(ControlMode.PercentOutput, speed);
+    }
+
+    public Encoder getEncoderLeft(){
+        return encoderLeft;
+    }
+
+    public Encoder getEncoderRight() {
+        return encoderRight;
     }
 
     @Override

@@ -28,7 +28,6 @@ public class DriveTank extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain drivetrain;
     private final Timer timer;
-    Encoder encoder = new Encoder(0, 1);
 
     /**
      * Creates a new ExampleCommand.
@@ -40,13 +39,13 @@ public class DriveTank extends CommandBase {
         timer = new Timer();
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(drive);
-        encoder.setDistancePerPulse(1.0/2048.0);
+
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        encoder.reset();
+        drivetrain.getEncoder().reset();
         timer.reset();
     }
 
