@@ -43,13 +43,19 @@ public class Drivetrain extends SubsystemBase {
         left2 = new VictorSPX(Left2);
         right1 = new VictorSPX(Right1);
         right2 = new VictorSPX(Right2);
+
+        //Enables break mode for all of our motors so it doesn't destroy itself.
         left2.setNeutralMode(NeutralMode.Brake);
         left1.setNeutralMode(NeutralMode.Brake);
         right2.setNeutralMode(NeutralMode.Brake);
         right1.setNeutralMode(NeutralMode.Brake);
+
+        //link the command to the subsystem
         setDefaultCommand(new DriveTank(this));
-        encoderLeft.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually when its in inches using Math.PI * Diameter
-        encoderRight.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually when its in inches using Math.PI * Diameter
+
+        //set up the distance to pulse ratio for each of the two encoders.
+        encoderLeft.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
+        encoderRight.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
     }
     
     public void rdrive(double speed){
@@ -63,10 +69,12 @@ public class Drivetrain extends SubsystemBase {
         left2.set(ControlMode.PercentOutput, speed);
     }
 
+    //returns the left encoder (in ports 0 and 1)
     public Encoder getEncoderLeft(){
         return encoderLeft;
     }
 
+    //returns the right encoder (in ports 2 and 3)
     public Encoder getEncoderRight() {
         return encoderRight;
     }
