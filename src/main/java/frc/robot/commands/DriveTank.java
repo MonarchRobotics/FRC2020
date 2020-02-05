@@ -56,7 +56,7 @@ public class DriveTank extends CommandBase {
 
         // Initialize turning a certain degree
         turnEndCheck = 0;
-        turnUpCheck = false;
+       
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -96,7 +96,6 @@ public class DriveTank extends CommandBase {
             }
             else
             {
-                turnUpCheck = false;
                 drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
             }
