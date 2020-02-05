@@ -46,16 +46,23 @@ public class DriveTank extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivetrain.getEncoderLeft().reset();
+        drivetrain.getEncoderRight().reset();
         timer.reset();
-        endTurn = 0;
+        drivetrain.getGyro().reset();
+        // endTurn = 0;
+        endTurn = drivetrain.getGyro().getAngle() + 45;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        // System.out.println(drivetrain.getEncoderRight().getDistance());
+        // System.out.println("L"+drivetrain.getEncoderLeft().getDistance());
+
         
-        double rotateTime;
+        // double rotateTime;
+
+        System.out.println(drivetrain.getGyro().getAngle());
         // encoder.reset();
 
         // System.out.println("D: "+encoder.getDistance());
@@ -64,14 +71,14 @@ public class DriveTank extends CommandBase {
 //            drivetrain.ldrive(OI.joystick1.getY());
 //            drivetrain.rdrive(OI.joystick2.getY());
 //
-        if(OI.joystick1.getRawButtonPressed(7)){
-            endTurn = drivetrain.getGyro().getAngle() + 90.0;
-        }
-        if(OI.joystick1.getRawButton(7)){
-            System.out.println(drivetrain.getGyro().getAngle()+","+drivetrain.getGyro().getRate());
+        // if(OI.leftButton7.get()){
+            
+        // }
+        if(OI.leftButton7.get()){
+            
 
             // TEST THING for turning 90 degrees
-            if (drivetrain.getGyro().getAngle() % 360 < endTurn)
+            if (drivetrain.getGyro().getAngle() % 360 < endTurn )
             {
                 drivetrain.rdrive(-0.25);
                 drivetrain.ldrive(0.25);

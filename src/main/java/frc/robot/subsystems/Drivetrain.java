@@ -59,8 +59,8 @@ public class Drivetrain extends SubsystemBase {
         gyro.calibrate();
 
         //set up the distance to pulse ratio for each of the two encoders.
-        encoderLeft.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
-        encoderRight.setDistancePerPulse(1.0/2048.0);//this should be 1 rotation, eventually will be converted to inches
+        encoderLeft.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
+        encoderRight.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
     }
     
     public void rdrive(double speed){
@@ -70,8 +70,8 @@ public class Drivetrain extends SubsystemBase {
     }
     public void ldrive(double speed){
         // Sets the left motors speed %output.
-        left1.set(ControlMode.PercentOutput, speed);
-        left2.set(ControlMode.PercentOutput, speed);
+        left1.set(ControlMode.PercentOutput, speed*0.99);
+        left2.set(ControlMode.PercentOutput, speed*0.99);
     }
 
     //returns the left encoder (in ports 2 and 3)

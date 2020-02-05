@@ -38,8 +38,8 @@ public class DriveAuto extends CommandBase {
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
 
-        distanceToTravel = 2;//for now this is # of rotations, eventually this will be in inches
-        travelSpeed = 0.3;
+        distanceToTravel = 69.0;//for now this is # of rotations, eventually this will be in inches
+        travelSpeed = 0.5;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -75,6 +75,6 @@ public class DriveAuto extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.getEncoderRight().getDistance()>distanceToTravel;
+        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
     }
 }
