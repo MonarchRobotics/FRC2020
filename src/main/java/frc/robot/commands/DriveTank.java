@@ -30,6 +30,8 @@ public class DriveTank extends CommandBase {
     private final Timer timer;
     private double endTurn;
 
+    private int turnEndCheck;
+
     /**
      * Creates a new ExampleCommand.
      *
@@ -51,6 +53,10 @@ public class DriveTank extends CommandBase {
         drivetrain.getGyro().reset();
         // endTurn = 0;
         endTurn = drivetrain.getGyro().getAngle() + 45;
+
+        // Initialize turning a certain degree
+        turnEndCheck = 0;
+        turnUpCheck = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -78,13 +84,19 @@ public class DriveTank extends CommandBase {
             
 
             // TEST THING for turning 90 degrees
-            if (drivetrain.getGyro().getAngle() % 360 < endTurn )
+            if (drivetrain.getGyro().getAngle() % 360 < endTurn && turnEndCheck < 4)
             {
+                turnEndCheck = 0;
                 drivetrain.rdrive(-0.25);
                 drivetrain.ldrive(0.25);
             }
+            else if (drivetrain.getGyro().getAngle() % 360 > endTurn)
+            {
+                turnEndCheck++;
+            }
             else
             {
+                turnUpCheck = false;
                 drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
             }
