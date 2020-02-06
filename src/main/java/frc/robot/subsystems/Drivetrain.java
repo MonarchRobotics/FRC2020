@@ -66,9 +66,11 @@ public class Drivetrain extends SubsystemBase {
     // Makes a ramp up instead of just making a speed
     private double speedRamp(double speed)
     {
+        //return speed;
+
         double speedPrime;
 
-        speedPrime = Math.pow(speed, 3);
+        speedPrime = Math.sin(-Math.PI/2*speed);
         return speedPrime;
     }
 
