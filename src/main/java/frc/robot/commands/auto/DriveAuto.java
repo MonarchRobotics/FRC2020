@@ -59,9 +59,15 @@ public class DriveAuto extends CommandBase {
     @Override
     public void execute() {
         //travel at the travelSpeed
-        subsystem.rdrive(travelSpeed);
-        subsystem.ldrive(travelSpeed);
-        System.out.println(subsystem.getEncoderRight().getDistance()+"revolutions");
+        if(distanceToTravel<0){
+            subsystem.rdrive(travelSpeed);
+            subsystem.ldrive(travelSpeed);
+        }
+        else{
+            subsystem.rdrive(travelSpeed);
+            subsystem.ldrive(travelSpeed);
+        }
+        System.out.println(subsystem.getEncoderRight().getDistance()+"in");
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving

@@ -68,7 +68,7 @@ public class DriveTank extends CommandBase {
         
         // double rotateTime;
 
-        System.out.println(drivetrain.getGyro().getAngle());
+        // System.out.println(drivetrain.getGyro().getAngle());
         // encoder.reset();
 
         // System.out.println("D: "+encoder.getDistance());

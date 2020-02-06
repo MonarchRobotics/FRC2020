@@ -24,6 +24,8 @@ public static JoystickButton leftButton7;
     // Buttons for the LEFT joystick
     public static JoystickButton leftButton2;
 
+    public static JoystickButton rightButton8, rightButton9;
+
     // joystick 1 buttons
     // public static JoystickButton button1;
 
@@ -45,6 +47,10 @@ public static JoystickButton leftButton7;
 
         // Test turn to a certain attitude
         leftButton7 = new JoystickButton(joystick2, 7);
+
+        rightButton8 = new JoystickButton(joystick1,8);
+        rightButton9 = new JoystickButton(joystick1,9);
+
     }
 
     /* Creats a dead zone for the joysticks/triggers that must be 
