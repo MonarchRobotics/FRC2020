@@ -62,16 +62,27 @@ public class Drivetrain extends SubsystemBase {
         encoderLeft.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
         encoderRight.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
     }
-    
+
+    // Makes a ramp up instead of just making a speed
+    private double speedRamp(double speed)
+    {
+        double speedPrime;
+
+        speedPrime = Math.pow(speed, 3);
+        return speedPrime;
+    }
+
+
     public void rdrive(double speed){
         // Sets the right motors speed %output.
-        right1.set(ControlMode.PercentOutput, -speed);
-        right2.set(ControlMode.PercentOutput, -speed);
+        right1.set(ControlMode.PercentOutput, -speedRamp(speed));
+        right2.set(ControlMode.PercentOutput, -speedRamp(speed));
     }
     public void ldrive(double speed){
         // Sets the left motors speed %output.
-        left1.set(ControlMode.PercentOutput, speed*0.99);
-        left2.set(ControlMode.PercentOutput, speed*0.99);
+        // The speed * 0.99 is to ajust the speed because the left moves slightly faster than the right
+        left1.set(ControlMode.PercentOutput, speedRamp(speed)*0.99);
+        left2.set(ControlMode.PercentOutput, speedRamp(speed)*0.99);
     }
 
     //returns the left encoder (in ports 2 and 3)
