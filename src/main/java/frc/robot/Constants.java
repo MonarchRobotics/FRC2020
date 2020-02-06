@@ -36,7 +36,7 @@ public final class Constants {
     private static final int wheelOfFortunePort = 10;
 
     // Ball intake and roller coaster ports
-    private static final int ballIntakePort = 5;
+    private static final int ballIntakePort = 9;
     private static final int internalManipulation = 6;
 
     private static final double distanceAuto = 125.0;//in/sec at 100% power

@@ -33,6 +33,8 @@ public class BallSuck extends SubsystemBase {
     intakeS = false;
     Handle = new TalonSRX(handle);
     handleS = false;
+
+    setDefaultCommand(new BallIntake(this));
   }
 
   // System based on toggle for the intake and internal handling of the balls
@@ -41,7 +43,7 @@ public class BallSuck extends SubsystemBase {
   // Initiate motor/systems
   public void turnOnIntake()
   {
-    Intake.set(1);
+    Intake.set(0.40);
     intakeS = true;
   }
   public void turnOffIntake()

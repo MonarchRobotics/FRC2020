@@ -51,6 +51,7 @@ public class BallIntake extends CommandBase {
     // If neither neither are on
     if (OI.rightButton2.get())
     {
+      System.out.println("Button pressed");
       ballSuck.turnOnIntake();
       ballSuck.turnOnHandle();
     }
