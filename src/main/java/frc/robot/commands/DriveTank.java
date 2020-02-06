@@ -96,11 +96,13 @@ public class DriveTank extends CommandBase {
             }
             else
             {
+                turnEndCheck = 0;
                 drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
             }
         }
         else{
+            turnEndCheck = 0;
             drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
             drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
         }
