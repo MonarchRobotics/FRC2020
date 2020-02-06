@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.BallIntake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
+
 
 /**
  * Subsystem for ball intake system
@@ -19,7 +21,7 @@ public class BallSuck extends SubsystemBase {
 
   
   // Motor to intake balls into the chassis
-  private TalonSRX Intake;
+  private Talon Intake;
   private boolean intakeS;
   // Motor for handling the balls inside the chassy
   private TalonSRX Handle;
@@ -27,7 +29,7 @@ public class BallSuck extends SubsystemBase {
 
   public BallSuck(int intake, int handle) {
 
-    Intake = new TalonSRX(intake);
+    Intake = new Talon(intake);
     intakeS = false;
     Handle = new TalonSRX(handle);
     handleS = false;
@@ -39,12 +41,12 @@ public class BallSuck extends SubsystemBase {
   // Initiate motor/systems
   public void turnOnIntake()
   {
-    Intake.set(ControlMode.PercentOutput,1);
+    Intake.set(1);
     intakeS = true;
   }
   public void turnOffIntake()
   {
-    Intake.set(ControlMode.PercentOutput, 0);
+    Intake.set(0);
     intakeS = false;
   }
 
