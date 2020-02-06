@@ -43,7 +43,7 @@ public final class Constants {
     private static final double rotationAuto = 1.6; //rotations/sec at 100% power
 
     //Constants for Deadzone
-    private static final double deadZone = 0.05;
+    private static final double deadZone = 0.1;
     
 
     
