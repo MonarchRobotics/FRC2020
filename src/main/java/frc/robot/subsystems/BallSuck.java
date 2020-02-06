@@ -57,7 +57,7 @@ public class BallSuck extends SubsystemBase {
   // Stops the motors
   public void turnOnHandle()
   {
-    Handle.set(ControlMode.PercentOutput,1);
+    Handle.set(ControlMode.PercentOutput, .25);
     handleS = true;
   }
   public void turnOffHandle()

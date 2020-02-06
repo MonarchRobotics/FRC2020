@@ -70,7 +70,7 @@ public class Drivetrain extends SubsystemBase {
 
         double speedPrime;
 
-        speedPrime = Math.sin(-Math.PI/2*speed);
+        speedPrime = Math.sin(Math.PI/2*speed);
         return speedPrime;
     }
 
