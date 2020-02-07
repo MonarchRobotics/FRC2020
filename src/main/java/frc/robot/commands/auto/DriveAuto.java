@@ -38,7 +38,7 @@ public class DriveAuto extends CommandBase {
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
 
-        distanceToTravel = 69.0;//for now this is # of rotations, eventually this will be in inches
+        distanceToTravel = 69.0;
         travelSpeed = 0.5;
 
         // Use addRequirements() here to declare subsystem dependencies.

@@ -15,7 +15,7 @@ import frc.robot.subsystems.WheelManipulator;
 public class AutoGroup extends SequentialCommandGroup {
     public AutoGroup(Turret turret, Drivetrain drivetrain){
         //Sequentially runs SpinWheel, then DriveAuto
-        addCommands(new DriveStraight(drivetrain,48));
+        addCommands(new DriveStraight(drivetrain,48,0.5));
 //        addCommands(new AutoShootBall(turret), new DriveAuto(drivetrain));
     }
 }

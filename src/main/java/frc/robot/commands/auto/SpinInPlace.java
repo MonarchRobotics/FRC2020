@@ -16,21 +16,24 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * The auto command to drive forward
  */
-public class DriveStraight extends CommandBase {
+public class SpinInPlace extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
-    double distanceToTravel;
-    double travelSpeed;
+    double degrees;
+    double speed;
+    double initialGyro;
 
     /**
      * @param subsystem The subsystem used by this command.
      */
-    public DriveStraight(Drivetrain subsystem, double distance, double speed) {
+    public SpinInPlace(Drivetrain subsystem, int degrees, double speed) {
         this.subsystem = subsystem;
 
-        distanceToTravel = distance;
-        travelSpeed = speed;
-
+        this.degrees = degrees;//positive means to turn right, negative is turning left
+        this.speed = speed;
+        if(degrees<0){
+            speed = -1;
+        }
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
 
@@ -39,34 +42,17 @@ public class DriveStraight extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
-        //reset the values of the encoders to zero.
-        subsystem.getEncoderRight().reset();
-        subsystem.getEncoderLeft().reset();
+        //for now we're not resetting the gyroscope, but we may eventually
+//        subsystem.getGyro().getAngle();
+        initialGyro = subsystem.getGyro().getAngle();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
         //travel at the travelSpeed
-        double rightSpeed = travelSpeed;
-        double leftSpeed = travelSpeed;
-
-        double leftEnc = subsystem.getEncoderLeft().getDistance();
-        double rightEnc = subsystem.getEncoderRight().getDistance();
-        if(distanceToTravel<0){
-            rightSpeed*=-1;
-            leftSpeed*=-1;
-        }
-        if(rightEnc>leftEnc){
-            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)*10);
-        }
-        else if(rightEnc<leftEnc){
-            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)*10);
-        }
-        subsystem.ldrive(leftSpeed);
-        subsystem.rdrive(rightSpeed);
-        System.out.println(subsystem.getEncoderRight().getDistance()+"in");
+        subsystem.ldrive(speed);
+        subsystem.rdrive(speed);
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
@@ -80,6 +66,6 @@ public class DriveStraight extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
+        return ;
     }
 }
