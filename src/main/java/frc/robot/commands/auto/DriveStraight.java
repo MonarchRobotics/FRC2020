@@ -8,25 +8,15 @@
 package frc.robot.commands.auto;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
-import frc.robot.commands.DriveTank;
-import frc.robot.subsystems.Drivetrain;
-
-
-import frc.robot.OI;
-
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.Timer;
 
 
 /**
  * The auto command to drive forward
  */
-public class DriveAuto extends CommandBase {
+public class DriveStraight extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
     double distanceToTravel;
@@ -35,10 +25,10 @@ public class DriveAuto extends CommandBase {
     /**
      * @param subsystem The subsystem used by this command.
      */
-    public DriveAuto(Drivetrain subsystem) {
+    public DriveStraight(Drivetrain subsystem, int distance) {
         this.subsystem = subsystem;
 
-        distanceToTravel = 69.0;//for now this is # of rotations, eventually this will be in inches
+        distanceToTravel = distance;//for now this is # of rotations, eventually this will be in inches
         travelSpeed = 0.5;
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -59,14 +49,23 @@ public class DriveAuto extends CommandBase {
     @Override
     public void execute() {
         //travel at the travelSpeed
+        double rightSpeed = travelSpeed;
+        double leftSpeed = travelSpeed;
+
+        double leftEnc = subsystem.getEncoderLeft().getDistance();
+        double rightEnc = subsystem.getEncoderRight().getDistance();
         if(distanceToTravel<0){
-            subsystem.rdrive(-travelSpeed);
-            subsystem.ldrive(-travelSpeed);
+            rightSpeed*=-1;
+            leftSpeed*=-1;
         }
-        else{
-            subsystem.rdrive(travelSpeed);
-            subsystem.ldrive(travelSpeed);
+        if(rightEnc>leftEnc){
+            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)*10);
         }
+        else if(rightEnc<leftEnc){
+            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)*10);
+        }
+        subsystem.ldrive(leftSpeed);
+        subsystem.rdrive(rightSpeed);
         System.out.println(subsystem.getEncoderRight().getDistance()+"in");
     }
 
