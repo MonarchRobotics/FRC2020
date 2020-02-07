@@ -70,7 +70,10 @@ public class BallIntake extends CommandBase {
     }
   }
 
-  
+  public BallSuck getBallSuck()
+  {
+    return ballSuck;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
