@@ -29,7 +29,7 @@ public class RobotContainer {
    private final WheelManipulator wheelManipulator = new WheelManipulator(Constants.getWheelOfFortunePort()); //change back to constant spinnerPort
    private final Turret turret = new Turret(Constants.getShooterPort1(),Constants.getShooterPort2(),Constants.getShooterInputPort());
   // private final PullUp pullup = new PullUp(0, 1);
-  private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
+  private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation()/*, Constants.getintakeRelease(), Constants.getpulseTimer()*/);
 
   private final DriveTank driveTank = new DriveTank(drivetrain);
   // private final Shoot shooter = new Shoot(turret);

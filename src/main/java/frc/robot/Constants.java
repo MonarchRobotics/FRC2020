@@ -37,10 +37,15 @@ public final class Constants {
 
     // Ball intake and roller coaster ports
     private static final int ballIntakePort = 9;
+    // Ball intake release solenoid for the start of the match
+    private static final int intakeRelease = 11;
     private static final int internalManipulation = 6;
 
     private static final double distanceAuto = 125.0;//in/sec at 100% power
     private static final double rotationAuto = 1.6; //rotations/sec at 100% power
+
+    // Pulse time for solenoid for intake release
+    private static final double pulseTimer = 2;
 
     //Constants for Deadzone
     private static final double deadZone = 0.1;
@@ -75,9 +80,18 @@ public final class Constants {
     {
         return ballIntakePort;
     }
+    public static int getintakeRelease()
+    {
+        return intakeRelease;
+    }
     public static int getInternalManipulation()
     {
         return internalManipulation;
+    }
+    // Pulse time 
+    public static double getpulseTimer()
+    {
+        return pulseTimer;
     }
 
     public static int getWheelOfFortunePort() {

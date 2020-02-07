@@ -12,6 +12,7 @@ import frc.robot.commands.BallIntake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Solenoid;
 
 
 /**
@@ -27,18 +28,27 @@ public class BallSuck extends SubsystemBase {
   private TalonSRX Handle;
   private boolean handleS;
 
-  public BallSuck(int intake, int handle) {
+  // The extending solenoid 
+  //private Solenoid release;
+
+  public BallSuck(int intake, int handle/*, int releasePort, double pulseDuration*/) {
 
     Intake = new Talon(intake);
     intakeS = false;
     Handle = new TalonSRX(handle);
     handleS = false;
 
+    //release = new Solenoid(releasePort);
+    //release.setPulseDuration(pulseDuration);
+
     setDefaultCommand(new BallIntake(this));
   }
 
   // System based on toggle for the intake and internal handling of the balls
-
+  /*public void activateRelease()
+  {
+    release.startPulse();
+  }*/
 
   // Initiate motor/systems
   public void turnOnIntake()
