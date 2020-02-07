@@ -45,7 +45,7 @@ public final class Constants {
     private static final double rotationAuto = 1.6; //rotations/sec at 100% power
 
     // Pulse time for solenoid for intake release
-    private static final double pulseTimer = 2;
+    private static final double pulseTimer = 0.1;
 
     //Constants for Deadzone
     private static final double deadZone = 0.1;
