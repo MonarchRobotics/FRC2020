@@ -52,7 +52,7 @@ public class SpinInPlace extends CommandBase {
     public void execute() {
         //travel at the travelSpeed
         subsystem.ldrive(speed);
-        subsystem.rdrive(speed);
+        subsystem.rdrive(-speed);
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
@@ -65,7 +65,7 @@ public class SpinInPlace extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //returns false until we have traveled the correct distance on the encoders.
-        return ;
+        //returns false until we have spun the correct amount
+        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)>degrees - 30*Math.abs(speed);
     }
 }
