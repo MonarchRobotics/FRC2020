@@ -29,26 +29,32 @@ public class BallSuck extends SubsystemBase {
   private boolean handleS;
 
   // The extending solenoid 
-  //private Solenoid release;
+  private Solenoid release;
+  private boolean Released = false;
 
-  public BallSuck(int intake, int handle/*, int releasePort, double pulseDuration*/) {
+  public BallSuck(int intake, int handle, int releasePort, double pulseDuration) {
 
     Intake = new Talon(intake);
     intakeS = false;
     Handle = new TalonSRX(handle);
     handleS = false;
 
-    //release = new Solenoid(releasePort);
-    //release.setPulseDuration(pulseDuration);
+    release = new Solenoid(releasePort);
+    release.setPulseDuration(pulseDuration);
 
     setDefaultCommand(new BallIntake(this));
   }
 
   // System based on toggle for the intake and internal handling of the balls
-  /*public void activateRelease()
+  public void activateRelease()
   {
     release.startPulse();
-  }*/
+    Released = true;
+  }
+  public boolean activatedRelease()
+  {
+    return Released;
+  }
 
   // Initiate motor/systems
   public void turnOnIntake()
