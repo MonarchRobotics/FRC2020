@@ -21,6 +21,6 @@ public class AutoGroup extends SequentialCommandGroup {
         //        addCommands(new AutoShootBall(turret), new DriveAuto(drivetrain));
 
         // Moves the intake out of the frame perimiter
-        addCommands(new GetOutOfFrame(ballsuck));
+        // addCommands(new GetOutOfFrame(ballsuck));
     }
 }

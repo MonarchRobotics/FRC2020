@@ -20,12 +20,12 @@ import frc.robot.commands.Shoot;
 public class Turret extends SubsystemBase {
 
     private VictorSPX wheel;
-    private VictorSPX wheel2;
+    private TalonSRX wheel2;
     private TalonSRX inputWheel;
 
     public Turret(int wheelPort, int wheel2Port, int inputWheelPort) {
         wheel = new VictorSPX(wheelPort);
-        wheel2= new VictorSPX(wheel2Port);
+        wheel2= new TalonSRX(wheel2Port);
 
         inputWheel = new TalonSRX(inputWheelPort);
         
@@ -38,7 +38,7 @@ public class Turret extends SubsystemBase {
 
     public VictorSPX getWheelMotor() { return wheel;}
 
-    public VictorSPX getWheel2Motor() { return wheel2;}
+    public TalonSRX getWheel2Motor() { return wheel2;}
 
     public TalonSRX getInputWheelMotor() { return inputWheel;}
     // @Override

@@ -39,8 +39,8 @@ public class BallSuck extends SubsystemBase {
     Handle = new TalonSRX(handle);
     handleS = false;
 
-    release = new Solenoid(releasePort);
-    release.setPulseDuration(pulseDuration);
+    // release = new Solenoid(releasePort);
+    // release.setPulseDuration(pulseDuration);
 
     setDefaultCommand(new BallIntake(this));
   }

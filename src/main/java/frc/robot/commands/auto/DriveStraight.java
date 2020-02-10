@@ -54,6 +54,8 @@ public class DriveStraight extends CommandBase {
 
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
+
+        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
         if(distanceToTravel<0){
             rightSpeed*=-1;
             leftSpeed*=-1;

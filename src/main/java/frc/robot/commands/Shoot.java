@@ -57,8 +57,8 @@ public class Shoot extends CommandBase {
     public void execute() {
         //If both triggers are pulled, motors run.
         if (OI.joystick1.getTrigger() && OI.joystick2.getTrigger()){
-            turret.getWheelMotor().set(ControlMode.PercentOutput, 1.0);
-            turret.getWheel2Motor().set(ControlMode.PercentOutput, 1.0);
+            turret.getWheelMotor().set(ControlMode.PercentOutput, -0.75);
+            turret.getWheel2Motor().set(ControlMode.PercentOutput, 0.75);
             
             // Waits a moment for shooter to spin up
             if (timerStart)
