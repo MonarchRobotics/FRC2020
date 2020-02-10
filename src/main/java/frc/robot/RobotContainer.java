@@ -27,7 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
    private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort1(), Constants.getLeftWheelPort2(), Constants.getRightWheelPort1(), Constants.getRightWheelPort2());
    private final WheelManipulator wheelManipulator = new WheelManipulator(Constants.getWheelOfFortunePort()); //change back to constant spinnerPort
-   private final Turret turret = new Turret(Constants.getShooterPort1(),Constants.getShooterPort2(),Constants.getShooterInputPort());
+   private final Turret turret = new Turret(Constants.getShooterPort1(),Constants.getShooterInputPort());
   // private final PullUp pullup = new PullUp(0, 1);
   private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation(), Constants.getintakeRelease(), Constants.getpulseTimer());
 

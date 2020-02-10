@@ -32,7 +32,7 @@ public class AutoShootBall extends CommandBase {
             subsystem.getInputWheelMotor().set(ControlMode.PercentOutput,1);
         }
 
-        subsystem.getWheel2Motor().set(ControlMode.PercentOutput,1);
+        // subsystem.getWheel2Motor().set(ControlMode.PercentOutput,1);
         subsystem.getWheelMotor().set(ControlMode.PercentOutput,1);
 
     }
