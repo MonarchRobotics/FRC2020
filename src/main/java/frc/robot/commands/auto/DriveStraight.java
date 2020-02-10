@@ -61,10 +61,10 @@ public class DriveStraight extends CommandBase {
             leftSpeed*=-1;
         }
         if(rightEnc>leftEnc){
-            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)*10);
+            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
         }
         else if(rightEnc<leftEnc){
-            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)*10);
+            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)/10.0);
         }
         subsystem.ldrive(leftSpeed);
         subsystem.rdrive(rightSpeed);
