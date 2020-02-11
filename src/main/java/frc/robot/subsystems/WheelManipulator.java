@@ -27,16 +27,16 @@ public class WheelManipulator extends SubsystemBase {
 
     private DoubleSolenoid controlSolenoid;
 
-    public WheelManipulator(int spinnerPort, int openChannel, int closeChannel) {
+    public WheelManipulator(int spinnerPort) {
         spinner = new TalonSRX(spinnerPort);
         spinner.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new WheelOfFortune(this));
-        controlSolenoid = new DoubleSolenoid(openChannel, closeChannel);
+//        controlSolenoid = new DoubleSolenoid(openChannel, closeChannel);
     }
 
-    public void DropWheel(){controlSolenoid.set(DoubleSolenoid.Value.kForward);}
+//    public void DropWheel(){controlSolenoid.set(DoubleSolenoid.Value.kForward);}
 
-    public void PullWheel(){controlSolenoid.set(DoubleSolenoid.Value.kReverse);}
+//    public void PullWheel(){controlSolenoid.set(DoubleSolenoid.Value.kReverse);}
 
     public DoubleSolenoid.Value getValue(){return controlSolenoid.get();}
 

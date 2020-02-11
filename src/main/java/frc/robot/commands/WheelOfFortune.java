@@ -79,8 +79,8 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
-    boolean bButton = OI.xboxController.getBButtonPressed();
-    boolean xButton = OI.xboxController.getXButtonPressed();
+    boolean bButton = OI.joystick1.getRawButtonPressed(8);
+    boolean xButton = OI.joystick1.getRawButtonPressed(9);
     //button checking to activate the two modes
     if(bButton && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
@@ -120,6 +120,7 @@ public class WheelOfFortune extends CommandBase {
     }
     else if(doingRotation){
       subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,1.0);
+      System.out.println(detectedColor);
       if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
         System.out.println(detectedColor);

@@ -19,20 +19,27 @@ import frc.robot.commands.Shoot;
  */
 public class Turret extends SubsystemBase {
 
-    private VictorSPX wheel;
-    private VictorSPX wheel2;
+    private TalonSRX wheel;
+    private TalonSRX inputWheel;
 
-    public Turret(int wheelPort, int wheel2Port) {
-        wheel = new VictorSPX(wheelPort);
-        wheel2= new VictorSPX(wheel2Port);
+    public Turret(int wheelPort, int inputWheelPort) {
+        wheel = new TalonSRX(wheelPort);
+        // wheel2= new TalonSRX(wheel2Port);
+
+        inputWheel = new TalonSRX(inputWheelPort);
+        
         wheel.setNeutralMode(NeutralMode.Brake);
-        wheel2.setNeutralMode(NeutralMode.Brake);
+        // wheel2.setNeutralMode(NeutralMode.Brake);
+
+        
         setDefaultCommand(new Shoot(this));
     }
 
-    public VictorSPX getWheelMotor() { return wheel; }
+    public TalonSRX getWheelMotor() { return wheel;}
 
-    public VictorSPX getWheel2Motor() { return wheel2;}
+    // public TalonSRX getWheel2Motor() { return wheel2;}
+
+    public TalonSRX getInputWheelMotor() { return inputWheel;}
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());

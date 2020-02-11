@@ -11,45 +11,73 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.BallIntake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Solenoid;
 
-//Subsystem for ball intake system
+
+/**
+ * Subsystem for ball intake system
+ */
 public class BallSuck extends SubsystemBase {
 
   
   // Motor to intake balls into the chassis
-  private TalonSRX Intake;
+  private Talon Intake;
   private boolean intakeS;
+  // Motor for handling the balls inside the chassy
   private TalonSRX Handle;
   private boolean handleS;
 
-  public BallSuck(int intake, int handle) {
+  // The extending solenoid 
+  private Solenoid release;
+  private boolean Released = false;
 
-    Intake = new TalonSRX(intake);
+  public BallSuck(int intake, int handle, int releasePort, double pulseDuration) {
+
+    Intake = new Talon(intake);
     intakeS = false;
     Handle = new TalonSRX(handle);
     handleS = false;
+
+    // release = new Solenoid(releasePort);
+    // release.setPulseDuration(pulseDuration);
+
+    setDefaultCommand(new BallIntake(this));
   }
 
+  // System based on toggle for the intake and internal handling of the balls
+  public void activateRelease()
+  {
+    release.startPulse();
+    Released = true;
+  }
+  public boolean activatedRelease()
+  {
+    return Released;
+  }
+
+  // Initiate motor/systems
   public void turnOnIntake()
   {
-    Intake.set(ControlMode.PercentOutput,1);
+    Intake.set(0.40);
     intakeS = true;
   }
   public void turnOffIntake()
   {
-    Intake.set(ControlMode.PercentOutput, 0);
+    Intake.set(0);
     intakeS = false;
   }
 
+  
   public boolean intakeStat()
   {
     return intakeS;
   }
 
-
+  // Stops the motors
   public void turnOnHandle()
   {
-    Handle.set(ControlMode.PercentOutput,1);
+    Handle.set(ControlMode.PercentOutput, .25);
     handleS = true;
   }
   public void turnOffHandle()

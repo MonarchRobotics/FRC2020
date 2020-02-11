@@ -26,18 +26,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
    private final Drivetrain drivetrain = new Drivetrain(Constants.getLeftWheelPort1(), Constants.getLeftWheelPort2(), Constants.getRightWheelPort1(), Constants.getRightWheelPort2());
-   private final WheelManipulator wheelManipulator = new WheelManipulator(Constants.getWheelOfFortunePort(),6,7); //change back to constant spinnerPort
-  // private final Turret turret = new Turret(Constants.getShooterPort1(),Constants.getShooterPort2());
+   private final WheelManipulator wheelManipulator = new WheelManipulator(Constants.getWheelOfFortunePort()); //change back to constant spinnerPort
+   private final Turret turret = new Turret(Constants.getShooterPort1(),Constants.getShooterInputPort());
   // private final PullUp pullup = new PullUp(0, 1);
-  // private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation());
+  private final BallSuck ballsuck = new BallSuck(Constants.getBallIntake(), Constants.getInternalManipulation(), Constants.getintakeRelease(), Constants.getpulseTimer());
 
-  // private final DriveTank driveTank = new DriveTank(drivetrain);
+  private final DriveTank driveTank = new DriveTank(drivetrain);
   // private final Shoot shooter = new Shoot(turret);
   // private final Climb climb = new Climb(pullup);
-  // private final BallIntake ballintake = new BallIntake(ballsuck);
+  private final BallIntake ballintake = new BallIntake(ballsuck);
 
 //  private final SpinWheel autoCommand = new SpinWheel(wheelManipulator);
-  // private final AutoGroup autoCommand = new AutoGroup(wheelManipulator,drivetrain);
+   private final AutoGroup autoCommand = new AutoGroup(turret, drivetrain, ballsuck);
 
 
 
@@ -58,6 +58,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
   }
 
+
+  // get the drive tank command class
+  public DriveTank getDriveTank()
+  {
+    return driveTank;
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

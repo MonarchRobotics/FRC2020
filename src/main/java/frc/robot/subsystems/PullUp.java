@@ -12,11 +12,12 @@ import frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-//Subsystem for climbing system
+/**
+ * Subsystem for climbing system
+ */
 public class PullUp extends SubsystemBase {
 
   private DoubleSolenoid climbSolenoid;
-
 
   public PullUp(int openChannel, int closeChannel) {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);

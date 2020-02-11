@@ -8,39 +8,34 @@
 package frc.robot.commands.auto;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
-import frc.robot.commands.DriveTank;
-import frc.robot.subsystems.Drivetrain;
-
-
-import frc.robot.OI;
-
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.Timer;
 
 
 /**
  * The auto command to drive forward
  */
-public class DriveAuto extends CommandBase {
+public class SpinInPlace extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
-    double distanceToTravel;
-    double travelSpeed;
+    double degrees;
+    double speed;
+    double initialGyro;
 
     /**
      * @param subsystem The subsystem used by this command.
+     * @param degrees The amount we want to turn in degrees. Spinning right is positive, left is negative.
+     * @param speed The speed we want to spin at.
      */
-    public DriveAuto(Drivetrain subsystem) {
+    public SpinInPlace(Drivetrain subsystem, int degrees, double speed) {
         this.subsystem = subsystem;
 
-        distanceToTravel = 69.0;
-        travelSpeed = 0.5;
-
+        this.degrees = degrees;//positive means to turn right, negative is turning left
+        this.speed = speed;
+        if(degrees<0){
+            this.speed = -1;
+        }
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
 
@@ -49,25 +44,17 @@ public class DriveAuto extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
-        //reset the values of the encoders to zero.
-        subsystem.getEncoderRight().reset();
-        subsystem.getEncoderLeft().reset();
+        //for now we're not resetting the gyroscope, but we may eventually
+//        subsystem.getGyro().getAngle();
+        initialGyro = subsystem.getGyro().getAngle();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
         //travel at the travelSpeed
-        if(distanceToTravel<0){
-            subsystem.rdrive(-travelSpeed);
-            subsystem.ldrive(-travelSpeed);
-        }
-        else{
-            subsystem.rdrive(travelSpeed);
-            subsystem.ldrive(travelSpeed);
-        }
-        System.out.println(subsystem.getEncoderRight().getDistance()+"in");
+        subsystem.ldrive(speed);
+        subsystem.rdrive(-speed);
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
@@ -80,7 +67,7 @@ public class DriveAuto extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
+        //returns false until we have spun the correct amount
+        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)>degrees - 30*Math.abs(speed);
     }
 }

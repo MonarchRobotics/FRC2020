@@ -16,29 +16,42 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 
-//TODO: find out real motor ports
 
 //Set all ports here
 public final class Constants {
-    private static final int shooterPort1 = 1;
-    private static final int shooterPort2 = 2;
+
+    // Ports
+    // Ball shooter pors
+    private static final int shooterPort1 = 5;//should be 7
+    private static final int shooterPort2 = 8;
+    private static final int shooterInputPort = 9;
+
+    // Drive wheel ports
     private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
     private static final int rightWheelPort2 = 2;
 
-    private static final int wheelOfFortunePort = 6;
+    // Wheel of fortun spinner wheel port
+    private static final int wheelOfFortunePort = 7;//should be 5
 
-    private static final int ballintake = 4;
-    // May need to modify based on what people decide for balls
-    private static final int internalmanipulation = 5;
+    // Ball intake and roller coaster ports
+    private static final int ballIntakePort = 9;
+    // Ball intake release solenoid for the start of the match
+    private static final int intakeRelease = 11;
+    private static final int internalManipulation = 6;
+
+    private static final double distanceAuto = 125.0;//in/sec at 100% power
+    private static final double rotationAuto = 1.6; //rotations/sec at 100% power
+
+    // Pulse time for solenoid for intake release
+    private static final double pulseTimer = 0.1;
+
     //Constants for Deadzone
-    private static final double rightDeadZone = 0.05;
-    private static final double leftDeadZone = 0.05;
-    public static int getShooterPort() {
-        return shooterPort;
-    }
+    private static final double deadZone = 0.1;
+    
 
+    
     public static int getShooterPort1() {
         return shooterPort1;
     }
@@ -46,14 +59,16 @@ public final class Constants {
         return shooterPort2;
 
     }
+    public static int getShooterInputPort()
+    {
+        return shooterInputPort;
+    }
     public static int getLeftWheelPort1() {
         return leftWheelPort1;
     }
     public static int getLeftWheelPort2() {
         return leftWheelPort2;
     }
-    public static double getRightDeadZone(){ return rightDeadZone;}
-    public static double getLeftDeadZone(){ return leftDeadZone;}
     public static int getRightWheelPort1() {
         return rightWheelPort1;
     }
@@ -63,14 +78,48 @@ public final class Constants {
 
     public static int getBallIntake()
     {
-        return ballintake;
+        return ballIntakePort;
+    }
+    public static int getintakeRelease()
+    {
+        return intakeRelease;
     }
     public static int getInternalManipulation()
     {
-        return internalmanipulation;
+        return internalManipulation;
+    }
+    // Pulse time 
+    public static double getpulseTimer()
+    {
+        return pulseTimer;
     }
 
     public static int getWheelOfFortunePort() {
         return wheelOfFortunePort;
+    }
+
+    // Get dead zone constants
+    public static double getDeadZone(){ 
+        return deadZone;
+    }
+
+    // Get auto constants
+    public static double getDistanceAuto() {
+        return distanceAuto;
+    }
+    public static double getRotationAuto() {
+        return rotationAuto;
+    }
+
+    public static double getTimeToTravelDistance(double inches, double speed){
+        return (inches/(1.67+0.914*Math.log(speed))+7.89)/74.4;
+    }
+
+    public static double getDistanceFromTime(double time, double speed){
+        return (74.4*time-7.89)*(1.67+0.914*Math.log(speed));
+    }
+
+    public static double getTimeToRotate(double radians, double speed) {
+        return radians / (getRotationAuto()*2*Math.PI) / speed;
     }
 }
