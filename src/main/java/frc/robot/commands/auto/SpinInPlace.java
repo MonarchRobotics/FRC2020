@@ -25,6 +25,8 @@ public class SpinInPlace extends CommandBase {
 
     /**
      * @param subsystem The subsystem used by this command.
+     * @param degrees The amount we want to turn in degrees. Spinning right is positive, left is negative.
+     * @param speed The speed we want to spin at.
      */
     public SpinInPlace(Drivetrain subsystem, int degrees, double speed) {
         this.subsystem = subsystem;

@@ -24,6 +24,8 @@ public class DriveStraight extends CommandBase {
 
     /**
      * @param subsystem The subsystem used by this command.
+     * @param distance The distance we want to drive in inches.
+     * @param speed The speed at which we want to travel
      */
     public DriveStraight(Drivetrain subsystem, double distance, double speed) {
         this.subsystem = subsystem;
@@ -48,18 +50,23 @@ public class DriveStraight extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //travel at the travelSpeed
+        //set the initial speed, before encoder adjustments
         double rightSpeed = travelSpeed;
         double leftSpeed = travelSpeed;
 
+        //read the distance each encoder has traveled (in inches)
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
         System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
+        //reverse our speed if we want to travel backwards
         if(distanceToTravel<0){
             rightSpeed*=-1;
             leftSpeed*=-1;
         }
+
+        //adjust the right and left speed based on how far each side has traveled
+        //changes the speed based on how far apart the two distances are
         if(rightEnc>leftEnc){
             rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
         }

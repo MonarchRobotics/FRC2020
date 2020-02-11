@@ -29,6 +29,7 @@ public class DriveTank extends CommandBase {
     private final Drivetrain drivetrain;
     private final Timer timer;
     private double endTurn;
+    private double spinSpeed;
 
     private int turnEndCheck;
 
@@ -56,6 +57,7 @@ public class DriveTank extends CommandBase {
 
         // Initialize turning a certain degree
         turnEndCheck = 0;
+        spinSpeed = 0;
        
     }
 
@@ -104,21 +106,26 @@ public class DriveTank extends CommandBase {
         }
         else{
             if(OI.joystick2.getRawButton(11)){
+                //TESTING system: find the target and drive at it
                 double[] coords = Robot.getTargetCenterCoordinates();
                 if(coords[0]!=-1){
                     if(coords[0]<160){
-                        double speed = (160-coords[0])/200;
+                        double speed = (160-coords[0])/640;
                         if(speed>0){speed=1;}
-                        drivetrain.ldrive(-speed);
-                        drivetrain.rdrive(speed);
+                        spinSpeed = speed;
                     }
                     else if(coords[0]>160){
-                        double speed = (coords[0]-160)/200;
+                        double speed = (coords[0]-160)/640;
                         if(speed>0){speed=1;}
-                        drivetrain.ldrive(speed);
-                        drivetrain.rdrive(-speed);
+                        spinSpeed = -speed;
+                    }
+                    else{
+                        spinSpeed = 0;
                     }
                 }
+                System.out.println("spinSpeed: "+spinSpeed);
+                drivetrain.ldrive(-spinSpeed);
+                drivetrain.rdrive(spinSpeed);
             }
             else{
                 turnEndCheck = 0;
