@@ -30,12 +30,14 @@ public class GetOutOfFrame extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final BallSuck subsystem;
 
+    private boolean activated;
+
     /**
      * @param subsystem The subsystem used by this command.
      */
     public GetOutOfFrame(BallSuck subsystem) {
         this.subsystem = subsystem;
-
+        activated = false;
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -51,7 +53,11 @@ public class GetOutOfFrame extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // subsystem.activateRelease();
+        // if (!activated)
+        // {
+        //     subsystem.activateRelease();
+        //     activated = true;
+        // }
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
