@@ -80,6 +80,7 @@ public class DriveTank extends CommandBase {
         // if(OI.leftButton7.get()){
             
         // }
+
         if(OI.leftButton7.get()){
             
 
@@ -102,9 +103,29 @@ public class DriveTank extends CommandBase {
             }
         }
         else{
-            turnEndCheck = 0;
-            drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-            drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+            if(OI.joystick2.getRawButton(11)){
+                double[] coords = Robot.getTargetCenterCoordinates();
+                if(coords[0]!=-1){
+                    if(coords[0]<160){
+                        double speed = (160-coords[0])/200;
+                        if(speed>0){speed=1;}
+                        drivetrain.ldrive(-speed);
+                        drivetrain.rdrive(speed);
+                    }
+                    else if(coords[0]>160){
+                        double speed = (coords[0]-160)/200;
+                        if(speed>0){speed=1;}
+                        drivetrain.ldrive(speed);
+                        drivetrain.rdrive(-speed);
+                    }
+                }
+            }
+            else{
+                turnEndCheck = 0;
+                drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
+                drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+            }
+            
         }
 
 //        if (OI.joystick1.getTriggerPressed()) {

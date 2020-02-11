@@ -89,8 +89,8 @@ public class Robot extends TimedRobot {
     
     CommandScheduler.getInstance().run();
     
-
-    //
+    // getCoordinates();
+    //kyle rocks
     //Important Will Kill the whole thing if it is not commented out 
     //Only uncomment for testing purposes
     // else
@@ -103,6 +103,19 @@ public class Robot extends TimedRobot {
 
   }
 
+  public static double[] getTargetCenterCoordinates(){
+    double[] centerXs = table.getEntry("centerX").getDoubleArray(new double[0]);
+    double[] centerYs = table.getEntry("centerY").getDoubleArray(new double[0]);
+    double[] coords = new double[2];
+    coords[0] = -1;
+    coords[1] = -1;
+    if(centerXs.length>0 && centerYs.length>0){
+      coords[0]=centerXs[0];
+      coords[1] = centerYs[0];
+    }
+    return coords;
+  }
+
   public static double[] getCoordinates(){
     //Get the widths and heights from GRIP
     double[] widths;
@@ -112,6 +125,9 @@ public class Robot extends TimedRobot {
 
     //make sure we can actually see something on the camera
     if(widths.length>0 && heights.length>0){
+
+      System.out.println("Width  " + widths[0]);
+    System.out.println("Height " + heights[0]);
       //get the width and height of the target in pixels, since there should only be one object
       double stationWidth = widths[0];
       double stationHeight = heights[0];
