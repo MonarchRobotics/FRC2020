@@ -34,7 +34,7 @@ public class SpinInPlace extends CommandBase {
         this.degrees = degrees;//positive means to turn right, negative is turning left
         this.speed = speed;
         if(degrees<0){
-            speed = -1;
+            this.speed = -1;
         }
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
