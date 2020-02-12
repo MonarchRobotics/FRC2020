@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
@@ -38,6 +39,8 @@ public class Drivetrain extends SubsystemBase {
     private Encoder encoderLeft = new Encoder(2, 3);
     private Encoder encoderRight = new Encoder(0, 1);
     private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+
+    private LidarLite lidar = new LidarLite(I2C.Port.kOnboard);
 
 
     public Drivetrain(int Left1, int Left2, int Right1, int Right2) {
@@ -85,6 +88,10 @@ public class Drivetrain extends SubsystemBase {
         // The speed * 0.99 is to ajust the speed because the left moves slightly faster than the right
         left1.set(ControlMode.PercentOutput, speedRamp(speed)*0.99);
         left2.set(ControlMode.PercentOutput, speedRamp(speed)*0.99);
+    }
+
+    public double getLidarMeasurement(){
+        return lidar.getDistance() / 2.54;
     }
 
     //returns the left encoder (in ports 2 and 3)
