@@ -37,6 +37,7 @@ public class GetOutOfFrame extends CommandBase {
      */
     public GetOutOfFrame(BallSuck subsystem) {
         this.subsystem = subsystem;
+        // value to check if it has been activated so it will not activate same systems more than once
         activated = false;
 
         // Use addRequirements() here to declare subsystem dependencies.
@@ -55,6 +56,7 @@ public class GetOutOfFrame extends CommandBase {
     public void execute() {
         // if (!activated)
         // {
+            // Activate the release for the ball intake system
         //     subsystem.activateRelease();
         //     activated = true;
         // }
@@ -69,7 +71,7 @@ public class GetOutOfFrame extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.activatedRelease();
+        //returns false while the system hasn't activated fully yet
+        return activated;
     }
 }
