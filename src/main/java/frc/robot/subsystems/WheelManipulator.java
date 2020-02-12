@@ -25,20 +25,12 @@ public class WheelManipulator extends SubsystemBase {
 
     private TalonSRX spinner;
 
-    private DoubleSolenoid controlSolenoid;
-
     public WheelManipulator(int spinnerPort) {
         spinner = new TalonSRX(spinnerPort);
         spinner.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new WheelOfFortune(this));
-//        controlSolenoid = new DoubleSolenoid(openChannel, closeChannel);
     }
 
-//    public void DropWheel(){controlSolenoid.set(DoubleSolenoid.Value.kForward);}
-
-//    public void PullWheel(){controlSolenoid.set(DoubleSolenoid.Value.kReverse);}
-
-    public DoubleSolenoid.Value getValue(){return controlSolenoid.get();}
 
     private boolean colorSensorMargin(double detected, double test){
         double error = 0.03;

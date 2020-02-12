@@ -106,7 +106,7 @@ public class DriveTank extends CommandBase {
         }
         else{
             if(OI.joystick2.getRawButton(11)){
-                //TESTING system: find the target and drive at it
+                //TESTING system: find the target and rotate so that we are facing it
                 double[] coords = Robot.getTargetCenterCoordinates();
                 if(coords[0]!=-1){
                     if(coords[0]<160){
