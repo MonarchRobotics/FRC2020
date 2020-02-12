@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import frc.robot.MotorControlPID;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.Robot;
@@ -32,6 +33,8 @@ public class DriveTank extends CommandBase {
     private double spinSpeed;
 
     private int turnEndCheck;
+
+    private MotorControlPID spinControl;
 
     /**
      * Creates a new ExampleCommand.
@@ -58,6 +61,7 @@ public class DriveTank extends CommandBase {
         // Initialize turning a certain degree
         turnEndCheck = 0;
         spinSpeed = 0;
+        spinControl = new MotorControlPID(160,0.5,0.5,0.001,0.001);
        
     }
 
@@ -84,8 +88,6 @@ public class DriveTank extends CommandBase {
         // }
 
         if(OI.leftButton7.get()){
-            
-
             // TEST THING for turning 90 degrees
             if (drivetrain.getGyro().getAngle() % 360 < endTurn && turnEndCheck < 4)
             {
@@ -109,25 +111,27 @@ public class DriveTank extends CommandBase {
                 //TESTING system: find the target and rotate so that we are facing it
                 double[] coords = Robot.getTargetCenterCoordinates();
                 if(coords[0]!=-1){
-                    if(coords[0]<160){
-                        double speed = (160-coords[0])/640;
-                        if(speed>0){speed=1;}
-                        spinSpeed = speed;
-                    }
-                    else if(coords[0]>160){
-                        double speed = (coords[0]-160)/640;
-                        if(speed>0){speed=1;}
-                        spinSpeed = -speed;
-                    }
-                    else{
-                        spinSpeed = 0;
-                    }
+                    spinSpeed = spinControl.getSpeed(coords[0]);
+//                    if(coords[0]<160){
+//                        double speed = (160-coords[0])/640;
+//                        if(speed>0){speed=1;}
+//                        spinSpeed = speed;
+//                    }
+//                    else if(coords[0]>160){
+//                        double speed = (coords[0]-160)/640;
+//                        if(speed>0){speed=1;}
+//                        spinSpeed = -speed;
+//                    }
+//                    else{
+//                        spinSpeed = 0;
+//                    }
                 }
                 System.out.println("spinSpeed: "+spinSpeed);
                 drivetrain.ldrive(-spinSpeed);
                 drivetrain.rdrive(spinSpeed);
             }
             else{
+
                 System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
                 drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));

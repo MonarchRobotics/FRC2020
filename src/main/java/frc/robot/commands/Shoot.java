@@ -44,8 +44,8 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001,0.0);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001,0.0);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001);
+        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001);
     }
 
     // Called when the command is initially scheduled.
@@ -59,10 +59,10 @@ public class Shoot extends CommandBase {
         //If both triggers are pulled, motors run.
         if ((OI.joystick1.getTrigger() && OI.joystick2.getTrigger()) || OI.joystick1.getRawButton(10)){
             double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
-            double rightSpeed = motorControlLeft.getSpeed(turret.getEncoderRightRate());
+            double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,rightSpeed);
 
-            // Waits until the encoders are moving at a certain speed to start spinning the input wheel.
+            // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
             if(turret.getEncoderLeftRate()>targetSpinSpeed-error && turret.getEncoderRightRate()>targetSpinSpeed-error && turret.getEncoderRightRate()<targetSpinSpeed+error && turret.getEncoderLeftRate()<targetSpinSpeed+error) {
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.5);
             }
@@ -87,6 +87,9 @@ public class Shoot extends CommandBase {
         }
         else {
             turret.spinMotors(0.0,0.0);
+            motorControlLeft.reset();
+            motorControlRight.reset();
+
             turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
         }
     }
