@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -20,30 +21,26 @@ import frc.robot.commands.Shoot;
  */
 public class Turret extends SubsystemBase {
 
-    private TalonSRX wheel;
-    private TalonSRX wheel2;
+    private TalonSRX rightWheel;
+    private TalonSRX leftWheel;
     private TalonSRX inputWheel;
     private Encoder encoderLeft = new Encoder(6, 7);
     private Encoder encoderRight = new Encoder(4, 5);
 
-    public Turret(int wheelPort, int wheel2Port, int inputWheelPort) {
-        wheel = new TalonSRX(wheelPort);
-         wheel2= new TalonSRX(wheel2Port);
+    public Turret(int leftWheelPort, int rightWheelPort, int inputWheelPort) {
+        leftWheel = new TalonSRX(leftWheelPort);
+        rightWheel = new TalonSRX(rightWheelPort);
 
         inputWheel = new TalonSRX(inputWheelPort);
         
-        wheel.setNeutralMode(NeutralMode.Brake);
-         wheel2.setNeutralMode(NeutralMode.Brake);
+        leftWheel.setNeutralMode(NeutralMode.Brake);
+        rightWheel.setNeutralMode(NeutralMode.Brake);
 
         
         setDefaultCommand(new Shoot(this));
         encoderLeft.setDistancePerPulse(1/2048.0);
         encoderRight.setDistancePerPulse(1/2048.0);
     }
-
-    public TalonSRX getWheelMotor() { return wheel;}
-
-     public TalonSRX getWheel2Motor() { return wheel2;}
 
     public TalonSRX getInputWheelMotor() { return inputWheel;}
 
@@ -53,6 +50,11 @@ public class Turret extends SubsystemBase {
 
     public double getEncoderRightRate(){
         return encoderRight.getRate();
+    }
+
+    public void spinMotors(double leftSpeed, double rightSpeed){
+        leftWheel.set(ControlMode.PercentOutput,-leftSpeed);
+        rightWheel.set(ControlMode.PercentOutput,rightSpeed);
     }
     // @Override
     // public void initDefaultCommand(){

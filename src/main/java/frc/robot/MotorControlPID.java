@@ -10,7 +10,7 @@ public class MotorControlPID {
     double maxValue;
     double ceiling;
 
-    public MotorControlPID(double target, double maxValue, double Kp, double ceiling, double Ki, double Kd){
+    public MotorControlPID(double target, double maxValue, double ceiling, double Kp, double Ki, double Kd){
         this.target = target;
         this.maxValue = maxValue;
         this.ceiling = ceiling;
@@ -21,7 +21,7 @@ public class MotorControlPID {
         previousE = 0;
     }
 
-    double getSpeed(double current){//-maxValue to maxValue of how fast we want the motor to go
+    public double getSpeed(double current){//-maxValue to maxValue of how fast we want the motor to go
         //do some calculations to determine how fast the motor will go.
         //let e = vt -vc;
         //vs = (Kp * e) + (Ki * sum(e)) + (Kd*delta(e));
@@ -39,5 +39,34 @@ public class MotorControlPID {
             adjustedSpeed = -ceiling;
         }
         return adjustedSpeed;
+    }
+
+    void reset(){
+        previousE = 0;
+        sumE = 0;
+    }
+
+    public void setKd(double kd) {
+        Kd = kd;
+    }
+
+    public void setKi(double ki) {
+        Ki = ki;
+    }
+
+    public void setKp(double kp) {
+        Kp = kp;
+    }
+
+    public double getKd() {
+        return Kd;
+    }
+
+    public double getKi() {
+        return Ki;
+    }
+
+    public double getKp() {
+        return Kp;
     }
 }
