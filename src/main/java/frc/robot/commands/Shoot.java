@@ -28,6 +28,10 @@ public class Shoot extends CommandBase {
 
     boolean timerStart;
     boolean timerDone;
+    final double initialSpeed = 0.43;
+    final double targetSpinSpeed = 100.0;
+    double leftSpeed;
+    double rightSpeed;
 
     // VideoCapture camera;
 
@@ -41,8 +45,9 @@ public class Shoot extends CommandBase {
 
         inputTimer = new Timer();
         inputTimer.reset();
-        timerStart = true;
-        timerDone = false;
+
+        leftSpeed = initialSpeed;
+        rightSpeed = initialSpeed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
     }
@@ -50,6 +55,7 @@ public class Shoot extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        inputTimer.reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -57,32 +63,32 @@ public class Shoot extends CommandBase {
     public void execute() {
         //If both triggers are pulled, motors run.
         if ((OI.joystick1.getTrigger() && OI.joystick2.getTrigger()) || OI.joystick1.getRawButton(10)){
-            turret.getWheelMotor().set(ControlMode.PercentOutput, -0.43);
-            // turret.getWheel2Motor().set(ControlMode.PercentOutput, 0.75);
-            
+
             // Waits a moment for shooter to spin up
-            if (timerStart)
-            {
-                inputTimer.reset();
-                inputTimer.start();
-                timerStart = false;
-                timerDone = false;
+            if(turret.getEncoderLeftRate()>targetSpinSpeed-10 && turret.getEncoderRightRate()>targetSpinSpeed-10 && turret.getEncoderRightRate()<targetSpinSpeed+10 && turret.getEncoderLeftRate()<targetSpinSpeed+10) {
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.5);
+            }
+            else{
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
             }
 
-            if (inputTimer.get() >= 0.1)
-            {
-                timerDone = true;        
+            if(turret.getEncoderLeftRate()>50 && turret.getEncoderRightRate()>50){
+                double differenceLeft = (turret.getEncoderLeftRate() - targetSpinSpeed)/-100.0;
+                double differenceRight = (turret.getEncoderRightRate() - targetSpinSpeed)/-100.0;
+
+                leftSpeed+=differenceLeft;
+                rightSpeed+=differenceRight;
+
+
             }
 
-            if (timerDone)
-            {
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput, 1.0);
-            }
+            turret.getWheelMotor().set(ControlMode.PercentOutput, -leftSpeed);
+            turret.getWheel2Motor().set(ControlMode.PercentOutput, rightSpeed);
             
         }
         else {
             turret.getWheelMotor().set(ControlMode.PercentOutput, 0.0);
-            // turret.getWheel2Motor().set(ControlMode.PercentOutput, 0.0);
+            turret.getWheel2Motor().set(ControlMode.PercentOutput, 0.0);
             turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
         }
     }

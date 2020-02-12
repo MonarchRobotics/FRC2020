@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.Shoot;
 
@@ -20,26 +21,39 @@ import frc.robot.commands.Shoot;
 public class Turret extends SubsystemBase {
 
     private TalonSRX wheel;
+    private TalonSRX wheel2;
     private TalonSRX inputWheel;
+    private Encoder encoderLeft = new Encoder(6, 7);
+    private Encoder encoderRight = new Encoder(4, 5);
 
-    public Turret(int wheelPort, int inputWheelPort) {
+    public Turret(int wheelPort, int wheel2Port, int inputWheelPort) {
         wheel = new TalonSRX(wheelPort);
-        // wheel2= new TalonSRX(wheel2Port);
+         wheel2= new TalonSRX(wheel2Port);
 
         inputWheel = new TalonSRX(inputWheelPort);
         
         wheel.setNeutralMode(NeutralMode.Brake);
-        // wheel2.setNeutralMode(NeutralMode.Brake);
+         wheel2.setNeutralMode(NeutralMode.Brake);
 
         
         setDefaultCommand(new Shoot(this));
+        encoderLeft.setDistancePerPulse(1/2048.0);
+        encoderRight.setDistancePerPulse(1/2048.0);
     }
 
     public TalonSRX getWheelMotor() { return wheel;}
 
-    // public TalonSRX getWheel2Motor() { return wheel2;}
+     public TalonSRX getWheel2Motor() { return wheel2;}
 
     public TalonSRX getInputWheelMotor() { return inputWheel;}
+
+    public double getEncoderLeftRate(){
+        return encoderLeft.getRate();
+    }
+
+    public double getEncoderRightRate(){
+        return encoderRight.getRate();
+    }
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());
