@@ -22,15 +22,15 @@ public class BallSuck extends SubsystemBase {
 
   
   // Motor to intake balls into the chassis
-  private Talon Intake;
+  private Talon intake;
   private boolean intakeS;
   // Motor for handling the balls inside the chassy
-  private TalonSRX Handle;
+  private TalonSRX handle;
   private boolean handleS;
 
   // The extending solenoid 
   private Solenoid release;
-  private boolean Released = false;
+  private boolean released = false;
 
   /**
    * @param intake Port for motor powering intake.
@@ -40,9 +40,9 @@ public class BallSuck extends SubsystemBase {
    */
   public BallSuck(int intake, int handle, int releasePort, double pulseDuration) {
 
-    Intake = new Talon(intake);
+    this.intake = new Talon(intake);
     intakeS = false;
-    Handle = new TalonSRX(handle);
+    this.handle = new TalonSRX(handle);
     handleS = false;
 
     // release = new Solenoid(releasePort);
@@ -57,22 +57,22 @@ public class BallSuck extends SubsystemBase {
   public void activateRelease()
   {
     release.startPulse();
-    Released = true;
+    released = true;
   }
   public boolean activatedRelease()
   {
-    return Released;
+    return released;
   }
 
   // Initiate motor/systems
   public void turnOnIntake()
   {
-    Intake.set(0.40);
+    intake.set(0.40);
     intakeS = true;
   }
   public void turnOffIntake()
   {
-    Intake.set(0);
+    intake.set(0);
     intakeS = false;
   }
 
@@ -85,12 +85,12 @@ public class BallSuck extends SubsystemBase {
   // Stops the motors
   public void turnOnHandle()
   {
-    Handle.set(ControlMode.PercentOutput, .25);
+    handle.set(ControlMode.PercentOutput, .25);
     handleS = true;
   }
   public void turnOffHandle()
   {
-    Handle.set(ControlMode.PercentOutput, 0);
+    handle.set(ControlMode.PercentOutput, 0);
     handleS = false;
   }
 

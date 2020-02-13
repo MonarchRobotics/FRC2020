@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,16 +36,18 @@ public class WheelManipulator extends SubsystemBase {
     /**
      * @param detected Value detected by sensor.
      * @param accepted Accepted value for colour.
-     * @return
+     * @return if detected matches accepted within small margin of error.
      */
     private boolean colorSensorMargin(double detected, double accepted){
         double error = 0.03;
         return detected<=accepted+error && detected>=accepted-error;
     }
 
+    /**
+     * @return Detected colour as an integer. 0 = red, 1 = yellow, 2 = green, 3 = blue.
+     */
     public int detectColor(){
         Color color = colorSensor.getColor();
-        // System.out.println("R:"+Math.floor(color.red*1000)+"G:"+Math.floor(color.green*1000)+"B:"+Math.floor(color.blue*1000));
         int thisColor = 0;
         if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
             thisColor = 1;

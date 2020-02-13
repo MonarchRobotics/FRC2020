@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.Climb;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -20,7 +19,6 @@ public class PullUp extends SubsystemBase {
   private DoubleSolenoid climbSolenoid;
 
   /**
-   *
    * @param openChannel Port for open channel on PCM.
    * @param closeChannel Port for close channel on PCM.
    */
@@ -28,19 +26,25 @@ public class PullUp extends SubsystemBase {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }
 
-  // Extends the pneumatic ram
+  /**
+   * Extends the pneumatic arm.
+   */
   public void extendClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
-  // Retracts the pneumatic ram
+  /**
+   * Retracts the pneumatic arm.
+   */
   public void retractClimb()
   {
       climbSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
-  // Finds the position of the [pneumatic]
+  /**
+   * @return Position of the pneumatic arm.
+   */
   public DoubleSolenoid.Value getValue()
   {
     return climbSolenoid.get();
