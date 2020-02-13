@@ -11,8 +11,12 @@ public class MotorControlPID {
     double ceiling;
 
     /**
-     * @param target the target reading of whatever variable we want to target (encoder revolution rate, camera position, etc)
-     * @param maxValue the maximum value of the function. This speed calculation from the PID calculation is multiplied by maxSpeed. default is 1.
+     * @param target The target reading of whatever variable we want to target (encoder revolution rate, camera position, etc)
+     * @param maxValue The maximum value of the function. This speed calculation from the PID calculation is multiplied by maxSpeed. default is 1.
+     * @param ceiling If the speed is above this value, set the speed to this value
+     * @param Kp Constant for P
+     * @param Ki Constant for I
+     * @param Kd Constant for D
      * */
 
     public MotorControlPID(double target, double maxValue, double ceiling, double Kp, double Ki, double Kd){
