@@ -30,7 +30,11 @@ public class WheelOfFortune extends CommandBase {
   private int colorForPosition;
   private final WheelManipulator subsystem;
 
-
+  /**
+   * 
+   * @param subsystem the subsystem for this command (the wheelManipulator class)
+   * Also initializez a bunch of variables to be used in the automatic whell of fortion spinning
+   */
   public WheelOfFortune(WheelManipulator subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -50,7 +54,14 @@ public class WheelOfFortune extends CommandBase {
     colorForPosition = -1;
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  
+  /**
+   * Gets the color value from the frc driver station
+   * If the right button 8 is pressed starts rotation control if it hasn't already been done
+   * 
+   * For the rotation control: waits to turn 3.5ish times
+   * For the position control: moves the wheel to be 90 degrees with the given colour (provided by the frc station)
+   */
   @Override
   public void execute() {
     //check if we've received anything from the Driver Station
@@ -79,10 +90,10 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
-    boolean bButton = OI.joystick1.getRawButtonPressed(8);
-    boolean xButton = OI.joystick1.getRawButtonPressed(9);
+    boolean rightButton8 = OI.joystick1.getRawButtonPressed(8);
+    boolean rightButton9 = OI.joystick1.getRawButtonPressed(9);
     //button checking to activate the two modes
-    if(bButton && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
+    if(rightButton8 && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
       doingRotation = true;
       lastDetectedColor = 0;
@@ -90,7 +101,7 @@ public class WheelOfFortune extends CommandBase {
         countedColors[i]=0;
       }
     }
-    else if (xButton && !doingPosition && !doingRotation){//some button to activate for Position control
+    else if (rightButton9 && !doingPosition && !doingRotation){//some button to activate for Position control
       if(colorForPosition!=-1){
         System.out.println("Starting position control...");
         doingPosition = true;
@@ -99,12 +110,12 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("No color received from driver station yet");
       }
     }
-    else if(bButton && doingRotation && !doingPosition){
+    else if(rightButton8 && doingRotation && !doingPosition){
       doingRotation = false;
       subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
       System.out.println("Stopped rotation control");
     }
-    else if(xButton && !doingRotation && doingPosition){
+    else if(rightButton9 && !doingRotation && doingPosition){
       doingPosition = false;
       subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
       System.out.println("Stopped position control");
