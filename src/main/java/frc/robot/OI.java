@@ -13,9 +13,9 @@ public class OI {
 
     public static XboxController xboxController;
 
-    // Joystick1 is right
-    // Joystick2 is left
-    public static Joystick joystick1, joystick2;
+    // rightJoystick is right
+    // leftJoystick is left
+    public static Joystick rightJoystick, leftJoystick;
 
     // Buttons for the RIGHT joystick
     public static JoystickButton rightButton2; //ball intake
@@ -27,26 +27,27 @@ public class OI {
 
 
     public OI(){
+        // Xbox controller
         xboxController = new XboxController(0);
 
         // Right joystick
-        joystick1 = new Joystick(1);
+        rightJoystick = new Joystick(1);
         // Left joystick
-        joystick2 = new Joystick(2);
+        leftJoystick = new Joystick(2);
         
 
         //Right buttons
-        rightButton2 = new JoystickButton(joystick1, 2);
+        rightButton2 = new JoystickButton(rightJoystick, 2);
 
         // Left buttons
-        leftButton2 = new JoystickButton(joystick2, 2);
-        // button1 = new JoystickButton(joystick1, )
+        leftButton2 = new JoystickButton(leftJoystick, 2);
+        // button1 = new JoystickButton(rightJoystick, )
 
         // Test turn to a certain attitude
-        leftButton7 = new JoystickButton(joystick2, 7);
+        leftButton7 = new JoystickButton(leftJoystick, 7);
 
-        rightButton8 = new JoystickButton(joystick1,8);
-        rightButton9 = new JoystickButton(joystick1,9);
+        rightButton8 = new JoystickButton(rightJoystick,8);
+        rightButton9 = new JoystickButton(rightJoystick,9);
 
     }
 

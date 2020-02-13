@@ -65,7 +65,7 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.
-        if ((OI.joystick1.getTrigger() && OI.joystick2.getTrigger()) || OI.joystick1.getRawButton(10)){
+        if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
             double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
             double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,rightSpeed);

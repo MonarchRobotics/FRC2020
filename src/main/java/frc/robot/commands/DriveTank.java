@@ -88,8 +88,8 @@ public class DriveTank extends CommandBase {
         // System.out.println("D: "+encoder.getDistance());
         
         //If this breaks change to x
-//            drivetrain.ldrive(OI.joystick1.getY());
-//            drivetrain.rdrive(OI.joystick2.getY());
+//            drivetrain.ldrive(OI.rightJoystick.getY());
+//            drivetrain.rdrive(OI.leftJoystick.getY());
 //
         // if(OI.leftButton7.get()){
             
@@ -110,12 +110,12 @@ public class DriveTank extends CommandBase {
             else
             {
                 turnEndCheck = 0;
-                drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-                drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+                drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
             }
         }
         else{
-            if(OI.joystick2.getRawButton(11)){
+            if(OI.leftJoystick.getRawButton(11)){
                 //TESTING system: find the target and rotate so that we are facing it
                 double[] coords = Robot.getTargetCenterCoordinates();
                 if(coords[0]!=-1){
@@ -142,13 +142,13 @@ public class DriveTank extends CommandBase {
 
                 System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
-                drivetrain.rdrive(-OI.deadZone(OI.joystick1.getY(), Constants.getDeadZone()));
-                drivetrain.ldrive(-OI.deadZone(OI.joystick2.getY(), Constants.getDeadZone()));
+                drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
             }
             
         }
 
-//        if (OI.joystick1.getTriggerPressed()) {
+//        if (OI.rightJoystick.getTriggerPressed()) {
 //            if (Robot.getCoordinates().length > 0) {
 //                double startAngle = Robot.getCoordinates()[2];
 //                if (Robot.getCoordinates()[2] >= 0) {

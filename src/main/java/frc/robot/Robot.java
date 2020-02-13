@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().run();
 
-    if(OI.joystick2.getRawButtonPressed(8)){
+    if(OI.leftJoystick.getRawButtonPressed(8)){
       if(!cameraExposureAuto){
         camera.setExposureAuto();
         cameraExposureAuto = true;

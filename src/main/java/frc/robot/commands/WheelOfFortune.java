@@ -90,8 +90,8 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
-    boolean rightButton8 = OI.joystick1.getRawButtonPressed(8);
-    boolean rightButton9 = OI.joystick1.getRawButtonPressed(9);
+    boolean rightButton8 = OI.rightJoystick.getRawButtonPressed(8);
+    boolean rightButton9 = OI.rightJoystick.getRawButtonPressed(9);
     //button checking to activate the two modes
     if(rightButton8 && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
