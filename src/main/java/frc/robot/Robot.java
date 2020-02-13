@@ -37,16 +37,13 @@ public class Robot extends TimedRobot {
 
 
   static NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  static NetworkTable table = inst.getTable("GRIP/findLoadingStation");
+  static NetworkTable contoursTable = inst.getTable("GRIP/findLoadingStation");
   static NetworkTable linesTable = inst.getTable("GRIP/linesReport");
 
   private WheelManipulator wheelManipulator;
   private OI oi;
-
-
-
-  // Test stuff
-  boolean testGyroSet = true;
+  private boolean cameraExposureAuto = false;
+  private UsbCamera camera;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -58,10 +55,10 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    table.delete("height");
+    contoursTable.delete("height");
     oi = new OI();
 
-    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+    camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
     camera.setExposureManual(3);
@@ -81,13 +78,17 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
-    
-
-    // System.out.println("W:"+Arrays.toString(widthEntry.getDoubleArray(new double[0])));
-    // System.out.println("H:"+Arrays.toString(heightEntry.getDoubleArray(new double[0])));
-
-    
     CommandScheduler.getInstance().run();
+
+    if(OI.joystick2.getRawButtonPressed(8)){
+      if(!cameraExposureAuto){
+        camera.setExposureAuto();
+        cameraExposureAuto = true;
+      }
+      else{
+        camera.setExposureManual(3);
+      }
+    }
     
     // getCoordinates();
     //kyle rocks
@@ -103,9 +104,13 @@ public class Robot extends TimedRobot {
 
   }
 
+  /**
+   * @return get the current coordinates of the vision target from the camera.
+   */
+
   public static double[] getTargetCenterCoordinates(){
-    double[] centerXs = table.getEntry("centerX").getDoubleArray(new double[0]);
-    double[] centerYs = table.getEntry("centerY").getDoubleArray(new double[0]);
+    double[] centerXs = contoursTable.getEntry("centerX").getDoubleArray(new double[0]);
+    double[] centerYs = contoursTable.getEntry("centerY").getDoubleArray(new double[0]);
     double[] coords = new double[2];
     coords[0] = -1;
     coords[1] = -1;
@@ -116,12 +121,17 @@ public class Robot extends TimedRobot {
     return coords;
   }
 
+
+  /**
+   *
+   * @return The approximate coordinates of the robot on the field relative to the loading station vision target
+   */
   public static double[] getCoordinates(){
     //Get the widths and heights from GRIP
     double[] widths;
-    widths = table.getEntry("width").getDoubleArray(new double[0]);
+    widths = contoursTable.getEntry("width").getDoubleArray(new double[0]);
     double[] heights;
-    heights = table.getEntry("height").getDoubleArray(new double[0]);
+    heights = contoursTable.getEntry("height").getDoubleArray(new double[0]);
 
     //make sure we can actually see something on the camera
     if(widths.length>0 && heights.length>0){
@@ -138,8 +148,8 @@ public class Robot extends TimedRobot {
       double[] y2s = linesTable.getEntry("y2").getDoubleArray(new double[0]);
 
       //get the center of the target in the camera viewport
-      double centerX = table.getEntry("centerX").getDoubleArray(new double[0])[0];
-      double centerY = table.getEntry("centerY").getDoubleArray(new double[0])[0];
+      double centerX = contoursTable.getEntry("centerX").getDoubleArray(new double[0])[0];
+      double centerY = contoursTable.getEntry("centerY").getDoubleArray(new double[0])[0];
 
       //sanity check
       //this should always return true. If it doesn't we have BIG problems
