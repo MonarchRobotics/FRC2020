@@ -40,7 +40,10 @@ public class Climb extends CommandBase {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /** 
+   * This toggles the climbing system (pnumatic ram climbing system)
+   * 
+   */
   @Override
   public void execute() {
 

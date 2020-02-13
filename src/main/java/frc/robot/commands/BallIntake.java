@@ -43,12 +43,20 @@ public class BallIntake extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  /*
+  * Checks for all of the possible controls that interact with the intake and 
+  * and the internal manipulation "the Roller coster"
+  *
+  * These are the 
+    * If right button 2 is pressed both are on
+    * If left button 2 is pressed only handling "Roller coaster" is on
+    * If neither, neither are on
+  *
+  */
   @Override
   public void execute() {
 
-    // If right 2 is pressed both are on
-    // If left 2 is pressed only handling is on
-    // If neither neither are on
+    
     if (OI.rightButton2.get())
     {
       System.out.println("Button pressed");
@@ -70,6 +78,7 @@ public class BallIntake extends CommandBase {
     }
   }
 
+  /* @return the subsystem ballsuck*/
   public BallSuck getBallSuck()
   {
     return ballSuck;

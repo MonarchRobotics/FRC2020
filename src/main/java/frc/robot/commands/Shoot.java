@@ -37,6 +37,9 @@ public class Shoot extends CommandBase {
      * Creates a new Shoot.
      *
      * @param turret The subsystem used by this command.
+     * 
+     * Creats the two MotorControlPID classes for both the left and right wheels of the ball shooting system
+     * 
      */
     public Shoot(Turret turret) {
         this.turret = turret;
@@ -53,7 +56,12 @@ public class Shoot extends CommandBase {
     public void initialize() {
     }
 
-    // Called every time the scheduler runs while the command is scheduled.
+    /**
+     * When the left and right triggers on the joysticks are pressed (or button 10 on the right joystick)
+     *      Turns the ballshooter wheels on to a certain amount
+     *          Gets the speeds to set it to based on a ramp up to a certain RPM based on our MotorControlPID classes defined in the constructor
+     * 
+     */
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.

@@ -49,7 +49,11 @@ public class DriveTank extends CommandBase {
 
     }
 
-    // Called when the command is initially scheduled.
+    /** 
+     * Initialises the encoders and the gyro
+     * Also resets the timer
+     * Adds the next "end turn" value for the rest of the class to execute a turn to that degree
+     */
     @Override
     public void initialize() {
         drivetrain.getEncoderRight().reset();
@@ -65,7 +69,11 @@ public class DriveTank extends CommandBase {
        
     }
 
-    // Called every time the scheduler runs while the command is scheduled.
+    
+    /**
+     * When the left button 7 is pressed turnes to the predefined angle relative to the initialised value
+     * Drives with speeds based off the 2 joysticks
+     */
     @Override
     public void execute() {
         // System.out.println(drivetrain.getEncoderRight().getDistance());
@@ -156,19 +164,6 @@ public class DriveTank extends CommandBase {
 //        else { rotateTime = 0; }
     }
 
-    // Driving test
-    public void turnFullSP()
-    {
-        drivetrain.rdrive(-1);
-        drivetrain.ldrive(1);
-    }
-
-    //Good stuff but not necessary (just for testing)
-    public void FullStop()
-    {
-        drivetrain.rdrive(0);
-        drivetrain.ldrive(0);
-    }
 
     // Called once the command ends or is interrupted.
     @Override
