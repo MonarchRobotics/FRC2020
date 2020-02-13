@@ -16,14 +16,13 @@ import frc.robot.commands.auto.GetOutOfFrame;
 */
 public class AutoGroup extends SequentialCommandGroup {
     public AutoGroup(Turret turret, Drivetrain drivetrain, BallSuck ballsuck){
-        //Sequentially runs SpinWheel, then DriveAuto
-        addCommands(new DriveStraight(drivetrain,48,0.5));
-//        addCommands(new SpinInPlace(drivetrain,45,0.25));
-//        addCommands(new DriveStraight(drivetrain,12,0.25));
-        
-        //        addCommands(new AutoShootBall(turret), new DriveAuto(drivetrain));
 
-        // Moves the intake out of the frame perimiter
-        // addCommands(new GetOutOfFrame(ballsuck));
+        //Moves the intake out of the frame perimiter
+        addCommands(new GetOutOfFrame(ballsuck));
+        addCommands(new AutoShootBall(turret));
+
+        addCommands(new DriveStraight(drivetrain,-48,0.5));
+        addCommands(new SpinInPlace(drivetrain,45,0.25));
+        addCommands(new DriveStraight(drivetrain,12,0.25));
     }
 }

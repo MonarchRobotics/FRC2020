@@ -44,8 +44,8 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.001,0.001);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
+        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
     }
 
     // Called when the command is initially scheduled.

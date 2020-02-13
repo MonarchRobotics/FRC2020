@@ -10,6 +10,11 @@ public class MotorControlPID {
     double maxValue;
     double ceiling;
 
+    /**
+     * @param target the target reading of whatever variable we want to target (encoder revolution rate, camera position, etc)
+     * @param maxValue the maximum value of the function. This speed calculation from the PID calculation is multiplied by maxSpeed. default is 1.
+     * */
+
     public MotorControlPID(double target, double maxValue, double ceiling, double Kp, double Ki, double Kd){
         this.target = target;
         this.maxValue = maxValue;
@@ -32,11 +37,22 @@ public class MotorControlPID {
         previousE = 0;
     }
 
+    public MotorControlPID(double target, double maxValue, double ceiling, double Kp){
+        this.target = target;
+        this.maxValue = maxValue;
+        this.ceiling = ceiling;
+        this.Kp = Kp;
+        this.Ki = 0;
+        this.Kd = 0;
+        sumE = 0;
+        previousE = 0;
+    }
+
     /**
-     @param current the current reading of whatever variable we are trying to reach (encoder revolution rate, camera position, etc)
-     @return The speed the motor controller should give to the motor.
-     The value returned will be between {@link #maxValue} and - {@link #maxValue}, unless the value is above {@link #ceiling}, in which case the value will be {@link #ceiling}
-     */
+    * @param current the current reading of whatever variable we are trying to reach (encoder revolution rate, camera position, etc)
+    * @return The speed the motor controller should give to the motor.
+    * The value returned will be between {@link #maxValue} and - {@link #maxValue}, unless the value is above {@link #ceiling}, in which case the value will be {@link #ceiling}
+    * */
     public double getSpeed(double current){
         //do some calculations to determine how fast the motor will go.
         //let e = vt -vc;
@@ -57,6 +73,10 @@ public class MotorControlPID {
         return adjustedSpeed;
     }
 
+
+    /**
+     * Resets the summation and delta calculations (generally for when we stop and need to speed up again)
+     * */
     public void reset(){
         previousE = 0;
         sumE = 0;
