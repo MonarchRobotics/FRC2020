@@ -5,6 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+//DO NOT USE EVER
+
+
 package frc.robot.commands.auto;
 
 
@@ -33,7 +44,7 @@ public class DriveAuto extends CommandBase {
     double travelSpeed;
 
     /**
-     * @param subsystem The subsystem used by this command.
+     * @param subsystem The Drivetrain subsystem {@link Drivetrain} that enables us to drive
      */
     public DriveAuto(Drivetrain subsystem) {
         this.subsystem = subsystem;
