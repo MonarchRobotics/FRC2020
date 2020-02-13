@@ -27,6 +27,12 @@ public class Turret extends SubsystemBase {
     private Encoder encoderLeft = new Encoder(6, 7);
     private Encoder encoderRight = new Encoder(4, 5);
 
+    /**
+     *
+     * @param leftWheelPort CAN port for the left wheel motor.
+     * @param rightWheelPort CAN port for the right wheel motor.
+     * @param inputWheelPort CAN port for the feeder wheel.
+     */
     public Turret(int leftWheelPort, int rightWheelPort, int inputWheelPort) {
         leftWheel = new TalonSRX(leftWheelPort);
         rightWheel = new TalonSRX(rightWheelPort);
@@ -52,6 +58,11 @@ public class Turret extends SubsystemBase {
         return encoderRight.getRate();
     }
 
+    /**
+     *
+     * @param leftSpeed Speed to set the left motor.
+     * @param rightSpeed Speed to set the right motor.
+     */
     public void spinMotors(double leftSpeed, double rightSpeed){
         leftWheel.set(ControlMode.PercentOutput,-leftSpeed);
         rightWheel.set(ControlMode.PercentOutput,rightSpeed);
