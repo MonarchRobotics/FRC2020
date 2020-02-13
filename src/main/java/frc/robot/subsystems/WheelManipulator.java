@@ -20,21 +20,28 @@ import com.ctre.phoenix.motorcontrol.can.*;
  * Colour sensor and wheel for the Control Panel.
  */
 public class WheelManipulator extends SubsystemBase {
-    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    private final I2C.Port i2cPort = I2C.Port.kOnboard; //Port on the RIO for colour sensor.
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
     private TalonSRX spinner;
 
+    /**
+     * @param spinnerPort Port for wheel motor.
+     */
     public WheelManipulator(int spinnerPort) {
         spinner = new TalonSRX(spinnerPort);
         spinner.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new WheelOfFortune(this));
     }
 
-
-    private boolean colorSensorMargin(double detected, double test){
+    /**
+     * @param detected Value detected by sensor.
+     * @param accepted Accepted value for colour.
+     * @return
+     */
+    private boolean colorSensorMargin(double detected, double accepted){
         double error = 0.03;
-        return detected<=test+error && detected>=test-error;
+        return detected<=accepted+error && detected>=accepted-error;
     }
 
     public int detectColor(){
