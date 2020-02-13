@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * Gets everything that needs to outside of the frame perimiter
  */
-public class GetOutOfFrame extends CommandBase {
+public class AutoInit extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final BallSuck subsystem;
 
@@ -35,7 +35,7 @@ public class GetOutOfFrame extends CommandBase {
     /**
      * @param subsystem The BallSuck subsystem {@link BallSuck} so that we can extend the ballSuck outside of frame perimeter
      */
-    public GetOutOfFrame(BallSuck subsystem) {
+    public AutoInit(BallSuck subsystem) {
         this.subsystem = subsystem;
         // value to check if it has been activated so it will not activate same systems more than once
         activated = false;

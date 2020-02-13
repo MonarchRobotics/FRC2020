@@ -1,13 +1,9 @@
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.BallSuck;
-import frc.robot.subsystems.WheelManipulator;
-import frc.robot.commands.auto.GetOutOfFrame;
 
 /**
 * Collects commands used for autonomous
@@ -22,6 +18,6 @@ public class AutoGroup extends SequentialCommandGroup {
      * */
     public AutoGroup(Turret turret, Drivetrain drivetrain, BallSuck ballsuck){
         //get the ballsuck system out of frame perimeter at the start of the match
-        addCommands(new GetOutOfFrame(ballsuck));
+        addCommands(new AutoInit(ballsuck));
     }
 }
