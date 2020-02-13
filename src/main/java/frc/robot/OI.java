@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-//TODO: Figure out what we're putting in Robot, RobotContainer, and OI
+/**
+ * Controller and button input.
+ */
 public class OI {
 
     public static XboxController xboxController;
@@ -16,18 +18,13 @@ public class OI {
     public static Joystick joystick1, joystick2;
 
     // Buttons for the RIGHT joystick
-    public static JoystickButton rightButton2;
-
-    // Test turn to a certain degree button
-public static JoystickButton leftButton7;
-
-    // Buttons for the LEFT joystick
-    public static JoystickButton leftButton2;
-
+    public static JoystickButton rightButton2; //ball intake
     public static JoystickButton rightButton8, rightButton9;
 
-    // joystick 1 buttons
-    // public static JoystickButton button1;
+    // Buttons for the LEFT joystick
+    public static JoystickButton leftButton2; //ball intake
+    public static JoystickButton leftButton7; //turn to a certain degree
+
 
     public OI(){
         xboxController = new XboxController(0);
@@ -53,8 +50,10 @@ public static JoystickButton leftButton7;
 
     }
 
-    /* Creats a dead zone for the joysticks/triggers that must be 
-    called and passed the joystick values */
+    /**
+     *  Creats a dead zone for the joysticks/triggers that must be
+    called and passed the joystick values.
+     */
     public static double deadZone (double val, double deadZone){
         if (Math.abs(val) > deadZone){
             if (val > 0){

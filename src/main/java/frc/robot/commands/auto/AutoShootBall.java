@@ -11,6 +11,10 @@ public class AutoShootBall extends CommandBase {
     private Timer timer;
 
 
+    /**
+     * Constructor for AutoShootBall
+     * @param turret the Turret Subsystem {@link Turret} so that we cna shoot balls
+     */
     public AutoShootBall(Turret turret){
         this.subsystem = turret;
         timer = new Timer();
@@ -31,20 +35,18 @@ public class AutoShootBall extends CommandBase {
         if(timer.get()>0.4){//wait for the shooting wheels to start up, then start letting balls into the shooter
             subsystem.getInputWheelMotor().set(ControlMode.PercentOutput,1);
         }
-
-        // subsystem.getWheel2Motor().set(ControlMode.PercentOutput,1);
-        subsystem.getWheelMotor().set(ControlMode.PercentOutput,1);
-
+        subsystem.spinMotors(1.0,1.0);
     }
 
 
-
-    // Called once the command ends or is interrupted.
+    /**
+     * Called once the command ends or is interrupted.
+     * Stops all of the motors from spinning
+     */
     @Override
     public void end(boolean interrupted) {
         subsystem.getInputWheelMotor().set(ControlMode.PercentOutput,0);
-        // subsystem.getWheel2Motor().set(ControlMode.PercentOutput,0);
-        subsystem.getWheelMotor().set(ControlMode.PercentOutput,0);
+        subsystem.spinMotors(0,0);
     }
 
     // Returns true when the command should end.

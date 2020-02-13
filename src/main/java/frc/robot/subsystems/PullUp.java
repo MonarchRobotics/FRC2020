@@ -19,6 +19,11 @@ public class PullUp extends SubsystemBase {
 
   private DoubleSolenoid climbSolenoid;
 
+  /**
+   *
+   * @param openChannel Port for open channel on PCM.
+   * @param closeChannel Port for close channel on PCM.
+   */
   public PullUp(int openChannel, int closeChannel) {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
   }

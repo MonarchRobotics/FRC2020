@@ -52,7 +52,7 @@ public class SpinInPlace extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //travel at the travelSpeed
+        //travel at the speed
         subsystem.ldrive(speed);
         subsystem.rdrive(-speed);
     }
