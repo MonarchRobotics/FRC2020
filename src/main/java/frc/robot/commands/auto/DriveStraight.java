@@ -23,17 +23,18 @@ public class DriveStraight extends CommandBase {
     double travelSpeed;
 
     /**
-     * @param subsystem The subsystem used by this command.
+     * @param subsystem The Drivetrain subsystem {@link Drivetrain} so that we can drive.
      * @param distance The distance we want to drive in inches.
      * @param speed The speed at which we want to travel
      */
     public DriveStraight(Drivetrain subsystem, double distance, double speed) {
         this.subsystem = subsystem;
-
         distanceToTravel = distance;
         travelSpeed = speed;
 
-        // Use addRequirements() here to declare subsystem dependencies.
+        /**
+         * Declare {@link subsystem} as a requirement of the command
+         */
         addRequirements(subsystem);
 
     }
@@ -41,7 +42,6 @@ public class DriveStraight extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
         //reset the values of the encoders to zero.
         subsystem.getEncoderRight().reset();
         subsystem.getEncoderLeft().reset();

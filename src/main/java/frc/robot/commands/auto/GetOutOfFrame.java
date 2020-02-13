@@ -33,7 +33,7 @@ public class GetOutOfFrame extends CommandBase {
     private boolean activated;
 
     /**
-     * @param subsystem The subsystem used by this command.
+     * @param subsystem The BallSuck subsystem {@link BallSuck} so that we can extend the ballSuck outside of frame perimeter
      */
     public GetOutOfFrame(BallSuck subsystem) {
         this.subsystem = subsystem;
