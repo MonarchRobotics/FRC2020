@@ -66,17 +66,24 @@ public class Shoot extends CommandBase {
     public void execute() {
         //If both triggers are pulled, motors run.
         if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
-            double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
-            double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
-            turret.spinMotors(leftSpeed,rightSpeed);
+            // double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
+            // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
+            turret.spinMotors(0.43,0.43);
 
-            // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
-            if(turret.getEncoderLeftRate()>targetSpinSpeed-error && turret.getEncoderRightRate()>targetSpinSpeed-error && turret.getEncoderRightRate()<targetSpinSpeed+error && turret.getEncoderLeftRate()<targetSpinSpeed+error) {
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.5);
+            if(OI.rightJoystick.getRawButton(5)){
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
             }
             else{
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
             }
+
+            // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
+            // if(turret.getEncoderLeftRate()>targetSpinSpeed-error && turret.getEncoderRightRate()>targetSpinSpeed-error && turret.getEncoderRightRate()<targetSpinSpeed+error && turret.getEncoderLeftRate()<targetSpinSpeed+error) {
+            //     turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.5);
+            // }
+            // else{
+            //     turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
+            // }
                 //
                 //            //once the encoders are moving at a certain speed, start to adjust them so that they move at targetSpinSpeed
                 //            if(turret.getEncoderLeftRate()>50 && turret.getEncoderRightRate()>50){

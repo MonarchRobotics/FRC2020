@@ -22,7 +22,7 @@ public final class Constants {
 
     // Ports
     // Ball shooter pors
-    private static final int shooterPort1 = 5;//should be 7
+    private static final int shooterPort1 = 7;
     private static final int shooterPort2 = 8;
     private static final int shooterInputPort = 9;
 
@@ -33,7 +33,7 @@ public final class Constants {
     private static final int rightWheelPort2 = 2;
 
     // Wheel of fortun spinner wheel port
-    private static final int wheelOfFortunePort = 7;//should be 5
+    private static final int wheelOfFortunePort = 5;
 
     // Ball intake and roller coaster ports
     private static final int ballIntakePort = 9;

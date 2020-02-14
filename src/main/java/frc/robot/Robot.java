@@ -89,6 +89,7 @@ public class Robot extends TimedRobot {
       }
       else{
         camera.setExposureManual(3);
+        cameraExposureAuto = false;
       }
     }
     
