@@ -88,6 +88,10 @@ public class Drivetrain extends SubsystemBase {
         left2.set(ControlMode.PercentOutput, speedRamp(speed));
     }
 
+    /**
+     * @return The lidar measurement in inches
+     */
+
     public double getLidarMeasurement() {
         return lidar.getDistance() / 2.54;
     }
