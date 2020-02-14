@@ -66,7 +66,7 @@ public class DriveTank extends CommandBase {
         turnEndCheck = 0;
         spinSpeed = 0;
         spinControl = new MotorControlPID(160,0.5,0.5,0.001,0.001);
-       
+
     }
 
     

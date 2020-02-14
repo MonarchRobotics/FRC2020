@@ -9,12 +9,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Constants;
 import frc.robot.commands.DriveTank;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -28,6 +27,7 @@ public class Drivetrain extends SubsystemBase {
     private Encoder encoder = new Encoder(2, 3);
     private Encoder encoderRight = new Encoder(0, 1);
     private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    private DigitalInput autoSwitch = new DigitalInput(0);
 
     private LidarLite lidar = new LidarLite(I2C.Port.kOnboard);
 
@@ -106,6 +106,10 @@ public class Drivetrain extends SubsystemBase {
 
     public Gyro getGyro() {
         return gyro;
+    }
+
+    public DigitalInput getAutoSwitch() {
+        return autoSwitch;
     }
 
     @Override

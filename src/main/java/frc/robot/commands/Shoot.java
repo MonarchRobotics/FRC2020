@@ -10,6 +10,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.MotorControlPID;
 import frc.robot.OI;
 import frc.robot.subsystems.Turret;
@@ -69,6 +70,8 @@ public class Shoot extends CommandBase {
             // double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(0.43,0.43);
+            // SmartDashboard.putNumber("Left Speed", leftSpeed);
+            // SmartDashboard.putNumber("Left RPM", turret.getEncoderLeftRate());
 
             if(OI.rightJoystick.getRawButton(5)){
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
