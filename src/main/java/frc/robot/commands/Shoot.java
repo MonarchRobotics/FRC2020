@@ -57,6 +57,7 @@ public class Shoot extends CommandBase {
     @Override
     public void initialize() {
         timer.reset();
+        timer.start();
     }
 
     /**
@@ -76,7 +77,7 @@ public class Shoot extends CommandBase {
             // SmartDashboard.putNumber("Left RPM", turret.getEncoderLeftRate());
 
             if(OI.rightJoystick.getRawButton(5)){
-                timer.start();
+                timer.reset();
                 if (timer.get() < .4) {
                     turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
                 }
