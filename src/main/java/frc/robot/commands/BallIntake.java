@@ -57,17 +57,7 @@ public class BallIntake extends CommandBase {
   public void execute() {
 
     
-    if (OI.rightButton2.get())
-    {
-      System.out.println("Button pressed");
-      ballSuck.turnOnIntake();
-      ballSuck.turnOnHandle();
-    }
-    else if (!OI.rightButton2.get())
-    {
-      ballSuck.turnOffIntake();
-    }
-    else if (!OI.rightButton2.get() && !OI.leftButton2.get())
+    if (!OI.rightButton2.get() && !OI.leftButton2.get())
     {
       ballSuck.turnOffIntake();
       ballSuck.turnOffHandle();
@@ -76,6 +66,17 @@ public class BallIntake extends CommandBase {
     {
       ballSuck.turnOnHandle();
     }
+    else if (!OI.rightButton2.get())
+    {
+      ballSuck.turnOffIntake();
+    }
+    else if (OI.rightButton2.get())
+    {
+      System.out.println("Button pressed");
+      ballSuck.turnOnIntake();
+      ballSuck.turnOnHandle();
+    }
+    
   }
 
   /* @return the subsystem ballsuck*/
