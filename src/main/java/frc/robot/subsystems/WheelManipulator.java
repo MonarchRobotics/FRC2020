@@ -12,6 +12,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.ColorSensorColor;
 import frc.robot.commands.WheelOfFortune;
 import com.ctre.phoenix.motorcontrol.can.*;
 
@@ -46,20 +47,20 @@ public class WheelManipulator extends SubsystemBase {
     /**
      * @return Detected colour as an integer. 0 = red, 1 = yellow, 2 = green, 3 = blue.
      */
-    public int detectColor(){
+    public ColorSensorColor detectColor(){
         Color color = colorSensor.getColor();
-        int thisColor = 0;
+        ColorSensorColor thisColor = ColorSensorColor.none;
         if(colorSensorMargin(color.red,0.54) && colorSensorMargin(color.green,0.35) && colorSensorMargin(color.blue,0.11)){//red
-            thisColor = 1;
+            thisColor = ColorSensorColor.red;
         }
         else if(colorSensorMargin(color.red,0.37) && colorSensorMargin(color.green,0.54) && colorSensorMargin(color.blue,0.10)){//yellow
-            thisColor = 2;
+            thisColor = ColorSensorColor.yellow;
         }
         else if(colorSensorMargin(color.red,0.18) && colorSensorMargin(color.green,0.53) && colorSensorMargin(color.blue,0.28)){//green
-            thisColor = 4;
+            thisColor = ColorSensorColor.green;
         }
         else if(colorSensorMargin(color.red,0.15) && colorSensorMargin(color.green,0.44) && colorSensorMargin(color.blue,0.41)){//blue
-            thisColor = 3;
+            thisColor = ColorSensorColor.blue;
         }
         return thisColor;
     }

@@ -9,10 +9,13 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ColorSensorColor;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.WheelManipulator;
 import edu.wpi.first.wpilibj.DriverStation;
+
+import java.util.Arrays;
 
 
 /**
@@ -26,8 +29,8 @@ public class WheelOfFortune extends CommandBase {
   private boolean doingPosition;
 
   private int[] countedColors;
-  private int lastDetectedColor;
-  private int colorForPosition;
+  private ColorSensorColor lastDetectedColor;
+  private ColorSensorColor colorForPosition;
   private final WheelManipulator subsystem;
 
   /**
@@ -42,16 +45,14 @@ public class WheelOfFortune extends CommandBase {
     doingRotation = false;
     doingPosition = false;
     countedColors = new int[4];//0=R,1=Y,2=B,3=G
-    for(int i=0; i<countedColors.length; i++){
-      countedColors[i]=0;
-    }
-    lastDetectedColor = 0;//0=none,1=R,2=Y,3=B,4=G
+    Arrays.fill(countedColors, 0);
+    lastDetectedColor = ColorSensorColor.none;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    colorForPosition = -1;
+    colorForPosition = ColorSensorColor.none;
   }
 
   
@@ -65,7 +66,7 @@ public class WheelOfFortune extends CommandBase {
   @Override
   public void execute() {
     //check if we've received anything from the Driver Station
-    if(colorForPosition==-1){
+    if(colorForPosition==ColorSensorColor.none){
       String gameData;
       gameData = DriverStation.getInstance().getGameSpecificMessage();
       if(gameData.length() > 0)
@@ -73,19 +74,19 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("We received data: "+gameData);
         switch (gameData.charAt(0)){//colors are offset because we detect from the middle of the wheel, but the field sensor is on the side. So in theory, if we see blue, the field senses red, etc.
           case 'B' :
-            colorForPosition = 1;//detect red
+            colorForPosition = ColorSensorColor.red;
             break;
           case 'G' :
-            colorForPosition = 2;//detect yellow
+            colorForPosition = ColorSensorColor.yellow;
             break;
           case 'R' :
-            colorForPosition = 3;//detect blue
+            colorForPosition = ColorSensorColor.blue;
             break;
           case 'Y' :
-            colorForPosition = 4;//detect green
+            colorForPosition = ColorSensorColor.green;
             break;
           default :
-            colorForPosition = -1;//data is corrupt
+            colorForPosition = ColorSensorColor.none;//data is corrupt
             break;
         }
       }
@@ -96,13 +97,13 @@ public class WheelOfFortune extends CommandBase {
     if(rightButton8 && !doingPosition && !doingRotation){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
       doingRotation = true;
-      lastDetectedColor = 0;
+      lastDetectedColor = ColorSensorColor.none;
       for(int i=0; i<countedColors.length; i++){
         countedColors[i]=0;
       }
     }
     else if (rightButton9 && !doingPosition && !doingRotation){//some button to activate for Position control
-      if(colorForPosition!=-1){
+      if(colorForPosition!=ColorSensorColor.none){
         System.out.println("Starting position control...");
         doingPosition = true;
       }
@@ -121,7 +122,7 @@ public class WheelOfFortune extends CommandBase {
       System.out.println("Stopped position control");
     }
 
-    int detectedColor = subsystem.detectColor();
+    ColorSensorColor detectedColor = subsystem.detectColor();
     // System.out.println(detectedColor);
     //the actual logic for the wheels to work
     if(doingRotation && doingPosition){
@@ -135,8 +136,8 @@ public class WheelOfFortune extends CommandBase {
       if(detectedColor!=lastDetectedColor){//The color has changed
         lastDetectedColor = detectedColor;
         System.out.println(detectedColor);
-        if(detectedColor!=0){
-          countedColors[detectedColor-1]++;//add to the count of the number of times the sensor has seen each color
+        if(detectedColor!=ColorSensorColor.none){
+          countedColors[detectedColor.toInt()-1]++;//add to the count of the number of times the sensor has seen each color
           if(countedColors[0]>=7 && countedColors[1]>=7 && countedColors[2]>=7 && countedColors[3]>=7){//once we've seen each color 7 times (so 3.5 rotations), stop it from rotating.
             System.out.println("STOP. ROTATION IS DONE");
             System.out.println("STOP. ROTATION IS DONE");
@@ -162,7 +163,7 @@ public class WheelOfFortune extends CommandBase {
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
           System.out.println("STOP. POSITION IS DONE");
-          colorForPosition = -1;
+          colorForPosition = ColorSensorColor.none;
           subsystem.getSpinnerMotor().set(ControlMode.PercentOutput,0.0);
           doingPosition = false;
         }
