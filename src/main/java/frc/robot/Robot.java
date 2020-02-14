@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
   private OI oi;
   private boolean cameraExposureAuto = false;
   private UsbCamera camera;
+  
+  public static double[] position = new double[2];
 
   /**
    * This function is run when the robot is first started up and should be used for any

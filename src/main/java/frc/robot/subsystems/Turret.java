@@ -48,6 +48,7 @@ public class Turret extends SubsystemBase {
         encoderRight.setDistancePerPulse(1/2048.0);
     }
 
+    
     public TalonSRX getInputWheelMotor() { return inputWheel;}
 
     public double getEncoderLeftRate(){
@@ -67,6 +68,17 @@ public class Turret extends SubsystemBase {
         leftWheel.set(ControlMode.PercentOutput,-leftSpeed);
         rightWheel.set(ControlMode.PercentOutput,rightSpeed);
     }
+
+    public void runInput()
+    {
+        inputWheel.set(ControlMode.PercentOutput, 0.25);
+    }
+    
+    public void stopInput()
+    {
+        inputWheel.set(ControlMode.PercentOutput, 0);
+    }
+
     // @Override
     // public void initDefaultCommand(){
     //   setDefaultCommand(new Shoot());

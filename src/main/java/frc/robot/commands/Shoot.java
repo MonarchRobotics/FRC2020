@@ -77,20 +77,20 @@ public class Shoot extends CommandBase {
             else{
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
             }
-//
-//            //once the encoders are moving at a certain speed, start to adjust them so that they move at targetSpinSpeed
-//            if(turret.getEncoderLeftRate()>50 && turret.getEncoderRightRate()>50){
-//                //calculate the difference in the targetSpinSpeed and the current encoder speed, and divide by 100.
-//                double differenceLeft = (turret.getEncoderLeftRate() - targetSpinSpeed)/-100.0;
-//                double differenceRight = (turret.getEncoderRightRate() - targetSpinSpeed)/-100.0;
-//
-//                //adjust the speed of each motor with the differences from above.
-//                leftSpeed+=differenceLeft;
-//                rightSpeed+=differenceRight;
-//            }
-//
-//            turret.getWheelMotor().set(ControlMode.PercentOutput, -leftSpeed);
-//            turret.getWheel2Motor().set(ControlMode.PercentOutput, rightSpeed);
+                //
+                //            //once the encoders are moving at a certain speed, start to adjust them so that they move at targetSpinSpeed
+                //            if(turret.getEncoderLeftRate()>50 && turret.getEncoderRightRate()>50){
+                //                //calculate the difference in the targetSpinSpeed and the current encoder speed, and divide by 100.
+                //                double differenceLeft = (turret.getEncoderLeftRate() - targetSpinSpeed)/-100.0;
+                //                double differenceRight = (turret.getEncoderRightRate() - targetSpinSpeed)/-100.0;
+                //
+                //                //adjust the speed of each motor with the differences from above.
+                //                    leftSpeed+=differenceLeft;
+                //                rightSpeed+=differenceRight;
+                //            }
+                //
+                //            turret.getWheelMotor().set(ControlMode.PercentOutput, -leftSpeed);
+                //            turret.getWheel2Motor().set(ControlMode.PercentOutput, rightSpeed);
             
         }
         else {
@@ -102,8 +102,19 @@ public class Shoot extends CommandBase {
         }
     }
 
-
-
+     /**
+     * @return the motorControlLeft
+     */
+    public MotorControlPID getMotorControlLeft() {
+        return motorControlLeft;
+    }
+    /**
+     * @return the motorControlRight
+     */
+    public MotorControlPID getMotorControlRight() {
+        return motorControlRight;
+    }
+    
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
