@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
 import frc.robot.Robot;
@@ -33,22 +34,21 @@ public class SpinToPort extends CommandBase {
     @Override
     public void execute() {
         double[] coords = Robot.getTargetCenterCoordinates();
-        if(coords[0]!=-1){
+        if(coords[0]!= 160){
             spinSpeed = spinControl.getSpeed(coords[0]);
-                    if(coords[0]<160){
+                    if(drivetrain.getAutoSwitch().get()){
                         double speed = (160-coords[0])/640;
                         if(speed>0){speed=1;}
                         spinSpeed = speed;
                     }
-                    else if(coords[0]>160){
+                    else if(!drivetrain.getAutoSwitch().get()){
                         double speed = (coords[0]-160)/640;
                         if(speed>0){speed=1;}
                         spinSpeed = -speed;
                     }
-                    else {
-                        spinSpeed = 0;
-                        isFinished = true;
-                    }
+        }
+        else {
+            isFinished = true;
         }
         System.out.println("spinSpeed: "+spinSpeed);
         drivetrain.ldrive(-spinSpeed);

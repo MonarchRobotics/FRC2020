@@ -10,6 +10,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.MotorControlPID;
 import frc.robot.OI;
 import frc.robot.subsystems.Turret;
@@ -68,6 +69,8 @@ public class Shoot extends CommandBase {
         if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
             double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
             double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
+            SmartDashboard.putNumber("Left Speed", leftSpeed);
+            SmartDashboard.putNumber("Left RPM", turret.getEncoderLeftRate());
             turret.spinMotors(leftSpeed,rightSpeed);
 
             // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
