@@ -31,25 +31,11 @@ public class MotorControlPID {
     }
 
     public MotorControlPID(double target, double maxValue, double ceiling, double Kp, double Ki){
-        this.target = target;
-        this.maxValue = maxValue;
-        this.ceiling = ceiling;
-        this.Kp = Kp;
-        this.Ki = Ki;
-        this.Kd = 0;
-        sumE = 0;
-        previousE = 0;
+        this(target,maxValue,ceiling,Kp,Ki,0);
     }
 
     public MotorControlPID(double target, double maxValue, double ceiling, double Kp){
-        this.target = target;
-        this.maxValue = maxValue;
-        this.ceiling = ceiling;
-        this.Kp = Kp;
-        this.Ki = 0;
-        this.Kd = 0;
-        sumE = 0;
-        previousE = 0;
+        this(target,maxValue,ceiling,Kp,0.0,0.0);
     }
 
     /**
