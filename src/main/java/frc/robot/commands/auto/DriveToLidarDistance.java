@@ -9,6 +9,12 @@ public class DriveToLidarDistance extends CommandBase {
     private double distance;
     private double speed;
 
+    /**
+     * @param drivetrain The Drivetrain subsystem
+     * @param distance The distance the LIDAR should read before we stop driving
+     * @param speed How fast we should drive, -1 to 1
+     */
+
     public DriveToLidarDistance(Drivetrain drivetrain, double distance, double speed) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
@@ -31,6 +37,7 @@ public class DriveToLidarDistance extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        //keep driving until the LIDAR reads the correct thing
         return speed>0 ? drivetrain.getLidarMeasurement()<distance : drivetrain.getLidarMeasurement()>distance;
     }
 
