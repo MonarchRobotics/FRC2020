@@ -57,7 +57,6 @@ public class Shoot extends CommandBase {
     @Override
     public void initialize() {
         timer.reset();
-        timer.start();
     }
 
     /**
@@ -82,7 +81,7 @@ public class Shoot extends CommandBase {
 
 
             if(OI.rightJoystick.getRawButton(5)){
-                timer.reset();
+                timer.start();
                 if (timer.get() < .4) {
                     turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
                 }
