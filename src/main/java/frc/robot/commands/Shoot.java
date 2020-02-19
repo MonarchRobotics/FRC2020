@@ -29,7 +29,7 @@ public class Shoot extends CommandBase {
     private MotorControlPID motorControlRight;
     //the approximate speed we want the shooter to be at.
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 100.0;
+    final double targetSpinSpeed = 24.0;
     final double error = 10.0;
 
     // VideoCapture camera;
@@ -48,8 +48,8 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
+        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.01);
     }
 
     // Called when the command is initially scheduled.
@@ -66,19 +66,26 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         //If both triggers are pulled, motors run.
-        if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
-            // double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
-            // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
-            turret.spinMotors(0.43,0.43);
-            // SmartDashboard.putNumber("Left Speed", leftSpeed);
-            // SmartDashboard.putNumber("Left RPM", turret.getEncoderLeftRate());
 
-            if(OI.rightJoystick.getRawButton(5)){
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
+        if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
+            double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
+            // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
+            turret.spinMotors(leftSpeed,leftSpeed);
+            // turret.spinMotors(0.60,0.60);
+            SmartDashboard.putNumber("Left Speed", leftSpeed);
+            SmartDashboard.putNumber("Left RPS", turret.getEncoderLeftRate());
+
+            System.out.println("RPM:"+turret.getEncoderLeftRate());
+
+            if(OI.rightJoystick.getRawButton(3)){
+                System.out.println("Pressing Button");
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
             }
-            else{
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
+            else {
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0); 
             }
+
+            
 
             // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
             // if(turret.getEncoderLeftRate()>targetSpinSpeed-error && turret.getEncoderRightRate()>targetSpinSpeed-error && turret.getEncoderRightRate()<targetSpinSpeed+error && turret.getEncoderLeftRate()<targetSpinSpeed+error) {
@@ -104,11 +111,14 @@ public class Shoot extends CommandBase {
             
         }
         else {
+            // SmartDashboard.putNumber("Left Speed", 0);
+            // SmartDashboard.putNumber("Left RPM", 0);
             turret.spinMotors(0.0,0.0);
             motorControlLeft.reset();
             motorControlRight.reset();
 
             turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
+            // turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
     }
 

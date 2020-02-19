@@ -27,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
     private Encoder encoder = new Encoder(2, 3);
     private Encoder encoderRight = new Encoder(0, 1);
     private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    private DigitalInput autoSwitch = new DigitalInput(0);
+    private DigitalInput autoSwitch = new DigitalInput(9);
 
     private LidarLite lidar = new LidarLite(I2C.Port.kOnboard);
 
@@ -55,6 +55,7 @@ public class Drivetrain extends SubsystemBase {
         setDefaultCommand(new DriveTank(this));
 
         gyro.calibrate();
+
 
         //set up the distance to pulse ratio for each of the two encoders.
         encoder.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches

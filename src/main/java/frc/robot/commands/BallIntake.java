@@ -57,6 +57,7 @@ public class BallIntake extends CommandBase {
   public void execute() {
 
     
+    // if(OI.rightJoystick.getRawButton(3)){}
     if (!OI.rightButton2.get() && !OI.leftButton2.get())
     {
       ballSuck.turnOffIntake();

@@ -42,7 +42,7 @@ public final class Constants {
     private static final int internalManipulation = 6;
 
     private static final double distanceAuto = 125.0;//in/sec at 100% power
-    private static final double rotationAuto = 1.6; //rotations/sec at 100% power
+    private static final double rotationAuto = 16; //rotations/sec at 100% power
 
     // Pulse time for solenoid for intake release
     private static final double pulseTimer = 0.1;

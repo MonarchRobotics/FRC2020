@@ -95,6 +95,8 @@ public class DriveTank extends CommandBase {
             
         // }
 
+        // System.out.println("Switch: "+drivetrain.getAutoSwitch().get());
+
         if(OI.leftButton7.get()){
             // TEST THING for turning 90 degrees
             if (drivetrain.getGyro().getAngle() % 360 < endTurn && turnEndCheck < 4)
@@ -134,13 +136,13 @@ public class DriveTank extends CommandBase {
 //                        spinSpeed = 0;
 //                    }
                 }
-                System.out.println("spinSpeed: "+spinSpeed);
+                // System.out.println("spinSpeed: "+spinSpeed);
                 drivetrain.ldrive(-spinSpeed);
                 drivetrain.rdrive(spinSpeed);
             }
             else{
 
-                System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
+                // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
                 drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
