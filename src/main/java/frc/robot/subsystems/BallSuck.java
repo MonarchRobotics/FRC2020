@@ -71,6 +71,11 @@ public class BallSuck extends SubsystemBase {
     System.out.println("Spinning intake");
     intakeS = true;
   }
+  public void intakeBackwards()
+  {
+    intake.set(-0.3);
+    intakeS = true;
+  }
   public void turnOffIntake()
   {
     intake.set(0);
