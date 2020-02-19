@@ -39,7 +39,7 @@ public final class Constants {
     private static final int ballIntakePort = 9;
     // Ball intake release solenoid for the start of the match
     private static final int intakeRelease = 11;
-    private static final int internalManipulation = 6;
+    private static final int internalManipulation = 10;
 
     private static final double distanceAuto = 125.0;//in/sec at 100% power
     private static final double rotationAuto = 16; //rotations/sec at 100% power

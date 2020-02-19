@@ -27,9 +27,8 @@ public class Shoot extends CommandBase {
     private final Turret turret;
     private MotorControlPID motorControlLeft;
     private MotorControlPID motorControlRight;
-    //the approximate speed we want the shooter to be at.
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 25.0;
+    final double targetSpinSpeed = 20.0;
     final double error = 10.0;
 
     // VideoCapture camera;
@@ -45,11 +44,12 @@ public class Shoot extends CommandBase {
     public Shoot(Turret turret) {
         this.turret = turret;
 
+        //timer = new Timer();
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,0.43,1.0,0.05,0.001);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,0.43,1.0,0.01);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
+        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
     }
 
     // Called when the command is initially scheduled.
@@ -83,49 +83,11 @@ public class Shoot extends CommandBase {
 
 
             if(OI.rightJoystick.getRawButton(5)){
-                //timer.start();
-                if (timer.get() < .4) {
-                    turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
-                }
-                else if (timer.get() >= .8) {
-                    timer.reset();
-                }
-
-            if(OI.rightJoystick.getRawButton(3)){
-                System.out.println("Pressing Button");
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
-
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
-
             }
             else {
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0); 
             }
-
-            
-
-            // Waits until the encoders are moving at a certain speed to start spinning the feeder wheel.
-            // if(turret.getEncoderLeftRate()>targetSpinSpeed-error && turret.getEncoderRightRate()>targetSpinSpeed-error && turret.getEncoderRightRate()<targetSpinSpeed+error && turret.getEncoderLeftRate()<targetSpinSpeed+error) {
-            //     turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.5);
-            // }
-            // else{
-            //     turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
-            // }
-                //
-                //            //once the encoders are moving at a certain speed, start to adjust them so that they move at targetSpinSpeed
-                //            if(turret.getEncoderLeftRate()>50 && turret.getEncoderRightRate()>50){
-                //                //calculate the difference in the targetSpinSpeed and the current encoder speed, and divide by 100.
-                //                double differenceLeft = (turret.getEncoderLeftRate() - targetSpinSpeed)/-100.0;
-                //                double differenceRight = (turret.getEncoderRightRate() - targetSpinSpeed)/-100.0;
-                //
-                //                //adjust the speed of each motor with the differences from above.
-                //                    leftSpeed+=differenceLeft;
-                //                rightSpeed+=differenceRight;
-                //            }
-                //
-                //            turret.getWheelMotor().set(ControlMode.PercentOutput, -leftSpeed);
-                //            turret.getWheel2Motor().set(ControlMode.PercentOutput, rightSpeed);
-            
         }
         else {
             // SmartDashboard.putNumber("Left Speed", 0);
@@ -137,6 +99,7 @@ public class Shoot extends CommandBase {
             turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
             // turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
+    
     }
 
      /**

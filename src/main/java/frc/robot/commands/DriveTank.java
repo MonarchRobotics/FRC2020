@@ -144,8 +144,11 @@ public class DriveTank extends CommandBase {
 
                 // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
-                drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger()){
+                    drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                }
+                
             }
             
         }
