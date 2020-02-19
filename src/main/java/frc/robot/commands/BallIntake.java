@@ -67,10 +67,6 @@ public class BallIntake extends CommandBase {
     {
       ballSuck.turnOnHandle();
     }
-    else if (!OI.rightButton2.get())
-    {
-      ballSuck.turnOffIntake();
-    }
     else if (OI.rightButton2.get())
     {
       System.out.println("Button pressed");

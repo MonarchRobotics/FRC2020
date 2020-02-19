@@ -30,7 +30,7 @@ public class Shoot extends CommandBase {
     private Timer timer;
     //the approximate speed we want the shooter to be at.
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 24.0;
+    final double targetSpinSpeed = 25.0;
     final double error = 10.0;
 
     // VideoCapture camera;
@@ -49,14 +49,14 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.01);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,0.43,1.0,0.05,0.001);
+        motorControlRight = new MotorControlPID(targetSpinSpeed,0.43,1.0,0.01);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        timer.reset();
+        //timer.reset();
     }
 
     /**
@@ -81,7 +81,7 @@ public class Shoot extends CommandBase {
 
 
             if(OI.rightJoystick.getRawButton(5)){
-                timer.start();
+                //timer.start();
                 if (timer.get() < .4) {
                     turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
                 }
