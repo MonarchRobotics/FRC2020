@@ -28,7 +28,7 @@ public class Shoot extends CommandBase {
     private MotorControlPID motorControlLeft;
     private MotorControlPID motorControlRight;
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 20.0;
+    final double targetSpinSpeed = 24.0;
     final double error = 10.0;
 
     // VideoCapture camera;
