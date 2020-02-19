@@ -27,7 +27,6 @@ public class Shoot extends CommandBase {
     private final Turret turret;
     private MotorControlPID motorControlLeft;
     private MotorControlPID motorControlRight;
-    private Timer timer;
     //the approximate speed we want the shooter to be at.
     //the target revolutions per second on the encoders.
     final double targetSpinSpeed = 24.0;
@@ -56,8 +55,6 @@ public class Shoot extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        timer.reset();
-        timer.start();
     }
 
     /**
@@ -82,13 +79,7 @@ public class Shoot extends CommandBase {
 
 
             if(OI.rightJoystick.getRawButton(5)){
-                timer.reset();
-                if (timer.get() < .4) {
-                    turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
-                }
-                else if (timer.get() >= .8) {
-                    timer.reset();
-                }
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,-1.0);
             }
             else {
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
