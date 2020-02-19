@@ -31,12 +31,15 @@ public class AutoInit extends CommandBase {
     private final BallSuck subsystem;
 
     private boolean activated;
+    private Timer timer;
 
     /**
      * @param subsystem The BallSuck subsystem {@link BallSuck} so that we can extend the ballSuck outside of frame perimeter
      */
     public AutoInit(BallSuck subsystem) {
         this.subsystem = subsystem;
+        timer = new Timer();
+
         // value to check if it has been activated so it will not activate same systems more than once
         activated = false;
 
@@ -48,12 +51,14 @@ public class AutoInit extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        timer.start();
         
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        subsystem.intakeBackwards();
         // if (!activated)
         // {
             // Activate the release for the ball intake system
@@ -65,13 +70,13 @@ public class AutoInit extends CommandBase {
     // Called once the command ends or is interrupted, sets motors to stop moving
     @Override
     public void end(boolean interrupted) {
-
+        subsystem.turnOffIntake();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         //returns false while the system hasn't activated fully yet
-        return activated;
+        return timer.get()>0.3;
     }
 }
