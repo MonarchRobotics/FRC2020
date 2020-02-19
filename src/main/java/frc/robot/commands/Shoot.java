@@ -27,7 +27,6 @@ public class Shoot extends CommandBase {
     private final Turret turret;
     private MotorControlPID motorControlLeft;
     private MotorControlPID motorControlRight;
-    private Timer timer;
     //the approximate speed we want the shooter to be at.
     //the target revolutions per second on the encoders.
     final double targetSpinSpeed = 25.0;
@@ -56,7 +55,10 @@ public class Shoot extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+<<<<<<< HEAD
         //timer.reset();
+=======
+>>>>>>> parent of 3d3f16c... Merge branch 'master' of https://github.com/MonarchRobotics/FRC2020
     }
 
     /**
@@ -79,6 +81,7 @@ public class Shoot extends CommandBase {
 
             System.out.println("RPM:"+turret.getEncoderLeftRate());
 
+<<<<<<< HEAD
 
             if(OI.rightJoystick.getRawButton(5)){
                 //timer.start();
@@ -88,9 +91,14 @@ public class Shoot extends CommandBase {
                 else if (timer.get() >= .8) {
                     timer.reset();
                 }
+=======
+            if(OI.rightJoystick.getRawButton(3)){
+                System.out.println("Pressing Button");
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
+>>>>>>> parent of 3d3f16c... Merge branch 'master' of https://github.com/MonarchRobotics/FRC2020
             }
             else {
-                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
+                turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0); 
             }
 
             
