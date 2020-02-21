@@ -28,7 +28,7 @@ public class Shoot extends CommandBase {
     private MotorControlPID motorControlLeft;
     private MotorControlPID motorControlRight;
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 24.0;
+    final double targetSpinSpeed = 24.00;
     final double error = 10.0;
 
     // VideoCapture camera;
@@ -48,7 +48,9 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
+        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
+
+        ///NOT USING THIS ONE
         motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
     }
 
@@ -74,11 +76,11 @@ public class Shoot extends CommandBase {
             double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,leftSpeed);
-            // turret.spinMotors(0.60,0.60);
+            // turret.spinMotors(0.47,0.47);
             SmartDashboard.putNumber("Left Speed", leftSpeed);
             SmartDashboard.putNumber("Left RPS", turret.getEncoderLeftRate());
 
-            System.out.println("RPM:"+turret.getEncoderLeftRate());
+            // System.out.println("RPM:"+turret.getEncoderLeftRate());
 
 
 
