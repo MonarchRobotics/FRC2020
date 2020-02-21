@@ -25,8 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Shoot extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Turret turret;
-    private MotorControlPID motorControlLeft;
-    private MotorControlPID motorControlRight;
+    private MotorControlPID motorControl;
     //the target revolutions per second on the encoders.
     final double targetSpinSpeed = 24.00;
     final double error = 10.0;
@@ -48,10 +47,8 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
+        motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
 
-        ///NOT USING THIS ONE
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.05,0.001);
     }
 
     // Called when the command is initially scheduled.
@@ -73,7 +70,7 @@ public class Shoot extends CommandBase {
         //If both triggers are pulled, motors run.
 
         if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
-            double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
+            double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,leftSpeed);
             // turret.spinMotors(0.47,0.47);
@@ -95,8 +92,7 @@ public class Shoot extends CommandBase {
             // SmartDashboard.putNumber("Left Speed", 0);
             // SmartDashboard.putNumber("Left RPM", 0);
             turret.spinMotors(0.0,0.0);
-            motorControlLeft.reset();
-            motorControlRight.reset();
+            motorControl.reset();
 
             turret.getInputWheelMotor().set(ControlMode.PercentOutput, 0.0);
             // turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
@@ -104,19 +100,6 @@ public class Shoot extends CommandBase {
     
     }
 
-     /**
-     * @return the motorControlLeft
-     */
-    public MotorControlPID getMotorControlLeft() {
-        return motorControlLeft;
-    }
-    /**
-     * @return the motorControlRight
-     */
-    public MotorControlPID getMotorControlRight() {
-        return motorControlRight;
-    }
-    
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
