@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.MotorControlPID;
 import frc.robot.OI;
+import frc.robot.enums.WheelManipulatorState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.Robot;
 
@@ -144,7 +145,7 @@ public class DriveTank extends CommandBase {
 
                 System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
-                if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger()){
+                if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
                     drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
                 drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
                 }
