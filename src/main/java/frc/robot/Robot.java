@@ -9,10 +9,10 @@ package frc.robot;
 
 import java.util.Arrays;
 
-import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.enums.WheelManipulatorState;
 import frc.robot.subsystems.WheelManipulator;
 import org.opencv.core.Core;
 
@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   private UsbCamera camera;
   
   public static double[] position = new double[2];
-
+  public static WheelManipulatorState wheelManipulatorState = WheelManipulatorState.none;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
