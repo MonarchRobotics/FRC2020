@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.commands.Climb;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
@@ -24,6 +24,7 @@ public class PullUp extends SubsystemBase {
    */
   public PullUp(int openChannel, int closeChannel) {
       climbSolenoid = new DoubleSolenoid(openChannel, closeChannel);
+      setDefaultCommand(new Climb(this));
   }
 
   /**

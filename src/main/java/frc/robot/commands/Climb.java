@@ -48,7 +48,8 @@ public class Climb extends CommandBase {
   public void execute() {
 
     // When A on the xbox controller is pressed toggle climbing
-    if (OI.xboxController.getAButtonPressed()) {
+    if (OI.leftJoystick.getRawButtonPressed(11)) {
+      System.out.println("Pressing button");
       if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
         pullUp.extendClimb();
       }

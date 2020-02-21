@@ -49,6 +49,9 @@ public final class Constants {
 
     //Constants for Deadzone
     private static final double deadZone = 0.1;
+
+    private static final int openChannel = 1;
+    private static final int closeChannel = 0;
     
 
     
@@ -121,5 +124,19 @@ public final class Constants {
 
     public static double getTimeToRotate(double radians, double speed) {
         return radians / (getRotationAuto()*2*Math.PI) / speed;
+    }
+
+    /**
+     * @return the openchannel
+     */
+    public static int getOpenChannel() {
+        return openChannel;
+    }
+
+    /**
+     * @return the closechannel
+     */
+    public static int getCloseChannel() {
+        return closeChannel;
     }
 }
