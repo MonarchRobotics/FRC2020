@@ -72,6 +72,10 @@ public class MotorControlPID {
         sumE = 0;
     }
 
+    public void setTarget(double target) {
+        this.target = target;
+    }
+
     public void setKd(double kd) {
         Kd = kd;
     }

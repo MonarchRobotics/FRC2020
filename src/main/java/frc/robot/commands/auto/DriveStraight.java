@@ -9,6 +9,7 @@ package frc.robot.commands.auto;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.MotorControlPID;
 import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.Timer;
 
@@ -21,6 +22,9 @@ public class DriveStraight extends CommandBase {
     private final Drivetrain subsystem;
     double distanceToTravel;
     double travelSpeed;
+
+    private MotorControlPID leftPid;
+    private MotorControlPID rightPid;
 
     /**
      * @param subsystem The Drivetrain subsystem {@link Drivetrain} so that we can drive.
@@ -36,6 +40,8 @@ public class DriveStraight extends CommandBase {
          * Declare {@link subsystem} as a requirement of the command
          */
         addRequirements(subsystem);
+        leftPid = new MotorControlPID(distanceToTravel,speed,1.0,0.01);
+        rightPid = new MotorControlPID(distanceToTravel,speed,1.0,0.01);
 
     }
 
@@ -51,28 +57,29 @@ public class DriveStraight extends CommandBase {
     @Override
     public void execute() {
         //set the initial speed, before encoder adjustments
-        double rightSpeed = travelSpeed;
-        double leftSpeed = travelSpeed;
 
         //read the distance each encoder has traveled (in inches)
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
-        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
-        //reverse our speed if we want to travel backwards
-        if(distanceToTravel<0){
-            rightSpeed*=-1;
-            leftSpeed*=-1;
-        }
+        double leftSpeed = leftPid.getSpeed(leftEnc);
+        double rightSpeed = leftPid.getSpeed(rightEnc);
+
+//        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
+//        //reverse our speed if we want to travel backwards
+//        if(distanceToTravel<0){
+//            rightSpeed*=-1;
+//            leftSpeed*=-1;
+//        }
 
         //adjust the right and left speed based on how far each side has traveled
         //changes the speed based on how far apart the two distances are
-        if(rightEnc>leftEnc){
-            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
-        }
-        else if(rightEnc<leftEnc){
-            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)/10.0);
-        }
+//        if(rightEnc>leftEnc){
+//            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
+//        }
+//        else if(rightEnc<leftEnc){
+//            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)/10.0);
+//        }
         subsystem.ldrive(leftSpeed);
         subsystem.rdrive(rightSpeed);
         System.out.println(subsystem.getEncoderRight().getDistance()+"in");
