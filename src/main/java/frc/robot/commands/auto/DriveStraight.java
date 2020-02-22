@@ -63,7 +63,7 @@ public class DriveStraight extends CommandBase {
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
         double leftSpeed = leftPid.getSpeed(leftEnc);
-        double rightSpeed = leftPid.getSpeed(rightEnc);
+        double rightSpeed = rightPid.getSpeed(rightEnc);
 
 //        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
 //        //reverse our speed if we want to travel backwards

@@ -52,6 +52,8 @@ public final class Constants {
 
     private static final int openChannel = 1;
     private static final int closeChannel = 0;
+
+    private static final double spinCircumference = Math.PI* 28;
     
 
     
@@ -124,6 +126,10 @@ public final class Constants {
 
     public static double getTimeToRotate(double radians, double speed) {
         return radians / (getRotationAuto()*2*Math.PI) / speed;
+    }
+
+    public static double getSpinCircumference() {
+        return spinCircumference;
     }
 
     /**

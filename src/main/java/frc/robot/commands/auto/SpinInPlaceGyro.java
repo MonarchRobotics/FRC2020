@@ -16,7 +16,7 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * The auto command to drive forward
  */
-public class SpinInPlace extends CommandBase {
+public class SpinInPlaceGyro extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
     double degrees;
@@ -28,7 +28,7 @@ public class SpinInPlace extends CommandBase {
      * @param degrees The amount we want to turn in degrees. Spinning right is positive, left is negative.
      * @param speed The speed we want to spin at.
      */
-    public SpinInPlace(Drivetrain subsystem, int degrees, double speed) {
+    public SpinInPlaceGyro(Drivetrain subsystem, int degrees, double speed) {
         this.subsystem = subsystem;
 
         this.degrees = degrees;//positive means to turn right, negative is turning left

@@ -34,18 +34,26 @@ public class SpinToPort extends CommandBase {
     @Override
     public void execute() {
         double[] coords = Robot.getTargetCenterCoordinates();
-        if(coords[0]!= 160){
+        if(coords[0]==-1){
+            if(drivetrain.getAutoSwitch().get()){
+                spinSpeed = 0.5;
+            }
+            else {
+                spinSpeed = -0.5;
+            }
+        }
+        else if(coords[0]!= 160){
             spinSpeed = spinControl.getSpeed(coords[0]);
-                    if(drivetrain.getAutoSwitch().get()){
-                        double speed = (160-coords[0])/640;
-                        if(speed>0){speed=1;}
-                        spinSpeed = speed;
-                    }
-                    else if(!drivetrain.getAutoSwitch().get()){
-                        double speed = (coords[0]-160)/640;
-                        if(speed>0){speed=1;}
-                        spinSpeed = -speed;
-                    }
+//                    if(drivetrain.getAutoSwitch().get()){
+//                        double speed = (160-coords[0])/640;
+//                        if(speed>0){speed=1;}
+//                        spinSpeed = speed;
+//                    }
+//                    else if(!drivetrain.getAutoSwitch().get()){
+//                        double speed = (coords[0]-160)/640;
+//                        if(speed>0){speed=1;}
+//                        spinSpeed = -speed;
+//                    }
         }
         else {
             isFinished = true;
