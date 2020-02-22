@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.enums.ColorSensorColor;
@@ -23,14 +24,16 @@ public class WheelManipulator extends SubsystemBase {
     private final I2C.Port i2cPort = I2C.Port.kOnboard; //Port on the RIO for colour sensor.
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
-    private TalonSRX spinner;
-
+//    private TalonSRX spinner;
+    private Relay spinner;
     /**
      * @param spinnerPort Port for wheel motor.
      */
     public WheelManipulator(int spinnerPort) {
-        spinner = new TalonSRX(spinnerPort);
-        spinner.setNeutralMode(NeutralMode.Brake);
+//        spinner = new TalonSRX(spinnerPort);
+//        spinner.setNeutralMode(NeutralMode.Brake);
+
+        spinner = new Relay(spinnerPort);
         setDefaultCommand(new WheelOfFortune(this));
     }
 
@@ -69,8 +72,16 @@ public class WheelManipulator extends SubsystemBase {
         return colorSensor;
     }
 
-    public TalonSRX getSpinnerMotor() {
-        return spinner;
+    public void spinWheel(){
+        spinner.set(Relay.Value.kForward);
+    }
+
+    public void stopSpinWheel(){
+        spinner.set(Relay.Value.kOff);
+    }
+
+    public Relay.Value getSpinnerState(){
+        return spinner.get();
     }
 
     // @Override

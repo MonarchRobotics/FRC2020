@@ -21,21 +21,21 @@ package frc.robot;
 public final class Constants {
 
     // Ports
-    // Ball shooter pors
+    // Ball shooter ports (Talon SRX)
     private static final int shooterPort1 = 7;
     private static final int shooterPort2 = 8;
     private static final int shooterInputPort = 9;
 
-    // Drive wheel ports
+    // Drive wheel ports (Victor SPX)
     private static final int leftWheelPort1 = 3;
     private static final int leftWheelPort2 = 4;
     private static final int rightWheelPort1 = 1;
     private static final int rightWheelPort2 = 2;
 
-    // Wheel of fortune spinner wheel port
-    private static final int wheelOfFortunePort = 5;
+    // Wheel of fortune spinner wheel port (Relay)
+    private static final int wheelOfFortunePort = 0;
 
-    // Ball intake and roller coaster ports
+    // Ball intake and roller coaster ports (
     private static final int ballIntakePort = 8;
     // Ball intake release solenoid for the start of the match
     private static final int intakeRelease = 11;
