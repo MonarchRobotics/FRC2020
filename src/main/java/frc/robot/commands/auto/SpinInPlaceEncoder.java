@@ -33,8 +33,8 @@ public class SpinInPlaceEncoder extends CommandBase {
         this.drivetrain = subsystem;
 
         double distanceToTravel = degrees/360.0 * Constants.getSpinCircumference();
-        leftPid = new MotorControlPID(distanceToTravel,speed,1.0,0.01);
-        rightPid = new MotorControlPID(-distanceToTravel,speed,1.0,0.01);
+        leftPid = new MotorControlPID(distanceToTravel,speed,1.0,0.1);
+        rightPid = new MotorControlPID(-distanceToTravel,speed,1.0,0.1);
 
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -63,14 +63,14 @@ public class SpinInPlaceEncoder extends CommandBase {
     // Called once the command ends or is interrupted, sets motors to stop moving
     @Override
     public void end(boolean interrupted) {
-        subsystem.ldrive(0);
-        subsystem.rdrive(0);
+        drivetrain.ldrive(0);
+        drivetrain.rdrive(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //returns false until we have spun the correct amount
-        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)>degrees - 30*Math.abs(speed);
+        //returns false until we have spun the correct amount (our error is essentially 0)
+        return Math.abs(leftPid.getPreviousE())<0.25 && Math.abs(rightPid.getPreviousE()) < 0.25;
     }
 }

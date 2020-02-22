@@ -72,6 +72,10 @@ public class MotorControlPID {
         sumE = 0;
     }
 
+    public double getPreviousE() {
+        return previousE;
+    }
+
     public void setTarget(double target) {
         this.target = target;
     }

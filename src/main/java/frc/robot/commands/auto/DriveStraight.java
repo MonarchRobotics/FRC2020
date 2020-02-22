@@ -96,6 +96,7 @@ public class DriveStraight extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have traveled the correct distance on the encoders.
-        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
+        return Math.abs(leftPid.getPreviousE()) < 0.25 && Math.abs(rightPid.getPreviousE()) < 0.25;
+//        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
     }
 }
