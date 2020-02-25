@@ -57,7 +57,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    contoursTable.delete("height");
     oi = new OI();
 
     camera = CameraServer.getInstance().startAutomaticCapture(0);
@@ -122,6 +121,10 @@ public class Robot extends TimedRobot {
       coords[1] = centerYs[0];
     }
     return coords;
+  }
+
+  public static boolean checkPort(){
+    return contoursTable.getEntry("width").getDouble(0) > contoursTable.getEntry("height").getDouble(0);
   }
 
 
