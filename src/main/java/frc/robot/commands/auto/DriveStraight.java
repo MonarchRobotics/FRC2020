@@ -40,8 +40,8 @@ public class DriveStraight extends CommandBase {
          * Declare {@link subsystem} as a requirement of the command
          */
         addRequirements(subsystem);
-        leftPid = new MotorControlPID(distanceToTravel,speed,1.0,0.01);
-        rightPid = new MotorControlPID(distanceToTravel,speed,1.0,0.01);
+        leftPid = new MotorControlPID(distanceToTravel,speed,0.1,0.02);
+        rightPid = new MotorControlPID(distanceToTravel,speed,0.1,0.02);
 
     }
 
@@ -59,6 +59,11 @@ public class DriveStraight extends CommandBase {
         //set the initial speed, before encoder adjustments
 
         //read the distance each encoder has traveled (in inches)
+        leftPid.incrementCeiling(0.001);
+        rightPid.incrementCeiling(0.001);
+        System.out.println("L:"+subsystem.getEncoderLeft().getDistance());
+        System.out.println("R:"+subsystem.getEncoderRight().getDistance());
+        System.out.println("C:"+leftPid.getCeiling());
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
@@ -82,7 +87,7 @@ public class DriveStraight extends CommandBase {
 //        }
         subsystem.ldrive(leftSpeed);
         subsystem.rdrive(rightSpeed);
-        System.out.println(subsystem.getEncoderRight().getDistance()+"in");
+        // System.out.println(subsystem.getEncoderRight().getDistance()+"in");
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving

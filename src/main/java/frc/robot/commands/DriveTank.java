@@ -142,8 +142,9 @@ public class DriveTank extends CommandBase {
                 drivetrain.rdrive(spinSpeed);
             }
             else{
-
-                System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
+                // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
+                // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
+                // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
                 if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
                     drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));

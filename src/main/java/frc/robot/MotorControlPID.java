@@ -103,4 +103,15 @@ public class MotorControlPID {
     public double getKp() {
         return Kp;
     }
+
+    public void incrementCeiling(double add){
+        ceiling+=add;
+    }
+
+    /**
+     * @return the ceiling
+     */
+    public double getCeiling() {
+        return ceiling;
+    }
 }
