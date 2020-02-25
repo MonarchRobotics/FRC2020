@@ -57,7 +57,6 @@ public class DriveTank extends CommandBase {
      */
     @Override
     public void initialize() {
-        drivetrain.getEncoderRight().reset();
         timer.reset();
         drivetrain.getGyro().reset();
         // endTurn = 0;
@@ -142,6 +141,9 @@ public class DriveTank extends CommandBase {
                 drivetrain.rdrive(spinSpeed);
             }
             else{
+                
+                System.out.println("l:"+drivetrain.getEncoderLeft().getDistance());
+                System.out.println("r:"+drivetrain.getEncoderRight().getDistance());
                 // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
                 // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
                 // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());

@@ -51,7 +51,7 @@ public final class Constants {
     private static final double deadZone = 0.1;
 
     private static final int openChannel = 1;
-    private static final int closeChannel = 0;
+    private static final int closeChannel = 3;
 
     private static final double spinCircumference = Math.PI* 28;
     

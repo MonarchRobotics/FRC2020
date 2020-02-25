@@ -7,7 +7,7 @@
 
 package frc.robot.commands.auto;
 
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
 import frc.robot.subsystems.Drivetrain;
@@ -40,8 +40,8 @@ public class DriveStraight extends CommandBase {
          * Declare {@link subsystem} as a requirement of the command
          */
         addRequirements(subsystem);
-        leftPid = new MotorControlPID(distanceToTravel,speed,0.1,0.02);
-        rightPid = new MotorControlPID(distanceToTravel,speed,0.1,0.02);
+        leftPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
+        rightPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
 
     }
 
@@ -51,6 +51,8 @@ public class DriveStraight extends CommandBase {
         //reset the values of the encoders to zero.
         subsystem.getEncoderRight().reset();
         subsystem.getEncoderLeft().reset();
+        leftPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
+        rightPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -61,14 +63,19 @@ public class DriveStraight extends CommandBase {
         //read the distance each encoder has traveled (in inches)
         leftPid.incrementCeiling(0.001);
         rightPid.incrementCeiling(0.001);
-        System.out.println("L:"+subsystem.getEncoderLeft().getDistance());
-        System.out.println("R:"+subsystem.getEncoderRight().getDistance());
-        System.out.println("C:"+leftPid.getCeiling());
+        // System.out.println("L:"+subsystem.getEncoderLeft().getDistance());
+        // System.out.println("R:"+subsystem.getEncoderRight().getDistance());
+        // System.out.println("C:"+leftPid.getCeiling());
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
         double leftSpeed = leftPid.getSpeed(leftEnc);
         double rightSpeed = rightPid.getSpeed(rightEnc);
+        // System.out.println("S:"+leftSpeed);
+        SmartDashboard.putNumber("Ceiling", leftPid.getCeiling());
+        SmartDashboard.putNumber("Speed", leftSpeed);
+        
+        
 
 //        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
 //        //reverse our speed if we want to travel backwards
