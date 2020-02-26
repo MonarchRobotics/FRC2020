@@ -77,7 +77,8 @@ public class DriveTank extends CommandBase {
     @Override
     public void execute() {
         // System.out.println(drivetrain.getEncoderRight().getDistance());
-        // System.out.println("L"+drivetrain.getEncoderLeft().getDistance());
+        System.out.println("D"+drivetrain.getEncoderLeft().getDistance());
+        System.out.println("R"+drivetrain.getEncoderLeft().getRate());
 
         
         // double rotateTime;
@@ -142,15 +143,15 @@ public class DriveTank extends CommandBase {
             }
             else{
                 
-                System.out.println("l:"+drivetrain.getEncoderLeft().getDistance());
-                System.out.println("r:"+drivetrain.getEncoderRight().getDistance());
+                // System.out.println("JSR:"+OI.leftJoystick.getY()*-1);
+                // System.out.println("RPS:"+drivetrain.getEncoderLeft().getRate());
                 // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
                 // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
                 // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
                 if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
                     drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                    drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
                 }
                 
             }

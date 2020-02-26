@@ -40,8 +40,8 @@ public class DriveStraight extends CommandBase {
          * Declare {@link subsystem} as a requirement of the command
          */
         addRequirements(subsystem);
-        leftPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
-        rightPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
+        leftPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
+        rightPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
 
     }
 
@@ -51,8 +51,8 @@ public class DriveStraight extends CommandBase {
         //reset the values of the encoders to zero.
         subsystem.getEncoderRight().reset();
         subsystem.getEncoderLeft().reset();
-        leftPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
-        rightPid = new MotorControlPID(distanceToTravel,1.0,0.1,0.005,0.0000135);
+        leftPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
+        rightPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -61,19 +61,22 @@ public class DriveStraight extends CommandBase {
         //set the initial speed, before encoder adjustments
 
         //read the distance each encoder has traveled (in inches)
-        leftPid.incrementCeiling(0.001);
-        rightPid.incrementCeiling(0.001);
-        // System.out.println("L:"+subsystem.getEncoderLeft().getDistance());
-        // System.out.println("R:"+subsystem.getEncoderRight().getDistance());
-        // System.out.println("C:"+leftPid.getCeiling());
         double leftEnc = subsystem.getEncoderLeft().getDistance();
         double rightEnc = subsystem.getEncoderRight().getDistance();
 
-        double leftSpeed = leftPid.getSpeed(leftEnc);
-        double rightSpeed = rightPid.getSpeed(rightEnc);
+        SmartDashboard.putNumber("leftEnc", leftEnc);
+        SmartDashboard.putNumber("rightEnc", rightEnc);
+        
+        leftPid.setTarget(velocityCurve(travelSpeed,distanceToTravel - leftEnc));
+        rightPid.setTarget(velocityCurve(travelSpeed,distanceToTravel - rightEnc));
+        
+        double leftSpeed = leftPid.getSpeed(subsystem.getEncoderLeft().getRate());
+        double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate());
+
+        SmartDashboard.putNumber("leftSpeed", leftSpeed);
+        SmartDashboard.putNumber("rightSpeed", rightSpeed);
+
         // System.out.println("S:"+leftSpeed);
-        SmartDashboard.putNumber("Ceiling", leftPid.getCeiling());
-        SmartDashboard.putNumber("Speed", leftSpeed);
         
         
 
@@ -102,13 +105,21 @@ public class DriveStraight extends CommandBase {
     public void end(boolean interrupted) {
         subsystem.ldrive(0);
         subsystem.rdrive(0);
+        System.out.println("DONE");
+    }
+
+    double velocityCurve(double maxSpeed, double distanceFromTarget){
+        double distanceToSlowDownAt100 = 60;//inches
+        double velocityFromDistance = distanceFromTarget *distanceFromTarget/distanceToSlowDownAt100/distanceToSlowDownAt100+0.05;
+        return Math.min(maxSpeed, velocityFromDistance)*130* distanceToTravel>0 ? 1 : -1;
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         //returns false until we have traveled the correct distance on the encoders.
-        return Math.abs(leftPid.getPreviousE()) < 0.25 && Math.abs(rightPid.getPreviousE()) < 0.25;
+        return Math.abs(subsystem.getEncoderRight().getDistance())>Math.abs(distanceToTravel) && Math.abs(subsystem.getEncoderLeft().getDistance())>Math.abs(distanceToTravel);
+        // return Math.abs(leftPid.getPreviousE()) < 0.25 && Math.abs(rightPid.getPreviousE()) < 0.25;
 //        return subsystem.getEncoderRight().getDistance()>distanceToTravel-20*travelSpeed;
     }
 }

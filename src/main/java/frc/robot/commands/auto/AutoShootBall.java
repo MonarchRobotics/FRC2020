@@ -18,25 +18,21 @@ public class AutoShootBall extends CommandBase {
 
     private Robot robot;
 
-    private MotorControlPID motorControlLeft;
-    private MotorControlPID motorControlRight;
+    private MotorControlPID motorControl;
 
-    private double targetSpinSpeed = 100;
+    private double targetSpinSpeed = 24.0;
 
 
     /**
      * Constructor for AutoShootBall
      * @param turret the Turret Subsystem {@link Turret} so that we cna shoot balls
      */
-    public AutoShootBall(Turret turret, Drivetrain driveTrain, Robot robot){
+    public AutoShootBall(Turret turret){
         this.turret = turret;
-        this.driveTrain = driveTrain;
-        this.robot = robot;
         timer = new Timer();
 
         addRequirements(turret);
-        motorControlLeft = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
-        motorControlRight = new MotorControlPID(targetSpinSpeed,1.0,1.0,1.0,1.0);
+        motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
     }
 
 
@@ -53,22 +49,15 @@ public class AutoShootBall extends CommandBase {
      */
     @Override
     public void execute() {
-        double leftSpeed = motorControlLeft.getSpeed(turret.getEncoderLeftRate());
-        double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
-        turret.spinMotors(leftSpeed,rightSpeed);
-        
-        // Checks for the amount of time it takes to input and shoot balls, then stops the input morot
-        if(timer.get() > 0.4)
-        {
-            turret.runInput();
+        double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
+            // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
+        turret.spinMotors(leftSpeed,leftSpeed);
+
+
+
+        if(timer.get()>1.5){
+            turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
-        else if (timer.get() > 3)
-        {
-            turret.stopInput();
-            turret.spinMotors(0, 0);
-        }
-        robot.position[0] = driveTrain.getGyro().getAngle();
-        robot.position[1] = driveTrain.getLidarMeasurement();
         
     }
 
@@ -79,12 +68,14 @@ public class AutoShootBall extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
+        turret.spinMotors(0.0, 0.0);
+        turret.getInputWheelMotor().set(ControlMode.PercentOutput,0.0);
         
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.get()>3.0;
+        return timer.get()>4.0;
     }
 }

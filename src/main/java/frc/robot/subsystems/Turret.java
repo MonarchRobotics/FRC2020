@@ -24,8 +24,8 @@ public class Turret extends SubsystemBase {
     private TalonSRX rightWheel;
     private TalonSRX leftWheel;
     private TalonSRX inputWheel;
-    private Encoder encoderLeft = new Encoder(6, 7);
-    private Encoder encoderRight = new Encoder(4, 5);
+    private Encoder encoderLeft = new Encoder(4, 5);
+    private Encoder encoderRight = new Encoder(6, 7);
 
     /**
      *

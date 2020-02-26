@@ -25,8 +25,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class Drivetrain extends SubsystemBase {
 
     public VictorSPX left1, left2, right1, right2;
-    private Encoder encoder = new Encoder(2, 3);
-    private Encoder encoderRight = new Encoder(0, 1);
+    private Encoder encoderLeft = new Encoder(0,1);
+    private Encoder encoderRight = new Encoder(2, 3);
     private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
     private DigitalInput autoSwitch = new DigitalInput(9);
 
@@ -59,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
 
 
         //set up the distance to pulse ratio for each of the two encoders.
-        encoder.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
+        encoderLeft.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
         encoderRight.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
     }
 
@@ -99,7 +99,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     //returns the left encoder (in ports 2 and 3)
-    public Encoder getEncoderLeft() {return encoder;}
+    public Encoder getEncoderLeft() {return encoderLeft;}
 
     //returns the right encoder (in ports 0 and 1)
     public Encoder getEncoderRight() {
