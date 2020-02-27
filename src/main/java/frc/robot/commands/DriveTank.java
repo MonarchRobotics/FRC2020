@@ -37,6 +37,11 @@ public class DriveTank extends CommandBase {
 
     private MotorControlPID spinControl;
 
+    private MotorControlPID leftSide, rightSide;
+
+
+    private double leftSpeed, rightSpeed;
+
     /**
      * Creates a new ExampleCommand.
      *
@@ -67,6 +72,12 @@ public class DriveTank extends CommandBase {
         turnEndCheck = 0;
         spinSpeed = 0;
         spinControl = new MotorControlPID(160,0.5,0.5,0.001,0.001);
+
+        leftSide = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
+        rightSide = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
+        
+        leftSpeed = 0;
+        rightSpeed = 0;
 
     }
 
@@ -151,8 +162,14 @@ public class DriveTank extends CommandBase {
                 System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
                 turnEndCheck = 0;
                 if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
-                    drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                    drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                    leftSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                    rightSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                    
+                    leftSpeed = leftSide.getSpeed(leftSpeed);
+                    rightSpeed = rightSide.getSpeed(rightSpeed);
+
+                    drivetrain.rdrive(rightSpeed);
+                    drivetrain.ldrive(leftSpeed);
                 }
                 
             }
