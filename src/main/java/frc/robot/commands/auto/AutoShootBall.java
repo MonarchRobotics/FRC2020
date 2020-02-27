@@ -20,16 +20,17 @@ public class AutoShootBall extends CommandBase {
 
     private MotorControlPID motorControl;
 
-    private double targetSpinSpeed = 24.0;
+    private double targetSpinSpeed;
 
 
     /**
      * Constructor for AutoShootBall
      * @param turret the Turret Subsystem {@link Turret} so that we cna shoot balls
      */
-    public AutoShootBall(Turret turret){
+    public AutoShootBall(Turret turret, double rpmTarget){
         this.turret = turret;
         timer = new Timer();
+        targetSpinSpeed = rpmTarget;
 
         addRequirements(turret);
         motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
@@ -51,11 +52,12 @@ public class AutoShootBall extends CommandBase {
     public void execute() {
         double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
+            System.out.println("RPM:"+turret.getEncoderLeftRate());
         turret.spinMotors(leftSpeed,leftSpeed);
 
 
 
-        if(timer.get()>1.5){
+        if(timer.get()>2.5){
             turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
         

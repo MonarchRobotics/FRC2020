@@ -56,7 +56,7 @@ public class MotorControlPID {
         sumE += e;
         double speed = Kp * e + Ki * sumE + Kd * deltaE;
         SmartDashboard.putNumber("Speed before Ceil",speed);
-        System.out.println("Kp:"+Kp+",E:"+e+",S:"+speed);
+        // System.out.println("Kp:"+Kp+",E:"+e+",S:"+speed);
         previousE = e;
         double adjustedSpeed = speed * maxValue;
         if(adjustedSpeed>0 && adjustedSpeed>ceiling){
@@ -83,6 +83,13 @@ public class MotorControlPID {
 
     public void setTarget(double target) {
         this.target = target;
+    }
+
+    /**
+     * @return the target
+     */
+    public double getTarget() {
+        return target;
     }
 
     public void setKd(double kd) {

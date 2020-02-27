@@ -7,15 +7,14 @@
 
 package frc.robot.commands.auto;
 
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 
-
 import frc.robot.OI;
 import frc.robot.commands.BallIntake;
 import frc.robot.subsystems.BallSuck;
+import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -29,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoInit extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final BallSuck subsystem;
+    private final Drivetrain drivetrain;
 
     private boolean activated;
     private Timer timer;
@@ -36,7 +36,8 @@ public class AutoInit extends CommandBase {
     /**
      * @param subsystem The BallSuck subsystem {@link BallSuck} so that we can extend the ballSuck outside of frame perimeter
      */
-    public AutoInit(BallSuck subsystem) {
+    public AutoInit(BallSuck subsystem, Drivetrain drivetrain) {
+        this.drivetrain = drivetrain;
         this.subsystem = subsystem;
         timer = new Timer();
 
@@ -52,7 +53,7 @@ public class AutoInit extends CommandBase {
     @Override
     public void initialize() {
         timer.start();
-        
+        // drivetrain.getGyro().calibrate();
     }
 
     // Called every time the scheduler runs while the command is scheduled.

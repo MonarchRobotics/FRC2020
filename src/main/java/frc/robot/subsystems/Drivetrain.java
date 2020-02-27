@@ -63,6 +63,12 @@ public class Drivetrain extends SubsystemBase {
         encoderRight.setDistancePerPulse(7.5*Math.PI/2048.0);//this should be 1 rotation, eventually will be converted to inches
     }
 
+
+    public void initializeLidar()
+    {
+        lidar.startMeasuring();
+    }
+
     /**
      *
      * @param speed Speed input from joysticks.
@@ -95,7 +101,8 @@ public class Drivetrain extends SubsystemBase {
      */
 
     public double getLidarMeasurement() {
-        return lidar.getDistance() / 2.54;
+
+        return lidar.getDistance() / 2.54 - 5;
     }
 
     //returns the left encoder (in ports 2 and 3)

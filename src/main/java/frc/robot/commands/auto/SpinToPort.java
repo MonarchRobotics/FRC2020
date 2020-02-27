@@ -25,6 +25,7 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
+        spinControl = new MotorControlPID(160,1.0,0.1,0.0001);
     }
 
     /**

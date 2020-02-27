@@ -35,6 +35,9 @@ public class DriveStraight extends CommandBase {
         this.subsystem = subsystem;
         distanceToTravel = distance;
         travelSpeed = speed;
+        if(travelSpeed<0){
+            travelSpeed*=-1;
+        }
 
         /**
          * Declare {@link subsystem} as a requirement of the command
@@ -69,6 +72,8 @@ public class DriveStraight extends CommandBase {
         
         leftPid.setTarget(velocityCurve(travelSpeed,distanceToTravel - leftEnc));
         rightPid.setTarget(velocityCurve(travelSpeed,distanceToTravel - rightEnc));
+
+        System.out.println("Target:"+leftPid.getTarget());
         
         double leftSpeed = leftPid.getSpeed(subsystem.getEncoderLeft().getRate());
         double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate());
@@ -111,7 +116,10 @@ public class DriveStraight extends CommandBase {
     double velocityCurve(double maxSpeed, double distanceFromTarget){
         double distanceToSlowDownAt100 = 60;//inches
         double velocityFromDistance = distanceFromTarget *distanceFromTarget/distanceToSlowDownAt100/distanceToSlowDownAt100+0.05;
-        return Math.min(maxSpeed, velocityFromDistance)*130* distanceToTravel>0 ? 1 : -1;
+        System.out.println("vel:"+velocityFromDistance);
+        System.out.println("max:"+maxSpeed);
+        System.out.println("min:"+Math.min(maxSpeed, velocityFromDistance));
+        return Math.min(maxSpeed, velocityFromDistance)*130* (distanceToTravel>0 ? 1 : -1);
     }
 
     // Returns true when the command should end.
