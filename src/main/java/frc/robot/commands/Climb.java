@@ -10,6 +10,7 @@ package frc.robot.commands;
 import frc.robot.OI;
 import frc.robot.subsystems.PullUp;
 
+import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -23,7 +24,7 @@ public class Climb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final PullUp pullUp;
   
-  
+  private Timer time;
 
 
   /**
@@ -31,6 +32,7 @@ public class Climb extends CommandBase {
    */
   public Climb(PullUp subsystem) {
     pullUp = subsystem;
+    time = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -38,6 +40,8 @@ public class Climb extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    time.reset();
+    time.start();
   }
 
   /** 
@@ -47,14 +51,16 @@ public class Climb extends CommandBase {
   @Override
   public void execute() {
 
-    // When A on the xbox controller is pressed toggle climbing
-    if (OI.leftJoystick.getRawButtonPressed(11)) {
-      System.out.println("Pressing button");
-      if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
-        pullUp.extendClimb();
-      }
-      else {
-        pullUp.retractClimb();
+    if (time.getMatchTime() <= 30)
+    {
+      if (OI.leftJoystick.getRawButtonPressed(11)) {
+        System.out.println("Pressing button");
+        if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
+          pullUp.extendClimb();
+        }
+        else {
+          pullUp.retractClimb();
+        }
       }
     }
   }
