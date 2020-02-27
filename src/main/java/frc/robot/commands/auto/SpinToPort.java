@@ -1,6 +1,8 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
 import frc.robot.Robot;
@@ -12,11 +14,13 @@ public class SpinToPort extends CommandBase {
     private double spinSpeed;
     private MotorControlPID spinControl;
     private boolean isFinished;
+    private Timer timer;
 
     public SpinToPort(Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
         isFinished = false;
+        timer = new Timer();
     }
 
     /**
@@ -25,7 +29,9 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
-        spinControl = new MotorControlPID(160,1.0,0.1,0.0001);
+        spinControl = new MotorControlPID(160,1.0,0.40,0.005,0.00001,0.00001);
+        timer.reset();
+        timer.start();
     }
 
     /**
@@ -37,10 +43,10 @@ public class SpinToPort extends CommandBase {
         double[] coords = Robot.getTargetCenterCoordinates();
         if(coords[0]==-1){
             if(drivetrain.getAutoSwitch().get()){
-                spinSpeed = 0.5;
+                spinSpeed = 0.15;
             }
             else {
-                spinSpeed = -0.5;
+                spinSpeed = -0.15;
             }
         }
         else if(coords[0]!= 160){
@@ -59,7 +65,9 @@ public class SpinToPort extends CommandBase {
         else {
             isFinished = true;
         }
-        System.out.println("spinSpeed: "+spinSpeed);
+        SmartDashboard.putNumber("coordX", coords[0]);
+        SmartDashboard.putNumber("speed",spinSpeed);
+        System.out.println("Coords"+coords[0]);
         drivetrain.ldrive(-spinSpeed);
         drivetrain.rdrive(spinSpeed);
     }
@@ -80,7 +88,7 @@ public class SpinToPort extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return isFinished;
+        return isFinished || timer.get()>6;
     }
 
     /**
