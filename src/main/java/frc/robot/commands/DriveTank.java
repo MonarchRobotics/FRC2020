@@ -71,10 +71,8 @@ public class DriveTank extends CommandBase {
         // Initialize turning a certain degree
         turnEndCheck = 0;
         spinSpeed = 0;
-        spinControl = new MotorControlPID(160,0.5,0.5,0.001,0.001);
-
-        leftSide = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
-        rightSide = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
+        leftSide = new MotorControlPID(0.0,1.0,1.0,0.25);
+        rightSide = new MotorControlPID(0.0,1.0,1.0,0.25);
         
         leftSpeed = 0;
         rightSpeed = 0;
@@ -130,51 +128,23 @@ public class DriveTank extends CommandBase {
             }
         }
         else{
-            if(OI.leftJoystick.getRawButton(11)){
-                //TESTING system: find the target and rotate so that we are facing it
-                double[] coords = Robot.getTargetCenterCoordinates();
-                if(coords[0]!=-1){
-                    spinSpeed = spinControl.getSpeed(coords[0]);
-//                    if(coords[0]<160){
-//                        double speed = (160-coords[0])/640;
-//                        if(speed>0){speed=1;}
-//                        spinSpeed = speed;
-//                    }
-//                    else if(coords[0]>160){
-//                        double speed = (coords[0]-160)/640;
-//                        if(speed>0){speed=1;}
-//                        spinSpeed = -speed;
-//                    }
-//                    else{
-//                        spinSpeed = 0;
-//                    }
-                }
-                // System.out.println("spinSpeed: "+spinSpeed);
-                drivetrain.ldrive(-spinSpeed);
-                drivetrain.rdrive(spinSpeed);
-            }
-            else{
-                
-                // System.out.println("JSR:"+OI.leftJoystick.getY()*-1);
-                // System.out.println("RPS:"+drivetrain.getEncoderLeft().getRate());
-                // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
-                // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
-                // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
-                System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
-                turnEndCheck = 0;
-                if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
-                    leftSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                    rightSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
-                    
-                    leftSpeed = leftSide.getSpeed(leftSpeed);
-                    rightSpeed = rightSide.getSpeed(rightSpeed);
+            // System.out.println("JSR:"+OI.leftJoystick.getY()*-1);
+            // System.out.println("RPS:"+drivetrain.getEncoderLeft().getRate());
+            // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
+            // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
+            // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
+            System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
+            turnEndCheck = 0;
+            if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger() && Robot.wheelManipulatorState == WheelManipulatorState.none){
+                leftSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                rightSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
 
-                    drivetrain.rdrive(rightSpeed);
-                    drivetrain.ldrive(leftSpeed);
-                }
-                
+                leftSpeed = leftSide.getSpeed(leftSpeed);
+                rightSpeed = rightSide.getSpeed(rightSpeed);
+
+                drivetrain.rdrive(rightSpeed);
+                drivetrain.ldrive(leftSpeed);
             }
-            
         }
 
 //        if (OI.rightJoystick.getTriggerPressed()) {
