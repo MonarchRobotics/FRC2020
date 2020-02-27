@@ -73,6 +73,7 @@ public class BallSuck extends SubsystemBase {
   }
   public void intakeBackwards()
   {
+    //This should only be called to get us out of frame perimeter
     intake.set(-1.0);
     intakeS = true;
   }
