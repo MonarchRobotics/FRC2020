@@ -33,7 +33,7 @@ public final class Constants {
     private static final int rightWheelPort2 = 2;
 
     // Wheel of fortune spinner wheel port (Relay)
-    private static final int wheelOfFortunePort = 0;
+    private static final int wheelOfFortunePort = 5;
 
     // Ball intake and roller coaster ports (
     private static final int ballIntakePort = 8;

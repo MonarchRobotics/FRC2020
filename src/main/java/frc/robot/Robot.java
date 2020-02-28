@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.enums.WheelManipulatorState;
 import frc.robot.subsystems.WheelManipulator;
@@ -47,6 +48,9 @@ public class Robot extends TimedRobot {
   
   public static double[] position = new double[2];
   public static WheelManipulatorState wheelManipulatorState = WheelManipulatorState.none;
+
+  private static double[] previousXCoordValues = new double[2];
+  private static double[] distanceBetweenChange = new double[2];
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -62,7 +66,9 @@ public class Robot extends TimedRobot {
     camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
     // camera.setBrightness(4);
-    camera.setExposureManual(3);
+    camera.setExposureManual(1);
+    Arrays.fill(previousXCoordValues, -1);
+    Arrays.fill(distanceBetweenChange,0);
   }
 
   /**
@@ -87,7 +93,7 @@ public class Robot extends TimedRobot {
         cameraExposureAuto = true;
       }
       else{
-        camera.setExposureManual(3);
+        camera.setExposureManual(1);
         cameraExposureAuto = false;
       }
     }
@@ -109,7 +115,6 @@ public class Robot extends TimedRobot {
   /**
    * @return get the current coordinates of the vision target from the camera.
    */
-
   public static double[] getTargetCenterCoordinates(){
     double[] centerXs = contoursTable.getEntry("centerX").getDoubleArray(new double[0]);
     double[] centerYs = contoursTable.getEntry("centerY").getDoubleArray(new double[0]);
@@ -118,6 +123,24 @@ public class Robot extends TimedRobot {
     coords[1] = -1;
     if(centerXs.length>0 && centerYs.length>0){
       coords[0]=centerXs[0];
+      if(coords[0]==previousXCoordValues[1]){
+        distanceBetweenChange[1]++;
+      }
+      else {
+        previousXCoordValues[0] = previousXCoordValues[1];
+        previousXCoordValues[1] = coords[0];
+        distanceBetweenChange[0] = distanceBetweenChange[1];
+        distanceBetweenChange[1] = 0;
+      }
+      
+      if(previousXCoordValues[1]!=-1 && distanceBetweenChange[1]>0 && distanceBetweenChange[0]>0){
+        double slope = (previousXCoordValues[1]-previousXCoordValues[0])/distanceBetweenChange[0];
+        double yIntercept = previousXCoordValues[0];
+        double newCoord = yIntercept + slope * (distanceBetweenChange[0]+distanceBetweenChange[1]);
+        coords[0] = newCoord;
+        System.out.println("Using adapted");
+      }
+      System.out.println("Coords:"+coords[0]);
       coords[1] = centerYs[0];
     }
     return coords;

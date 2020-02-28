@@ -54,7 +54,7 @@ public class AutoShootBall extends CommandBase {
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             System.out.println("RPM:"+turret.getEncoderLeftRate());
         turret.spinMotors(leftSpeed,leftSpeed);
-        if(timer.get()>4.0){
+        if(timer.get()>2.5){
             turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
         
@@ -75,6 +75,6 @@ public class AutoShootBall extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.get()>6.0;
+        return timer.get()>5.0;
     }
 }

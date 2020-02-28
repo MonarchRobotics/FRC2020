@@ -29,7 +29,8 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
-        spinControl = new MotorControlPID(160,1.0,0.40,0.005,0.00001,0.00001);
+        spinControl = new MotorControlPID(160,1.0,0.60,0.0025,0.00004,0.00025);
+        isFinished = false;
         timer.reset();
         timer.start();
     }
@@ -43,31 +44,23 @@ public class SpinToPort extends CommandBase {
         double[] coords = Robot.getTargetCenterCoordinates();
         if(coords[0]==-1){
             if(drivetrain.getAutoSwitch().get()){
-                spinSpeed = 0.15;
+                spinSpeed = 0.25;
             }
             else {
-                spinSpeed = -0.15;
+                spinSpeed = -0.25;
             }
         }
         else if(coords[0]!= 160){
             spinSpeed = spinControl.getSpeed(coords[0]);
-//                    if(drivetrain.getAutoSwitch().get()){
-//                        double speed = (160-coords[0])/640;
-//                        if(speed>0){speed=1;}
-//                        spinSpeed = speed;
-//                    }
-//                    else if(!drivetrain.getAutoSwitch().get()){
-//                        double speed = (coords[0]-160)/640;
-//                        if(speed>0){speed=1;}
-//                        spinSpeed = -speed;
-//                    }
         }
-        else {
+        if(coords[0]<165 && coords[0]>155){
+            System.out.println("DONE DONE DONE");
             isFinished = true;
         }
         SmartDashboard.putNumber("coordX", coords[0]);
         SmartDashboard.putNumber("speed",spinSpeed);
-        System.out.println("Coords"+coords[0]);
+        // System.out.println("Coords:"+coords[0]);
+        // System.out.println(coords[0]<167 && coords[0]>153);
         drivetrain.ldrive(-spinSpeed);
         drivetrain.rdrive(spinSpeed);
     }
@@ -88,7 +81,7 @@ public class SpinToPort extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        return isFinished || timer.get()>6;
+        return isFinished;
     }
 
     /**
@@ -103,5 +96,6 @@ public class SpinToPort extends CommandBase {
     public void end(boolean interrupted) {
         drivetrain.rdrive(0);
         drivetrain.ldrive(0);
+        System.out.println("DONE WITH ALIGN");
     }
 }

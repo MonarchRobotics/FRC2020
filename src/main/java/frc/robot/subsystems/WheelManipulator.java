@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
@@ -25,7 +26,7 @@ public class WheelManipulator extends SubsystemBase {
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
 //    private TalonSRX spinner;
-    private Relay spinner;
+    private TalonSRX spinner;
     /**
      * @param spinnerPort Port for wheel motor.
      */
@@ -33,7 +34,7 @@ public class WheelManipulator extends SubsystemBase {
 //        spinner = new TalonSRX(spinnerPort);
 //        spinner.setNeutralMode(NeutralMode.Brake);
 
-        spinner = new Relay(spinnerPort);
+        spinner = new TalonSRX(spinnerPort);
         setDefaultCommand(new WheelOfFortune(this));
     }
 
@@ -73,15 +74,11 @@ public class WheelManipulator extends SubsystemBase {
     }
 
     public void spinWheel(){
-        spinner.set(Relay.Value.kForward);
+        spinner.set(ControlMode.PercentOutput,0.25);
     }
 
     public void stopSpinWheel(){
-        spinner.set(Relay.Value.kOff);
-    }
-
-    public Relay.Value getSpinnerState(){
-        return spinner.get();
+        spinner.set(ControlMode.PercentOutput,0);
     }
 
     // @Override
