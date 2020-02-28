@@ -71,8 +71,8 @@ public class DriveTank extends CommandBase {
         // Initialize turning a certain degree
         turnEndCheck = 0;
         spinSpeed = 0;
-        leftSide = new MotorControlPID(0.0,1.0,1.0,0.25);
-        rightSide = new MotorControlPID(0.0,1.0,1.0,0.25);
+        leftSide = new MotorControlPID(0.0,1.0,1.0,0.3,0.02);
+        rightSide = new MotorControlPID(0.0,1.0,1.0,0.3,0.02);
         
         leftSpeed = 0;
         rightSpeed = 0;
@@ -136,16 +136,16 @@ public class DriveTank extends CommandBase {
             System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
             turnEndCheck = 0;
             if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger()){
-                leftSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                rightSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                leftSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                rightSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
 
                 leftSpeed = leftSide.getSpeed(leftSpeed);
                 rightSpeed = rightSide.getSpeed(rightSpeed);
 
-                // drivetrain.rdrive(rightSpeed);
-                // drivetrain.ldrive(leftSpeed);
-                drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                drivetrain.rdrive(rightSpeed);
+                drivetrain.ldrive(leftSpeed);
+                // drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                // drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
             }
         }
 
