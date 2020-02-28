@@ -7,6 +7,8 @@ import frc.robot.subsystems.Drivetrain;
 public class DriveToLidarDistance extends CommandBase {
     private final Drivetrain drivetrain;
     private double distance;
+    private double driveDistance;
+    private double encoderInit;
     private double speed;
 
     /**
@@ -21,6 +23,8 @@ public class DriveToLidarDistance extends CommandBase {
 
         this.distance = distance;
         this.speed = speed;
+        driveDistance = 0;
+        encoderInit = (drivetrain.getEncoderLeft().getDistance() + drivetrain.getEncoderLeft().getDistance())/2;
     }
 
     @Override
@@ -31,12 +35,15 @@ public class DriveToLidarDistance extends CommandBase {
 
     @Override
     public void execute() {
-        if (drivetrain.getLidarMeasurement() > distance)
+        driveDistance = (drivetrain.getEncoderLeft().getDistance() + drivetrain.getEncoderLeft().getDistance())/2 - encoderInit;
+
+        if (drivetrain.getLidarMeasurement() > distance || driveDistance > distance)
         {
             drivetrain.ldrive(speed);
             drivetrain.rdrive(speed);
         }
-        else{
+        else
+        {
         drivetrain.rdrive(0);
         drivetrain.ldrive(0);
         }
