@@ -31,8 +31,15 @@ public class DriveToLidarDistance extends CommandBase {
 
     @Override
     public void execute() {
+        if (drivetrain.getLidarMeasurement() > distance)
+        {
+            drivetrain.ldrive(speed);
+            drivetrain.rdrive(speed);
+        }
+        else{
         drivetrain.rdrive(0);
         drivetrain.ldrive(0);
+        }
     }
 
     @Override

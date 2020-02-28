@@ -85,21 +85,21 @@ public class DriveStraight extends CommandBase {
         
         
 
-//        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
-//        //reverse our speed if we want to travel backwards
-//        if(distanceToTravel<0){
-//            rightSpeed*=-1;
-//            leftSpeed*=-1;
-//        }
+        //        System.out.println("R:"+Math.round(rightEnc*100)/100.0+",L:"+Math.round(leftEnc*100)/100);
+        //        //reverse our speed if we want to travel backwards
+        //        if(distanceToTravel<0){
+        //            rightSpeed*=-1;
+        //            leftSpeed*=-1;
+        //        }
 
         //adjust the right and left speed based on how far each side has traveled
         //changes the speed based on how far apart the two distances are
-//        if(rightEnc>leftEnc){
-//            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
-//        }
-//        else if(rightEnc<leftEnc){
-//            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)/10.0);
-//        }
+        //        if(rightEnc>leftEnc){
+        //            rightSpeed = travelSpeed * (1-(rightEnc-leftEnc)/10.0);
+        //        }
+        //        else if(rightEnc<leftEnc){
+        //            leftSpeed = travelSpeed * (1-(leftEnc-rightSpeed)/10.0);
+        //        }
         subsystem.ldrive(leftSpeed);
         subsystem.rdrive(rightSpeed);
         // System.out.println(subsystem.getEncoderRight().getDistance()+"in");
