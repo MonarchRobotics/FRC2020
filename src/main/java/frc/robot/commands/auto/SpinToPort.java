@@ -13,6 +13,7 @@ public class SpinToPort extends CommandBase {
     private final Drivetrain drivetrain;
     private double spinSpeed;
     private MotorControlPID spinControl;
+    private MotorControlPID encoderSpinControl;
     private boolean isFinished;
     private Timer timer;
 
@@ -29,6 +30,7 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
+        encoderSpinControl = new MotorControlPID(5,1.0,1.0,0.1,0.001);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.0025,0.00004,0.00025);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.004,0,0.00025);
         isFinished = false;
@@ -51,17 +53,17 @@ public class SpinToPort extends CommandBase {
                 spinSpeed = -0.25;
             }
         }
-        else if(coords[0]!= 160){
-            if(timer.get()<0.25){
-                spinSpeed = 0.25;
-            }
-            else{
-                spinSpeed = 0.10;
-            }
-            if(coords[0]>160){
-                spinSpeed*=-1;
-            }
-            // spinSpeed = spinControl.getSpeed(coords[0]);
+        else{
+//            if(timer.get()<0.25){
+//                spinSpeed = 0.25;
+//            }
+//            else{
+//                spinSpeed = 0.10;
+//            }
+//            if(coords[0]>160){
+//                spinSpeed*=-1;
+//            }
+             spinSpeed = encoderSpinControl.getSpeed(drivetrain.getEncoderLeft().getRate());
         }
         if(coords[0]<162 && coords[0]>158){
             System.out.println("DONE DONE DONE");
