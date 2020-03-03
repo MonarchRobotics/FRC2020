@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.enums.WheelManipulatorState;
 import frc.robot.subsystems.WheelManipulator;
 import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.videoio.VideoCapture;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -44,7 +46,7 @@ public class Robot extends TimedRobot {
   private WheelManipulator wheelManipulator;
   private OI oi;
   private boolean cameraExposureAuto = false;
-  private UsbCamera camera;
+  private UsbCamera camera, intakeCamera;
   
   public static double[] position = new double[2];
   public static WheelManipulatorState wheelManipulatorState = WheelManipulatorState.none;
@@ -65,8 +67,15 @@ public class Robot extends TimedRobot {
 
     camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
+    intakeCamera = CameraServer.getInstance().startAutomaticCapture(1);
+    intakeCamera.setResolution(320, 240);
+    intakeCamera.setExposureAuto();
+    // VideoCapture cameraOpencv = new VideoCapture(0);
+    // Mat frame = new Mat();
+    // cameraOpencv.read(frame);
     // camera.setBrightness(4);
     camera.setExposureManual(1);
+    camera.setBrightness(20);
     Arrays.fill(previousXCoordValues, -1);
     Arrays.fill(distanceBetweenChange,0);
   }
@@ -90,10 +99,12 @@ public class Robot extends TimedRobot {
     if(OI.leftJoystick.getRawButtonPressed(8)){
       if(!cameraExposureAuto){
         camera.setExposureAuto();
+        camera.setBrightness(50);
         cameraExposureAuto = true;
       }
       else{
         camera.setExposureManual(1);
+        camera.setBrightness(20);
         cameraExposureAuto = false;
       }
     }
@@ -123,24 +134,30 @@ public class Robot extends TimedRobot {
     coords[1] = -1;
     if(centerXs.length>0 && centerYs.length>0){
       coords[0]=centerXs[0];
-      if(coords[0]==previousXCoordValues[1]){
-        distanceBetweenChange[1]++;
-      }
-      else {
-        previousXCoordValues[0] = previousXCoordValues[1];
-        previousXCoordValues[1] = coords[0];
-        distanceBetweenChange[0] = distanceBetweenChange[1];
-        distanceBetweenChange[1] = 0;
-      }
+      // SmartDashboard.putNumber("original",coords[0]);
+      // if(coords[0]==previousXCoordValues[1]){
+      //   distanceBetweenChange[1]++;
+      // }
+      // else {
+      //   previousXCoordValues[0] = previousXCoordValues[1];
+      //   previousXCoordValues[1] = coords[0];
+      //   distanceBetweenChange[0] = distanceBetweenChange[1];
+      //   distanceBetweenChange[1] = 0;
+      // }
       
-      if(previousXCoordValues[1]!=-1 && distanceBetweenChange[1]>0 && distanceBetweenChange[0]>0){
-        double slope = (previousXCoordValues[1]-previousXCoordValues[0])/distanceBetweenChange[0];
-        double yIntercept = previousXCoordValues[0];
-        double newCoord = yIntercept + slope * (distanceBetweenChange[0]+distanceBetweenChange[1]);
-        coords[0] = newCoord;
-        System.out.println("Using adapted");
-      }
-      System.out.println("Coords:"+coords[0]);
+      // if(previousXCoordValues[1]!=-1 && distanceBetweenChange[1]>0 && distanceBetweenChange[0]>0){
+      //   double slope = (previousXCoordValues[1]-previousXCoordValues[0])/distanceBetweenChange[0];
+      //   double yIntercept = previousXCoordValues[0];
+      //   double newCoord = yIntercept + slope * (distanceBetweenChange[0]+distanceBetweenChange[1]);
+      //   coords[0] = newCoord;
+      //   // System.out.println("Using adapted");
+      //   System.out.println("Old: "+centerXs[0]+", New: "+coords[0]);
+      // }
+      // else{
+      //   System.out.println("Old: "+centerXs[0]+", NO UPDATE");
+      // }
+      // SmartDashboard.putNumber("new",coords[0]);
+      // System.out.println("Coords:"+coords[0]);
       coords[1] = centerYs[0];
     }
     return coords;

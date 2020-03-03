@@ -93,7 +93,7 @@ public class DriveTank extends CommandBase {
         
         // double rotateTime;
 
-        System.out.println("Gyro:"+drivetrain.getGyro().getAngle());
+        // System.out.println("Gyro:"+drivetrain.getGyro().getAngle());
         // encoder.reset();
 
         // System.out.println("D: "+encoder.getDistance());
@@ -133,7 +133,7 @@ public class DriveTank extends CommandBase {
             // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
             // System.out.println("R:"+drivetrain.getEncoderRight().getRate());
             // System.out.println("Lidar Reading:"+drivetrain.getLidarMeasurement());
-            System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
+            // System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
             turnEndCheck = 0;
             if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger()){
                 leftSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));

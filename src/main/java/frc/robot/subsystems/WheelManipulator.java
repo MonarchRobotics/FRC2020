@@ -35,6 +35,7 @@ public class WheelManipulator extends SubsystemBase {
 //        spinner.setNeutralMode(NeutralMode.Brake);
 
         spinner = new TalonSRX(spinnerPort);
+        spinner.setNeutralMode(NeutralMode.Brake);
         setDefaultCommand(new WheelOfFortune(this));
     }
 

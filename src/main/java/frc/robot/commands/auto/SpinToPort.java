@@ -29,7 +29,8 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
-        spinControl = new MotorControlPID(160,1.0,0.60,0.0025,0.00004,0.00025);
+        // spinControl = new MotorControlPID(160,0.4,0.15,0.0025,0.00004,0.00025);
+        // spinControl = new MotorControlPID(160,0.4,0.15,0.004,0,0.00025);
         isFinished = false;
         timer.reset();
         timer.start();
@@ -51,15 +52,25 @@ public class SpinToPort extends CommandBase {
             }
         }
         else if(coords[0]!= 160){
-            spinSpeed = spinControl.getSpeed(coords[0]);
+            if(timer.get()<0.25){
+                spinSpeed = 0.25;
+            }
+            else{
+                spinSpeed = 0.10;
+            }
+            if(coords[0]>160){
+                spinSpeed*=-1;
+            }
+            // spinSpeed = spinControl.getSpeed(coords[0]);
         }
-        if(coords[0]<165 && coords[0]>155){
+        if(coords[0]<162 && coords[0]>158){
             System.out.println("DONE DONE DONE");
             isFinished = true;
         }
         SmartDashboard.putNumber("coordX", coords[0]);
         SmartDashboard.putNumber("speed",spinSpeed);
-        // System.out.println("Coords:"+coords[0]);
+        System.out.println("Coords:"+coords[0]);
+        System.out.println("Speed: "+spinSpeed);
         // System.out.println(coords[0]<167 && coords[0]>153);
         drivetrain.ldrive(-spinSpeed);
         drivetrain.rdrive(spinSpeed);
