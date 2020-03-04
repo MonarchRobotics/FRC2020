@@ -69,10 +69,12 @@ public class SpinToPort extends CommandBase {
             System.out.println("DONE DONE DONE");
             isFinished = true;
         }
-        SmartDashboard.putNumber("coordX", coords[0]);
+        SmartDashboard.putNumber("coordX",drivetrain.getEncoderLeft().getRate());
         SmartDashboard.putNumber("speed",spinSpeed);
-        System.out.println("Coords:"+coords[0]);
-        System.out.println("Speed: "+spinSpeed);
+//        SmartDashboard.putNumber("coordX", coords[0]);
+//        SmartDashboard.putNumber("speed",spinSpeed);
+//        System.out.println("Coords:"+coords[0]);
+//        System.out.println("Speed: "+spinSpeed);
         // System.out.println(coords[0]<167 && coords[0]>153);
         drivetrain.ldrive(-spinSpeed);
         drivetrain.rdrive(spinSpeed);

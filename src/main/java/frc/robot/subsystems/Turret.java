@@ -25,7 +25,6 @@ public class Turret extends SubsystemBase {
     private TalonSRX leftWheel;
     private TalonSRX inputWheel;
     private Encoder encoderLeft = new Encoder(4, 5);
-    private Encoder encoderRight = new Encoder(6, 7);
 
     /**
      *
@@ -45,7 +44,6 @@ public class Turret extends SubsystemBase {
         
         setDefaultCommand(new Shoot(this));
         encoderLeft.setDistancePerPulse(1/2048.0);
-        encoderRight.setDistancePerPulse(1/2048.0);
     }
 
     
@@ -53,10 +51,6 @@ public class Turret extends SubsystemBase {
 
     public double getEncoderLeftRate(){
         return encoderLeft.getRate();
-    }
-
-    public double getEncoderRightRate(){
-        return encoderRight.getRate();
     }
 
     /**
@@ -67,16 +61,6 @@ public class Turret extends SubsystemBase {
     public void spinMotors(double leftSpeed, double rightSpeed){
         leftWheel.set(ControlMode.PercentOutput,-leftSpeed);
         rightWheel.set(ControlMode.PercentOutput,rightSpeed);
-    }
-
-    public void runInput()
-    {
-        inputWheel.set(ControlMode.PercentOutput, 0.25);
-    }
-    
-    public void stopInput()
-    {
-        inputWheel.set(ControlMode.PercentOutput, 0);
     }
 
     // @Override

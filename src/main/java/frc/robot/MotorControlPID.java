@@ -51,11 +51,11 @@ public class MotorControlPID {
         //vs = (Kp * e) + (Ki * sum(e)) + (Kd*delta(e));
 
         double e = (target - current);
-        SmartDashboard.putNumber("E",e);
+//        SmartDashboard.putNumber("E",e);
         double deltaE = previousE - e;
         sumE += e;
         double speed = Kp * e + Ki * sumE + Kd * deltaE;
-        SmartDashboard.putNumber("Speed before Ceil",speed);
+//        SmartDashboard.putNumber("Speed before Ceil",speed);
         // System.out.println("Kp:"+Kp+",E:"+e+",S:"+speed);
         previousE = e;
         double adjustedSpeed = speed * maxValue;
