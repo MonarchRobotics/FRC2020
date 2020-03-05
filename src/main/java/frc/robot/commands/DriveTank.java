@@ -88,7 +88,7 @@ public class DriveTank extends CommandBase {
     public void execute() {
         // System.out.println(drivetrain.getEncoderRight().getDistance());
         // System.out.println("D"+drivetrain.getEncoderLeft().getDistance());
-        // System.out.println("R"+drivetrain.getEncoderLeft().getRate());
+        System.out.println("R"+drivetrain.getEncoderRight().getRate());
 
         
         // double rotateTime;
@@ -136,16 +136,16 @@ public class DriveTank extends CommandBase {
             // System.out.println("Coords:"+Robot.getTargetCenterCoordinates()[0]);
             turnEndCheck = 0;
             if(!OI.rightJoystick.getTrigger() && !OI.leftJoystick.getTrigger()){
-                leftSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
-                rightSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                // leftSide.setTarget(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                // rightSide.setTarget(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
 
-                leftSpeed = leftSide.getSpeed(leftSpeed);
-                rightSpeed = rightSide.getSpeed(rightSpeed);
+                // leftSpeed = leftSide.getSpeed(leftSpeed);
+                // rightSpeed = rightSide.getSpeed(rightSpeed);
 
-                drivetrain.rdrive(rightSpeed);
-                drivetrain.ldrive(leftSpeed);
-                // drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
-                // drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
+                // drivetrain.rdrive(rightSpeed);
+                // drivetrain.ldrive(leftSpeed);
+                drivetrain.rdrive(-OI.deadZone(OI.rightJoystick.getY(), Constants.getDeadZone()));
+                drivetrain.ldrive(-OI.deadZone(OI.leftJoystick.getY(), Constants.getDeadZone()));
             }
         }
 

@@ -13,7 +13,8 @@ public class SpinToPort extends CommandBase {
     private final Drivetrain drivetrain;
     private double spinSpeed;
     private MotorControlPID spinControl;
-    private MotorControlPID encoderSpinControl;
+    private MotorControlPID encoderSpinControlLeft;
+    private MotorControlPID encoderSpinControlRight;
     private boolean isFinished;
     private Timer timer;
 
@@ -30,52 +31,56 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
-        encoderSpinControl = new MotorControlPID(5,1.0,1.0,0.1,0.001);
+        encoderSpinControlLeft = new MotorControlPID(10,1.0,0.4,0.009,0.0005);
+        encoderSpinControlRight = new MotorControlPID(-10,1.0,0.4,0.009,0.0005);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.0025,0.00004,0.00025);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.004,0,0.00025);
         isFinished = false;
         timer.reset();
         timer.start();
     }
-
+    
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
      * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
      */
     @Override
     public void execute() {
+        // spinSpeed = - 0.25;
+        double spinSpeedLeft = encoderSpinControlLeft.getSpeed(-drivetrain.getEncoderLeft().getRate());
+        double spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
         double[] coords = Robot.getTargetCenterCoordinates();
-        if(coords[0]==-1){
-            if(drivetrain.getAutoSwitch().get()){
-                spinSpeed = 0.25;
-            }
-            else {
-                spinSpeed = -0.25;
-            }
-        }
-        else{
-//            if(timer.get()<0.25){
-//                spinSpeed = 0.25;
-//            }
-//            else{
-//                spinSpeed = 0.10;
-//            }
-//            if(coords[0]>160){
-//                spinSpeed*=-1;
-//            }
-             spinSpeed = encoderSpinControl.getSpeed(drivetrain.getEncoderLeft().getRate());
-        }
-        if(coords[0]<162 && coords[0]>158){
-            System.out.println("DONE DONE DONE");
-            isFinished = true;
-        }
-        SmartDashboard.putNumber("coordX", coords[0]);
-        SmartDashboard.putNumber("speed",spinSpeed);
-        System.out.println("Coords:"+coords[0]);
-        System.out.println("Speed: "+spinSpeed);
+//         if(coords[0]==-1){
+//             if(drivetrain.getAutoSwitch().get()){
+//                 spinSpeed = 0.25;
+//             }
+//             else {
+//                 spinSpeed = -0.25;
+//             }
+//         }
+//         else{
+// //            if(timer.get()<0.25){
+// //                spinSpeed = 0.25;
+// //            }
+// //            else{
+// //                spinSpeed = 0.10;
+// //            }
+// //            if(coords[0]>160){
+// //                spinSpeed*=-1;
+// //            }
+//              spinSpeed = encoderSpinControl.getSpeed(drivetrain.getEncoderLeft().getRate());
+//         }
+//         if(coords[0]<162 && coords[0]>158){
+//             System.out.println("DONE DONE DONE");
+//             isFinished = true;
+//         }
+        SmartDashboard.putNumber("coordX", drivetrain.getEncoderLeft().getRate());
+        SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
+        System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
+        System.out.println("R: "+drivetrain.getEncoderRight().getRate());
         // System.out.println(coords[0]<167 && coords[0]>153);
-        drivetrain.ldrive(-spinSpeed);
-        drivetrain.rdrive(spinSpeed);
+        drivetrain.ldrive(-spinSpeedLeft);
+        drivetrain.rdrive(-spinSpeedRight);
     }
 
     /**

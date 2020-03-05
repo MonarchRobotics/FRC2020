@@ -58,7 +58,7 @@ public class BallIntake extends CommandBase {
 
     
     // if(OI.rightJoystick.getRawButton(3)){}
-    if (!OI.rightButton2.get() && !OI.leftButton2.get())
+    if (!OI.rightButton2.get() && !OI.leftButton2.get() && !OI.leftJoystick.getRawButton(3))
     {
       ballSuck.turnOffIntake();
       ballSuck.turnOffHandle();
@@ -72,6 +72,10 @@ public class BallIntake extends CommandBase {
       // System.out.println("Button pressed");
       ballSuck.turnOnIntake();
       ballSuck.turnOnHandle();
+    }
+    else if(OI.leftJoystick.getRawButton(3)){
+      ballSuck.reverseHandle();
+      ballSuck.reverseIntake();
     }
     
   }
