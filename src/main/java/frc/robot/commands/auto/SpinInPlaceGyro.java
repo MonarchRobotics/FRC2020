@@ -9,6 +9,7 @@ package frc.robot.commands.auto;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.MotorControlPID;
 import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.Timer;
 
@@ -19,6 +20,7 @@ import frc.robot.subsystems.Drivetrain;
 public class SpinInPlaceGyro extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
+    private final MotorControlPID gyroPid;
     double degrees;
     double speed;
     double initialGyro;
@@ -33,6 +35,7 @@ public class SpinInPlaceGyro extends CommandBase {
 
         this.degrees = degrees;//positive means to turn right, negative is turning left
         this.speed = speed;
+        gyroPid = new MotorControlPID(subsystem.getGyro().getAngle(),1.0,0.25,0.0025);
         if(degrees<0){
             this.speed = -1;
         }
@@ -45,16 +48,19 @@ public class SpinInPlaceGyro extends CommandBase {
     @Override
     public void initialize() {
         //for now we're not resetting the gyroscope, but we may eventually
-//        subsystem.getGyro().getAngle();
         initialGyro = subsystem.getGyro().getAngle();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        double spinSpeed = gyroPid.getSpeed(subsystem.getGyro().getAngle());
+        subsystem.ldrive(spinSpeed);
+        subsystem.rdrive(-spinSpeed);
+
         //travel at the speed
-        subsystem.ldrive(speed);
-        subsystem.rdrive(-speed);
+//        subsystem.ldrive(speed);
+//        subsystem.rdrive(-speed);
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving
@@ -68,6 +74,6 @@ public class SpinInPlaceGyro extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have spun the correct amount
-        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)>degrees - 30*Math.abs(speed);
+        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)<3.0;
     }
 }

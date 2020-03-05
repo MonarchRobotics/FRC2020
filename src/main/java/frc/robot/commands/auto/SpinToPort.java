@@ -39,7 +39,7 @@ public class SpinToPort extends CommandBase {
         timer.reset();
         timer.start();
     }
-    
+
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
      * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
@@ -78,6 +78,7 @@ public class SpinToPort extends CommandBase {
         SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
         System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
         System.out.println("R: "+drivetrain.getEncoderRight().getRate());
+
         // System.out.println(coords[0]<167 && coords[0]>153);
         drivetrain.ldrive(-spinSpeedLeft);
         drivetrain.rdrive(-spinSpeedRight);

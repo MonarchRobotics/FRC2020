@@ -10,6 +10,8 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.MotorControlPID;
 import frc.robot.Robot;
 
+import java.util.Arrays;
+
 public class AutoShootBall extends CommandBase {
 
     private final Turret turret;
@@ -19,9 +21,8 @@ public class AutoShootBall extends CommandBase {
     private Robot robot;
 
     private MotorControlPID motorControl;
-
-    private double targetSpinSpeed;
-
+    private double[] errors;
+    private boolean shooting;
 
     /**
      * Constructor for AutoShootBall
@@ -30,17 +31,23 @@ public class AutoShootBall extends CommandBase {
     public AutoShootBall(Turret turret, double rpmTarget){
         this.turret = turret;
         timer = new Timer();
-        targetSpinSpeed = rpmTarget;
 
         addRequirements(turret);
-        motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
+        motorControl = new MotorControlPID(rpmTarget,1.0,1.0,0.1,0.001);
+        errors = new double[5];
+        Arrays.fill(errors,100);;
+        shooting = false;
     }
 
 
     @Override
     public void initialize() {
         timer.reset();
-        timer.start();
+        motorControl.reset();
+
+        errors = new double[5];
+        Arrays.fill(errors,100);
+        shooting = false;
     }
 
     
@@ -53,8 +60,18 @@ public class AutoShootBall extends CommandBase {
         double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             System.out.println("RPM:"+turret.getEncoderLeftRate());
+        errors[0] = errors[1];
+        errors[1] = errors[2];
+        errors[2] = errors[3];
+        errors[3] = errors[4];
+        errors[4] = Math.abs(motorControl.getPreviousE());
+        double average = (errors[0]+errors[1]+errors[2]+errors[3]+errors[4])/5;
         turret.spinMotors(leftSpeed,leftSpeed);
-        if(timer.get()>2.5){
+        if(average<2){
+            shooting = true;
+            timer.start();
+        }
+        if(shooting){
             turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
         }
         
@@ -75,6 +92,6 @@ public class AutoShootBall extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.get()>5.0;
+        return timer.get()>2.0;
     }
 }
