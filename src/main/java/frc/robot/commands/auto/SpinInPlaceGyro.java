@@ -36,7 +36,7 @@ public class SpinInPlaceGyro extends CommandBase {
 
         this.degrees = degrees;//positive means to turn right, negative is turning left
         this.speed = speed;
-        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.0025);
+        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.0003,0.00001);
         if(degrees<0){
             this.speed = -1;
         }
@@ -56,6 +56,8 @@ public class SpinInPlaceGyro extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        System.out.println("Gyro:"+subsystem.getGyro().getAngle());
+        System.out.println("Targ:"+gyroPid.getTarget());
         // double spinSpeed = 0.25;
         double spinSpeed = gyroPid.getSpeed(subsystem.getGyro().getAngle());
         SmartDashboard.putNumber("coordX", subsystem.getGyro().getAngle());
