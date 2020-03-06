@@ -30,6 +30,10 @@ public class Shoot extends CommandBase {
     final double targetSpinSpeed = 28.00;
     final double error = 10.0;
 
+
+    // Timer
+    private Timer timer;
+
     // VideoCapture camera;
 
     /**
@@ -49,6 +53,8 @@ public class Shoot extends CommandBase {
         addRequirements(turret);
         motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
 
+
+        timer = new Timer();
     }
 
     // Called when the command is initially scheduled.
@@ -70,7 +76,14 @@ public class Shoot extends CommandBase {
         //If both triggers are pulled, motors run.
 
         if ((OI.rightJoystick.getTrigger() && OI.leftJoystick.getTrigger()) || OI.rightJoystick.getRawButton(10)){
+
+            //Test timer stuff
+            double startTime = timer.getMatchTime();
             double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
+            double elapseTime = timer.getMatchTime() - startTime;
+
+            System.out.println("PID elapse time: " + elapseTime);
+
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,leftSpeed);
             // turret.spinMotors(0.47,0.47);
