@@ -1,6 +1,7 @@
 package frc.robot.commands.auto;
 
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.BallSuck;
 import frc.robot.subsystems.Drivetrain;
@@ -14,9 +15,19 @@ public class AutoGroupFinal extends SequentialCommandGroup {
      * */
     public AutoGroupFinal(Turret turret, Drivetrain drivetrain, BallSuck ballsuck){
         //get the ballsuck system out of frame perimeter at the start of the match
-        addCommands(new AutoInit(ballsuck,drivetrain));
-        addCommands(new SpinToPort(drivetrain));
+        addCommands(new ParallelCommandGroup(
+                new AutoInit(ballsuck,drivetrain),
+                new SpinToPort(drivetrain),
+                new AutoShootBall(turret,28)
+        ));
+        addCommands(
+                new DriveStraight(drivetrain, ballsuck,-193,0.20, -1),
+                new DriveStraight(drivetrain, ballsuck,100,0.20, 5)
+        );
+        addCommands(new ParallelCommandGroup(
+                new SpinToPort(drivetrain),
+                new AutoShootBall(turret,28)
+        ));
         // addCommands(new DriveStraight(drivetrain,-27,0.35));
-        // addCommands(new AutoShootBall(turret,28));
     }
 }

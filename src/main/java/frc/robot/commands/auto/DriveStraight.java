@@ -7,6 +7,7 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
@@ -29,23 +30,25 @@ public class DriveStraight extends CommandBase {
     private MotorControlPID leftPid;
     private MotorControlPID rightPid;
 
-    private boolean shouldSuck;
+    private double suckTime;
+    private Timer timer;
 
     /**
      * @param subsystem The Drivetrain subsystem {@link Drivetrain} so that we can drive.
      * @param distance The distance we want to drive in inches.
      * @param speed The speed at which we want to travel
+     * @param suckTime The number of seconds to suck for. If it is 0, it will not suck. If it is less than 0, it will suck the whole time
      */
-    public DriveStraight(Drivetrain subsystem, BallSuck intake, double distance, double speed, boolean suck) {
+    public DriveStraight(Drivetrain subsystem, BallSuck intake, double distance, double speed, double suckTime) {
         this.subsystem = subsystem;
         this.intake = intake;
         distanceToTravel = distance;
         travelSpeed = speed;
-        shouldSuck = suck;
+        this.suckTime = suckTime;
         if(travelSpeed<0){
             travelSpeed*=-1;
         }
-
+        timer = new Timer();
         /**
          * Declare {@link subsystem} as a requirement of the command
          */
@@ -58,6 +61,8 @@ public class DriveStraight extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        timer.reset();
+        timer.start();
         //reset the values of the encoders to zero.
         subsystem.getEncoderRight().reset();
         subsystem.getEncoderLeft().reset();
@@ -68,9 +73,14 @@ public class DriveStraight extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(shouldSuck){
+        if(suckTime<0 || suckTime<timer.get()){
             intake.turnOnHandle();
             intake.turnOnIntake();
+        }
+        else{
+
+            intake.turnOffHandle();
+            intake.turnOffIntake();
         }
         //set the initial speed, before encoder adjustments
 

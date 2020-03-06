@@ -47,12 +47,15 @@ public class Robot extends TimedRobot {
   private OI oi;
   private boolean cameraExposureAuto = false;
   private UsbCamera camera, intakeCamera;
-  
+
+
   public static double[] position = new double[2];
   public static WheelManipulatorState wheelManipulatorState = WheelManipulatorState.none;
 
   private static double[] previousXCoordValues = new double[2];
   private static double[] distanceBetweenChange = new double[2];
+
+  public static boolean canShootAuto = true;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -78,6 +81,7 @@ public class Robot extends TimedRobot {
     camera.setBrightness(20);
     Arrays.fill(previousXCoordValues, -1);
     Arrays.fill(distanceBetweenChange,0);
+    canShootAuto = true;
   }
 
   /**

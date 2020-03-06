@@ -30,6 +30,7 @@ public class SpinToPort extends CommandBase {
      */
     @Override
     public void initialize() {
+        Robot.canShootAuto = false;
         spinSpeed = 0;
         encoderSpinControlLeft = new MotorControlPID(3,1.0,0.4,0.018,0.0005);
         encoderSpinControlRight = new MotorControlPID(-3,1.0,0.4,0.018,0.0005);
@@ -137,5 +138,6 @@ public class SpinToPort extends CommandBase {
         drivetrain.rdrive(0);
         drivetrain.ldrive(0);
         System.out.println("DONE WITH ALIGN");
+        Robot.canShootAuto = true;
     }
 }

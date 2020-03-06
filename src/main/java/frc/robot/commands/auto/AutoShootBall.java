@@ -67,7 +67,7 @@ public class AutoShootBall extends CommandBase {
         errors[4] = Math.abs(motorControl.getPreviousE());
         double average = (errors[0]+errors[1]+errors[2]+errors[3]+errors[4])/5;
         turret.spinMotors(leftSpeed,leftSpeed);
-        if(average<2){
+        if(average<1.5 && Robot.canShootAuto){
             shooting = true;
             timer.start();
         }

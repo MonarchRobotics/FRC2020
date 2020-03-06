@@ -78,6 +78,6 @@ public class AutoInit extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false while the system hasn't activated fully yet
-        return timer.get()>0.2;
+        return timer.get()>0.1;
     }
 }
