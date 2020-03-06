@@ -47,12 +47,15 @@ public class Robot extends TimedRobot {
   private OI oi;
   private boolean cameraExposureAuto = false;
   private UsbCamera camera, intakeCamera;
-  
+
+
   public static double[] position = new double[2];
   public static WheelManipulatorState wheelManipulatorState = WheelManipulatorState.none;
 
   private static double[] previousXCoordValues = new double[2];
   private static double[] distanceBetweenChange = new double[2];
+
+  public static boolean canShootAuto = true;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -63,7 +66,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    oi = new OI();
+    oi = new OI(m_robotContainer.getDrivetrain());
 
     camera = CameraServer.getInstance().startAutomaticCapture(0);
     camera.setResolution(320, 240);
@@ -78,6 +81,7 @@ public class Robot extends TimedRobot {
     camera.setBrightness(20);
     Arrays.fill(previousXCoordValues, -1);
     Arrays.fill(distanceBetweenChange,0);
+    canShootAuto = true;
   }
 
   /**

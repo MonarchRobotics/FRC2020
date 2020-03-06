@@ -62,6 +62,11 @@ public class RobotContainer {
     return driveTank;
   }
 
+  public Drivetrain getDrivetrain()
+  {
+    return drivetrain;
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

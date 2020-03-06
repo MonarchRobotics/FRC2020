@@ -17,6 +17,8 @@ import frc.robot.enums.WheelManipulatorState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.Robot;
 
+import frc.robot.commands.auto.SpinToPort;
+
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -38,6 +40,8 @@ public class DriveTank extends CommandBase {
     private MotorControlPID spinControl;
 
     private MotorControlPID leftSide, rightSide;
+
+    
 
 
     private double leftSpeed, rightSpeed;
@@ -108,6 +112,8 @@ public class DriveTank extends CommandBase {
         // }
 
         // System.out.println("Switch: "+drivetrain.getAutoSwitch().get());
+
+
 
         if(OI.leftButton7.get()){
             // TEST THING for turning 90 degrees
