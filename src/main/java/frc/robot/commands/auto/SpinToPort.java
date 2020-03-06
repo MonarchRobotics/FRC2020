@@ -31,8 +31,8 @@ public class SpinToPort extends CommandBase {
     @Override
     public void initialize() {
         spinSpeed = 0;
-        encoderSpinControlLeft = new MotorControlPID(10,1.0,0.4,0.009,0.0005);
-        encoderSpinControlRight = new MotorControlPID(-10,1.0,0.4,0.009,0.0005);
+        encoderSpinControlLeft = new MotorControlPID(3,1.0,0.4,0.018,0.0005);
+        encoderSpinControlRight = new MotorControlPID(-3,1.0,0.4,0.018,0.0005);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.0025,0.00004,0.00025);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.004,0,0.00025);
         isFinished = false;
@@ -47,34 +47,55 @@ public class SpinToPort extends CommandBase {
     @Override
     public void execute() {
         // spinSpeed = - 0.25;
-        double spinSpeedLeft = encoderSpinControlLeft.getSpeed(-drivetrain.getEncoderLeft().getRate());
-        double spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
+        double spinSpeedLeft;
+        double spinSpeedRight;
+        
         double[] coords = Robot.getTargetCenterCoordinates();
-//         if(coords[0]==-1){
-//             if(drivetrain.getAutoSwitch().get()){
-//                 spinSpeed = 0.25;
-//             }
-//             else {
-//                 spinSpeed = -0.25;
-//             }
-//         }
-//         else{
-// //            if(timer.get()<0.25){
-// //                spinSpeed = 0.25;
-// //            }
-// //            else{
-// //                spinSpeed = 0.10;
-// //            }
-// //            if(coords[0]>160){
-// //                spinSpeed*=-1;
-// //            }
-//              spinSpeed = encoderSpinControl.getSpeed(drivetrain.getEncoderLeft().getRate());
-//         }
-//         if(coords[0]<162 && coords[0]>158){
-//             System.out.println("DONE DONE DONE");
-//             isFinished = true;
-//         }
-        SmartDashboard.putNumber("coordX", drivetrain.getEncoderLeft().getRate());
+        if(coords[0]==-1){
+            
+            if(drivetrain.getAutoSwitch().get()){
+                encoderSpinControlLeft.setTarget(10.0);
+                encoderSpinControlRight.setTarget(-10.0);
+            }
+            else {
+                encoderSpinControlLeft.setTarget(-10.0);
+            encoderSpinControlRight.setTarget(10.0);
+            }
+            spinSpeedLeft = encoderSpinControlLeft.getSpeed(-drivetrain.getEncoderLeft().getRate());
+            spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
+        }
+        else{
+            if(coords[0]>180){
+                encoderSpinControlLeft.setTarget(-8.0);
+                encoderSpinControlRight.setTarget(8.0);
+            }
+            if(coords[0]>160){
+                encoderSpinControlLeft.setTarget(-4.0);
+                encoderSpinControlRight.setTarget(4.0);
+            }
+            else if(coords[0]<140){
+                encoderSpinControlLeft.setTarget(8.0);
+                encoderSpinControlRight.setTarget(-8.0);
+            }
+            else{
+                encoderSpinControlLeft.setTarget(4.0);
+                encoderSpinControlRight.setTarget(-4.0);
+            }
+            spinSpeedLeft = encoderSpinControlLeft.getSpeed(-drivetrain.getEncoderLeft().getRate());
+            spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
+//            if(timer.get()<0.25){
+//                spinSpeed = 0.25;
+//            }
+//            else{
+//                spinSpeed = 0.10;
+//            }
+            //  spinSpeed = encoderSpinControl.getSpeed(drivetrain.getEncoderLeft().getRate());
+        }
+        if(coords[0]<165 && coords[0]>155){
+            System.out.println("DONE DONE DONE");
+            isFinished = true;
+        }
+        SmartDashboard.putNumber("coordX", spinSpeedRight);
         SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
         System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
         System.out.println("R: "+drivetrain.getEncoderRight().getRate());
