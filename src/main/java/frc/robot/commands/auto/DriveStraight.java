@@ -10,6 +10,8 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
+import frc.robot.commands.BallIntake;
+import frc.robot.subsystems.BallSuck;
 import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.Timer;
 
@@ -20,21 +22,26 @@ import frc.robot.subsystems.Drivetrain;
 public class DriveStraight extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain subsystem;
+    private final BallSuck intake;
     double distanceToTravel;
     double travelSpeed;
 
     private MotorControlPID leftPid;
     private MotorControlPID rightPid;
 
+    private boolean shouldSuck;
+
     /**
      * @param subsystem The Drivetrain subsystem {@link Drivetrain} so that we can drive.
      * @param distance The distance we want to drive in inches.
      * @param speed The speed at which we want to travel
      */
-    public DriveStraight(Drivetrain subsystem, double distance, double speed) {
+    public DriveStraight(Drivetrain subsystem, BallSuck intake, double distance, double speed, boolean suck) {
         this.subsystem = subsystem;
+        this.intake = intake;
         distanceToTravel = distance;
         travelSpeed = speed;
+        shouldSuck = suck;
         if(travelSpeed<0){
             travelSpeed*=-1;
         }
@@ -61,6 +68,10 @@ public class DriveStraight extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if(shouldSuck){
+            intake.turnOnHandle();
+            intake.turnOnIntake();
+        }
         //set the initial speed, before encoder adjustments
 
         //read the distance each encoder has traveled (in inches)
@@ -110,6 +121,8 @@ public class DriveStraight extends CommandBase {
     public void end(boolean interrupted) {
         subsystem.ldrive(0);
         subsystem.rdrive(0);
+        intake.turnOffHandle();
+        intake.turnOffIntake();
         System.out.println("DONE");
     }
 

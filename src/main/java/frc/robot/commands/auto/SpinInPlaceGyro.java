@@ -8,6 +8,7 @@
 package frc.robot.commands.auto;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
 import frc.robot.subsystems.Drivetrain;
@@ -35,7 +36,7 @@ public class SpinInPlaceGyro extends CommandBase {
 
         this.degrees = degrees;//positive means to turn right, negative is turning left
         this.speed = speed;
-        gyroPid = new MotorControlPID(subsystem.getGyro().getAngle(),1.0,0.25,0.0025);
+        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.0025);
         if(degrees<0){
             this.speed = -1;
         }
@@ -47,6 +48,7 @@ public class SpinInPlaceGyro extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        subsystem.getGyro().reset();
         //for now we're not resetting the gyroscope, but we may eventually
         initialGyro = subsystem.getGyro().getAngle();
     }
@@ -54,7 +56,10 @@ public class SpinInPlaceGyro extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        // double spinSpeed = 0.25;
         double spinSpeed = gyroPid.getSpeed(subsystem.getGyro().getAngle());
+        SmartDashboard.putNumber("coordX", subsystem.getGyro().getAngle());
+        SmartDashboard.putNumber("speed", spinSpeed);
         subsystem.ldrive(spinSpeed);
         subsystem.rdrive(-spinSpeed);
 
@@ -74,6 +79,6 @@ public class SpinInPlaceGyro extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have spun the correct amount
-        return Math.abs(subsystem.getGyro().getAngle()-initialGyro)<3.0;
+        return false;
     }
 }

@@ -86,9 +86,10 @@ public class DriveTank extends CommandBase {
      */
     @Override
     public void execute() {
+        System.out.println(drivetrain.getAutoSwitch().get());
         // System.out.println(drivetrain.getEncoderRight().getDistance());
-        // System.out.println("D"+drivetrain.getEncoderLeft().getDistance());
-        System.out.println("R"+drivetrain.getEncoderRight().getRate());
+        System.out.println("L"+drivetrain.getEncoderLeft().getDistance());
+        System.out.println("R"+drivetrain.getEncoderRight().getDistance());
 
         
         // double rotateTime;
