@@ -106,12 +106,12 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("No color received from driver station yet");
       }
     }
-    else if(rightButton8 && Robot.wheelManipulatorState == WheelManipulatorState.rotation){
+    else if((rightButton8 || OI.xboxController.getXButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.rotation){
       Robot.wheelManipulatorState = WheelManipulatorState.none;
       subsystem.stopSpinWheel();
       System.out.println("Stopped rotation control");
     }
-    else if(rightButton9 && Robot.wheelManipulatorState == WheelManipulatorState.position){
+    else if((rightButton9 || OI.xboxController.getBButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.position){
       Robot.wheelManipulatorState = WheelManipulatorState.none;
       subsystem.stopSpinWheel();
       System.out.println("Stopped position control");
