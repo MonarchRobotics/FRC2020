@@ -18,16 +18,26 @@ public class AutoGroupFinal extends SequentialCommandGroup {
         addCommands(new ParallelCommandGroup(
                 new AutoInit(ballsuck,drivetrain),
                 new SpinToPort(drivetrain),
-                new AutoShootBall(turret,28)
+                new AutoShootBall(turret,28),
+                new SpinInPlaceGyro(drivetrain,0,0.0)
         ));
-        addCommands(
-                new DriveStraight(drivetrain, ballsuck,-193,0.20, -1),
-                new DriveStraight(drivetrain, ballsuck,100,0.20, 5)
-        );
-        addCommands(new ParallelCommandGroup(
-                new SpinToPort(drivetrain),
-                new AutoShootBall(turret,28)
-        ));
+        if(drivetrain.getAutoSwitch().get()) {
+            //we are in front of the trench run, so go pick up the balls.
+            addCommands(
+                    new DriveStraight(drivetrain, ballsuck, -193, 0.20, -1),
+                    new DriveStraight(drivetrain, ballsuck, 100, 0.20, 5)
+            );
+            addCommands(new ParallelCommandGroup(
+                    new SpinToPort(drivetrain),
+                    new AutoShootBall(turret, 28)
+            ));
+        }
+        else{
+            //back up off the initiation line for 5 points.
+            addCommands(
+                    new DriveStraight(drivetrain, ballsuck, -50, 0.20, 0)
+            );
+        }
         // addCommands(new DriveStraight(drivetrain,-27,0.35));
     }
 }
