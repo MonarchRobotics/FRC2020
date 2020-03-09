@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.commands.auto.AutoGroup;
+import frc.robot.commands.auto.AutoGroupFinal;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -35,6 +36,7 @@ public class RobotContainer {
 
 //  private final SpinWheel autoCommand = new SpinWheel(wheelManipulator);
    private final AutoGroup autoCommand = new AutoGroup(turret, drivetrain, ballsuck);
+   private final AutoGroupFinal autoCommandFinal = new AutoGroupFinal(turret,drivetrain,ballsuck);
 
 
 
@@ -75,6 +77,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return autoCommand;
-    // return null;
+//    return autoCommandFinal;
   }
 }

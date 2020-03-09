@@ -14,13 +14,17 @@ public class AutoGroupFinal extends SequentialCommandGroup {
      * @param drivetrain The Drivetrain Subsystem {@link Drivetrain} so that we can drive!
      * */
     public AutoGroupFinal(Turret turret, Drivetrain drivetrain, BallSuck ballsuck){
-        //get the ballsuck system out of frame perimeter at the start of the match
         addCommands(new ParallelCommandGroup(
+                //get the ballsuck system out of frame perimeter at the start of the match
                 new AutoInit(ballsuck,drivetrain),
+                //align with the power port
                 new SpinToPort(drivetrain),
-                new AutoShootBall(turret,28),
-                new SpinInPlaceGyro(drivetrain,0,0.0)
+                //spin up the ball shooter and shoot when once SpinToPort is done.
+                new AutoShootBall(turret,28)
         ));
+        addCommands(
+                new SpinInPlaceGyro(drivetrain,0,0.5)
+        );
         if(drivetrain.getAutoSwitch().get()) {
             //we are in front of the trench run, so go pick up the balls.
             addCommands(
