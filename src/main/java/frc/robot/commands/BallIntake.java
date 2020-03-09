@@ -58,22 +58,24 @@ public class BallIntake extends CommandBase {
 
     
     // if(OI.rightJoystick.getRawButton(3)){}
-    if (!OI.rightButton2.get() && !OI.leftButton2.get() && !OI.leftJoystick.getRawButton(3) && !OI.xboxController.getAButton() && !OI.xboxController.getXButton() && !OI.xboxController.getYButton())
+    int pov = OI.xboxController.getPOV();
+    if (!OI.rightButton2.get() && !OI.leftButton2.get() && 
+    !OI.leftJoystick.getRawButton(3) && pov != 0 && pov != 270 && pov == 180)
     {
       ballSuck.turnOffIntake();
       ballSuck.turnOffHandle();
     }
-    else if (OI.leftButton2.get() || OI.xboxController.getAButton())
+    else if (OI.leftButton2.get() || pov == 270)
     {
       ballSuck.turnOnHandle();
     }
-    else if (OI.rightButton2.get() || OI.xboxController.getXButton())
+    else if (OI.rightButton2.get() || pov == 0)
     {
       // System.out.println("Button pressed");
       ballSuck.turnOnIntake();
       ballSuck.turnOnHandle();
     }
-    else if(OI.leftJoystick.getRawButton(3) || OI.xboxController.getYButton()){
+    else if(OI.leftJoystick.getRawButton(3) || pov == 180){
       ballSuck.reverseHandle();
       ballSuck.reverseIntake();
     }
