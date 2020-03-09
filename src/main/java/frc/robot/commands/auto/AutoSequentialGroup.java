@@ -22,7 +22,7 @@ public class AutoSequentialGroup extends SequentialCommandGroup {
         
         addCommands(new ParallelCommandGroup(
             new AutoInit(ballsuck,drivetrain),
-            new DriveStraight(drivetrain, ballsuck ,-27,0.35, false),
+            new DriveStraight(drivetrain, ballsuck ,-27,0.35, -1),
             new AutoShootBall(turret,28)
         ));
     }

@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
     // Mat frame = new Mat();
     // cameraOpencv.read(frame);
     // camera.setBrightness(4);
-    camera.setExposureManual(1);
-    camera.setBrightness(20);
+    camera.setBrightness(100);
+    camera.setExposureManual(10);
     Arrays.fill(previousXCoordValues, -1);
     Arrays.fill(distanceBetweenChange,0);
     canShootAuto = true;
@@ -100,18 +100,18 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().run();
 
-    if(OI.leftJoystick.getRawButtonPressed(8)){
-      if(!cameraExposureAuto){
-        camera.setExposureAuto();
-        camera.setBrightness(50);
-        cameraExposureAuto = true;
-      }
-      else{
-        camera.setExposureManual(1);
-        camera.setBrightness(20);
-        cameraExposureAuto = false;
-      }
-    }
+    // if(OI.leftJoystick.getRawButtonPressed(8)){
+    //   if(!cameraExposureAuto){
+    //     camera.setExposureAuto();
+    //     camera.setBrightness(50);
+    //     cameraExposureAuto = true;
+    //   }
+    //   else{
+    //     camera.setExposureManual(1);
+    //     camera.setBrightness(100);
+    //     cameraExposureAuto = false;
+    //   }
+    // }
     
     // getCoordinates();
     //kyle rocks
