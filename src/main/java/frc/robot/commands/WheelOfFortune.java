@@ -91,13 +91,13 @@ public class WheelOfFortune extends CommandBase {
     boolean rightButton8 = OI.rightJoystick.getRawButtonPressed(8);
     boolean rightButton9 = OI.rightJoystick.getRawButtonPressed(9);
     //button checking to activate the two modes
-    if(OI.xboxController.getXButtonPressed() && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button on the joystick/controller for Rotation control
+    if((rightButton8 || OI.xboxController.getXButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
       Robot.wheelManipulatorState = WheelManipulatorState.rotation;
       lastDetectedColor = ColorSensorColor.none;
       Arrays.fill(countedColors, 0);
     }
-    else if (OI.xboxController.getBButtonPressed() && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button to activate for Position control
+    else if ((rightButton9 || OI.xboxController.getBButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button to activate for Position control
       if(colorForPosition!=ColorSensorColor.none){
         System.out.println("Starting position control...");
         Robot.wheelManipulatorState = WheelManipulatorState.position;

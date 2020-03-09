@@ -75,7 +75,9 @@ public class Shoot extends CommandBase {
     public void execute() {
         //If both triggers are pulled, motors run.
 
-        if ((OI.xboxController.getBumperPressed(GenericHID.Hand.kLeft) && OI.xboxController.getBumperPressed(GenericHID.Hand.kRight)) || OI.rightJoystick.getRawButton(10))
+        if ((OI.xboxController.getBumperPressed(GenericHID.Hand.kLeft) && OI.xboxController.getBumperPressed(GenericHID.Hand.kRight)) 
+        || (OI.leftJoystick.getTrigger() && OI.rightJoystick.getTrigger())
+        || OI.rightJoystick.getRawButton(10))
         {
 
             //Test timer stuff
@@ -95,7 +97,7 @@ public class Shoot extends CommandBase {
 
 
 
-            if(OI.xboxController.getAButton()){
+            if(OI.rightJoystick.getRawButton(5) || OI.xboxController.getAButton()){
                 turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
             }
             else {
