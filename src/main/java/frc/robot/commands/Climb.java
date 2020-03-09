@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.OI;
 import frc.robot.subsystems.PullUp;
 
@@ -53,7 +54,7 @@ public class Climb extends CommandBase {
 
     if (time.getMatchTime() <= 30)
     {
-      if (OI.leftJoystick.getRawButtonPressed(11)) {
+      if (OI.leftJoystick.getRawButtonPressed(11) || OI.xboxController.getBumperPressed(GenericHID.Hand.kRight)) {
         System.out.println("Pressing button");
         if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
           pullUp.extendClimb();
