@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.MotorControlPID;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
@@ -47,6 +48,10 @@ public class SpinToPort extends CommandBase {
      */
     @Override
     public void execute() {
+        if (OI.leftJoystick.getRawButton(7))
+        {
+            isFinished = true;
+        }
         // spinSpeed = - 0.25;
         double spinSpeedLeft;
         double spinSpeedRight;
