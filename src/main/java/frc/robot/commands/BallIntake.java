@@ -59,8 +59,7 @@ public class BallIntake extends CommandBase {
     
     // if(OI.rightJoystick.getRawButton(3)){}
     int pov = OI.xboxController.getPOV();
-    if (!OI.rightButton2.get() && !OI.leftButton2.get() && 
-    !OI.leftJoystick.getRawButton(3) && pov != 0 && pov != 270 && pov == 180)
+    if (!OI.rightButton2.get() && !OI.leftButton2.get() && !OI.leftJoystick.getRawButton(3) && pov != 0 && pov != 270 && pov != 180)
     {
       ballSuck.turnOffIntake();
       ballSuck.turnOffHandle();

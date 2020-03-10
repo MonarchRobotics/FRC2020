@@ -98,8 +98,8 @@ public class SpinToPort extends CommandBase {
         }
         SmartDashboard.putNumber("coordX", spinSpeedRight);
         SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
-        System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
-        System.out.println("R: "+drivetrain.getEncoderRight().getRate());
+        // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
+        // System.out.println("R: "+drivetrain.getEncoderRight().getRate());
 
         // System.out.println(coords[0]<167 && coords[0]>153);
         drivetrain.ldrive(-spinSpeedLeft);

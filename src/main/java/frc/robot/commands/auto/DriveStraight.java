@@ -133,15 +133,15 @@ public class DriveStraight extends CommandBase {
         subsystem.rdrive(0);
         intake.turnOffHandle();
         intake.turnOffIntake();
-        System.out.println("DONE");
+        // System.out.println("DONE");
     }
 
     double velocityCurve(double maxSpeed, double distanceFromTarget){
         double distanceToSlowDownAt100 = 60;//inches
         double velocityFromDistance = distanceFromTarget *distanceFromTarget/distanceToSlowDownAt100/distanceToSlowDownAt100+0.05;
-        System.out.println("vel:"+velocityFromDistance);
-        System.out.println("max:"+maxSpeed);
-        System.out.println("min:"+Math.min(maxSpeed, velocityFromDistance));
+        // System.out.println("vel:"+velocityFromDistance);
+        // System.out.println("max:"+maxSpeed);
+        // System.out.println("min:"+Math.min(maxSpeed, velocityFromDistance));
         return Math.min(maxSpeed, velocityFromDistance)*130* (distanceToTravel>0 ? 1 : -1);
     }
 

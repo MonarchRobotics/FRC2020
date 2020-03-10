@@ -186,8 +186,8 @@ public class Robot extends TimedRobot {
     //make sure we can actually see something on the camera
     if(widths.length>0 && heights.length>0){
 
-      System.out.println("Width  " + widths[0]);
-    System.out.println("Height " + heights[0]);
+      // System.out.println("Width  " + widths[0]);
+    // System.out.println("Height " + heights[0]);
       //get the width and height of the target in pixels, since there should only be one object
       double stationWidth = widths[0];
       double stationHeight = heights[0];

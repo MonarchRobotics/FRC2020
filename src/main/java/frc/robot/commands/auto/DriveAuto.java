@@ -78,7 +78,7 @@ public class DriveAuto extends CommandBase {
             subsystem.rdrive(travelSpeed);
             subsystem.ldrive(travelSpeed);
         }
-        System.out.println(subsystem.getEncoderRight().getDistance()+"in");
+        // System.out.println(subsystem.getEncoderRight().getDistance()+"in");
     }
 
     // Called once the command ends or is interrupted, sets motors to stop moving

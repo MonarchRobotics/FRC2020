@@ -20,7 +20,8 @@ public class AutoGroup extends SequentialCommandGroup {
     public AutoGroup(Turret turret, Drivetrain drivetrain, BallSuck ballsuck){
         //get the ballsuck system out of frame perimeter at the start of the match
         // addCommands(new AutoInit(ballsuck,drivetrain));
-        addCommands(new SpinInPlaceGyro(drivetrain, 90, 0.25));
+        addCommands(new SpinInPlaceGyro(drivetrain, 60, 0.25));
+        addCommands(new SpinInPlaceGyro(drivetrain, -60, 0.25));
         // addCommands(new DriveStraight(drivetrain, ballsuck,-193,0.20, true));
         // addCommands(new DriveStraight(drivetrain, ballsuck,100,0.20, true));
         // addCommands(new SpinToPort(drivetrain));

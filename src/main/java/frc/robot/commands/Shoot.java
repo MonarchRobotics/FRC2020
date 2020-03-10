@@ -27,7 +27,8 @@ public class Shoot extends CommandBase {
     private final Turret turret;
     private MotorControlPID motorControl;
     //the target revolutions per second on the encoders.
-    final double targetSpinSpeed = 28.00;
+    final double targetSpinSpeedAuto = 28.00;
+    final double targetSpinSpeedTrench = 28.70;
     final double error = 10.0;
 
 
@@ -51,7 +52,7 @@ public class Shoot extends CommandBase {
         //set the speed of each wheel to our guess speed
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(turret);
-        motorControl = new MotorControlPID(targetSpinSpeed,1.0,1.0,0.1,0.001);
+        motorControl = new MotorControlPID(targetSpinSpeedAuto,1.0,1.0,0.1,0.001);
 
 
         timer = new Timer();
@@ -75,17 +76,23 @@ public class Shoot extends CommandBase {
     public void execute() {
         //If both triggers are pulled, motors run.
 
-        if ((OI.xboxController.getBumperPressed(GenericHID.Hand.kLeft) && OI.xboxController.getBumperPressed(GenericHID.Hand.kRight)) 
-        || (OI.leftJoystick.getTrigger() && OI.rightJoystick.getTrigger())
+        if (OI.rightJoystick.getTrigger()
         || OI.rightJoystick.getRawButton(10))
         {
 
-            //Test timer stuff
-            double startTime = timer.getMatchTime();
-            double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
-            double elapseTime = timer.getMatchTime() - startTime;
+            if(OI.leftJoystick.getTrigger()){
+                motorControl.setTarget(targetSpinSpeedAuto);
+            }
+            else{
+                motorControl.setTarget(targetSpinSpeedTrench);
+            }
 
-            System.out.println("PID elapse time: " + elapseTime);
+            //Test timer stuff
+            // double startTime = timer.getMatchTime();
+            double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
+            // double elapseTime = timer.getMatchTime() - startTime;
+
+            // System.out.println("PID elapse time: " + elapseTime);
 
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
             turret.spinMotors(leftSpeed,leftSpeed);

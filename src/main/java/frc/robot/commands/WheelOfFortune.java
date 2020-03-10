@@ -88,16 +88,16 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
-    boolean rightButton8 = OI.rightJoystick.getRawButtonPressed(8);
-    boolean rightButton9 = OI.rightJoystick.getRawButtonPressed(9);
+    boolean rotationButton = OI.rightJoystick.getRawButtonPressed(8) || OI.xboxController.getXButtonPressed();
+    boolean positionButton = OI.rightJoystick.getRawButtonPressed(9) || OI.xboxController.getBButtonPressed();
     //button checking to activate the two modes
-    if((rightButton8 || OI.xboxController.getXButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button on the joystick/controller for Rotation control
+    if((rotationButton) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button on the joystick/controller for Rotation control
       System.out.println("Starting rotational control...");
       Robot.wheelManipulatorState = WheelManipulatorState.rotation;
       lastDetectedColor = ColorSensorColor.none;
       Arrays.fill(countedColors, 0);
     }
-    else if ((rightButton9 || OI.xboxController.getBButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button to activate for Position control
+    else if ((positionButton) && Robot.wheelManipulatorState == WheelManipulatorState.none){//some button to activate for Position control
       if(colorForPosition!=ColorSensorColor.none){
         System.out.println("Starting position control...");
         Robot.wheelManipulatorState = WheelManipulatorState.position;
@@ -106,12 +106,12 @@ public class WheelOfFortune extends CommandBase {
         System.out.println("No color received from driver station yet");
       }
     }
-    else if((rightButton8 || OI.xboxController.getXButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.rotation){
+    else if((rotationButton) && Robot.wheelManipulatorState == WheelManipulatorState.rotation){
       Robot.wheelManipulatorState = WheelManipulatorState.none;
       subsystem.stopSpinWheel();
       System.out.println("Stopped rotation control");
     }
-    else if((rightButton9 || OI.xboxController.getBButtonPressed()) && Robot.wheelManipulatorState == WheelManipulatorState.position){
+    else if((positionButton) && Robot.wheelManipulatorState == WheelManipulatorState.position){
       Robot.wheelManipulatorState = WheelManipulatorState.none;
       subsystem.stopSpinWheel();
       System.out.println("Stopped position control");

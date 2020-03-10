@@ -35,11 +35,7 @@ public class SpinInPlaceGyro extends CommandBase {
         this.subsystem = subsystem;
 
         this.degrees = degrees;//positive means to turn right, negative is turning left
-        this.speed = speed;
-        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.0003,0.00001);
-        if(degrees<0){
-            this.speed = -1;
-        }
+        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.03,0.0003);
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
 
@@ -59,6 +55,9 @@ public class SpinInPlaceGyro extends CommandBase {
         System.out.println("Gyro:"+subsystem.getGyro().getAngle());
         System.out.println("Targ:"+gyroPid.getTarget());
         // double spinSpeed = 0.25;
+        if(Math.abs(gyroPid.getPreviousE())>20){
+            gyroPid.reset();
+        }
         double spinSpeed = gyroPid.getSpeed(subsystem.getGyro().getAngle());
         SmartDashboard.putNumber("coordX", subsystem.getGyro().getAngle());
         SmartDashboard.putNumber("speed", spinSpeed);
@@ -81,6 +80,6 @@ public class SpinInPlaceGyro extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have spun the correct amount
-        return false;
+        return Math.abs(gyroPid.getPreviousE())<0.4;
     }
 }

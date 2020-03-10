@@ -59,7 +59,7 @@ public class AutoShootBall extends CommandBase {
     public void execute() {
         double leftSpeed = motorControl.getSpeed(turret.getEncoderLeftRate());
             // double rightSpeed = motorControlRight.getSpeed(turret.getEncoderRightRate());
-            System.out.println("RPM:"+turret.getEncoderLeftRate());
+            // System.out.println("RPM:"+turret.getEncoderLeftRate());
         errors[0] = errors[1];
         errors[1] = errors[2];
         errors[2] = errors[3];
