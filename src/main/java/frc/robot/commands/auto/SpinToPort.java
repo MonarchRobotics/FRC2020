@@ -71,8 +71,8 @@ public class SpinToPort extends CommandBase {
             spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
         }
         else{
-            double close = 6.0;
-            double far = 10.0;
+            double close = 4.0;
+            double far = 7.0;
             if(coords[0]>180){
                 encoderSpinControlLeft.setTarget(-far);
                 encoderSpinControlRight.setTarget(far);
@@ -103,8 +103,9 @@ public class SpinToPort extends CommandBase {
             System.out.println("DONE DONE DONE");
             isFinished = true;
         }
-        SmartDashboard.putNumber("coordX", spinSpeedRight);
-        SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
+        SmartDashboard.putNumber("coordX", coords[0]);
+        System.out.println("Coords:"+coords[0]);
+        // SmartDashboard.putNumber("speed",drivetrain.getEncoderRight().getRate());
         // System.out.println("L:"+drivetrain.getEncoderLeft().getRate());
         // System.out.println("R: "+drivetrain.getEncoderRight().getRate());
 

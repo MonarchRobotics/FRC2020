@@ -109,8 +109,8 @@ public class DriveStraight extends CommandBase {
         System.out.println("Target:"+leftPid.getTarget());
         
         double leftSpeed = leftPid.getSpeed(subsystem.getEncoderLeft().getRate());
-        double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate())
-                            + gyro.getSpeed(startDirection - subsystem.getGyro().getAngle());
+        double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate());
+                            // + gyro.getSpeed(startDirection - subsystem.getGyro().getAngle());
 
         SmartDashboard.putNumber("leftSpeed", leftSpeed);
         SmartDashboard.putNumber("rightSpeed", rightSpeed);
