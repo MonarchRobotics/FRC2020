@@ -35,7 +35,7 @@ public class SpinInPlaceGyro extends CommandBase {
         this.subsystem = subsystem;
 
         this.degrees = degrees;//positive means to turn right, negative is turning left
-        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.03,0.0003);
+        gyroPid = new MotorControlPID(degrees,1.0,0.3,0.035,0.0003);
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
 
@@ -44,22 +44,22 @@ public class SpinInPlaceGyro extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        subsystem.getGyro().reset();
-        //for now we're not resetting the gyroscope, but we may eventually
-        initialGyro = subsystem.getGyro().getAngle();
+        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        System.out.println("Gyro:"+subsystem.getGyro().getAngle());
-        System.out.println("Targ:"+gyroPid.getTarget());
+        double gyroReading = subsystem.getGyro().getAngle();
+        System.out.println("Gyro:"+gyroReading);
+        // System.out.println("Targ:"+gyroPid.getTarget());
+        System.out.println("Gyro connected: "+subsystem.gyroConnected());
         // double spinSpeed = 0.25;
         if(Math.abs(gyroPid.getPreviousE())>20){
             gyroPid.reset();
         }
-        double spinSpeed = gyroPid.getSpeed(subsystem.getGyro().getAngle());
-        SmartDashboard.putNumber("coordX", subsystem.getGyro().getAngle());
+        double spinSpeed = gyroPid.getSpeed(gyroReading);
+        SmartDashboard.putNumber("coordX", gyroReading);
         SmartDashboard.putNumber("speed", spinSpeed);
         subsystem.ldrive(spinSpeed);
         subsystem.rdrive(-spinSpeed);
@@ -80,6 +80,6 @@ public class SpinInPlaceGyro extends CommandBase {
     @Override
     public boolean isFinished() {
         //returns false until we have spun the correct amount
-        return Math.abs(gyroPid.getPreviousE())<0.4;
+        return Math.abs(gyroPid.getPreviousE())<1.5;
     }
 }

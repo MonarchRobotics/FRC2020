@@ -67,12 +67,13 @@ public class AutoShootBall extends CommandBase {
         errors[4] = Math.abs(motorControl.getPreviousE());
         double average = (errors[0]+errors[1]+errors[2]+errors[3]+errors[4])/5;
         turret.spinMotors(leftSpeed,leftSpeed);
-        if(average<1.5 && Robot.canShootAuto){
+        if(average<1.5 && Robot.canShootAuto && !shooting){
             shooting = true;
             timer.start();
         }
         if(shooting){
             turret.getInputWheelMotor().set(ControlMode.PercentOutput,1.0);
+            // System.out.println("Timer: "+timer.get());
         }
         
     }
@@ -92,6 +93,6 @@ public class AutoShootBall extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return timer.get()>2.0;
+        return timer.get()>1.0;
     }
 }

@@ -73,7 +73,7 @@ public class DriveStraight extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(suckTime<0 || suckTime<timer.get()){
+        if(suckTime<0 || timer.get()<suckTime){
             intake.turnOnHandle();
             intake.turnOnIntake();
         }

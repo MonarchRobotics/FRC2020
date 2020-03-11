@@ -32,8 +32,8 @@ public class SpinToPort extends CommandBase {
     public void initialize() {
         Robot.canShootAuto = false;
         spinSpeed = 0;
-        encoderSpinControlLeft = new MotorControlPID(3,1.0,0.4,0.018,0.0005);
-        encoderSpinControlRight = new MotorControlPID(-3,1.0,0.4,0.018,0.0005);
+        encoderSpinControlLeft = new MotorControlPID(3,1.0,0.8,0.018,0.0005);
+        encoderSpinControlRight = new MotorControlPID(-3,1.0,0.8,0.018,0.0005);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.0025,0.00004,0.00025);
         // spinControl = new MotorControlPID(160,0.4,0.15,0.004,0,0.00025);
         isFinished = false;
@@ -66,21 +66,23 @@ public class SpinToPort extends CommandBase {
             spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());
         }
         else{
+            double close = 6.0;
+            double far = 10.0;
             if(coords[0]>180){
-                encoderSpinControlLeft.setTarget(-8.0);
-                encoderSpinControlRight.setTarget(8.0);
+                encoderSpinControlLeft.setTarget(-far);
+                encoderSpinControlRight.setTarget(far);
             }
             if(coords[0]>160){
-                encoderSpinControlLeft.setTarget(-4.0);
-                encoderSpinControlRight.setTarget(4.0);
+                encoderSpinControlLeft.setTarget(-close);
+                encoderSpinControlRight.setTarget(close);
             }
             else if(coords[0]<140){
-                encoderSpinControlLeft.setTarget(8.0);
-                encoderSpinControlRight.setTarget(-8.0);
+                encoderSpinControlLeft.setTarget(far);
+                encoderSpinControlRight.setTarget(-far);
             }
             else{
-                encoderSpinControlLeft.setTarget(4.0);
-                encoderSpinControlRight.setTarget(-4.0);
+                encoderSpinControlLeft.setTarget(close);
+                encoderSpinControlRight.setTarget(-close);
             }
             spinSpeedLeft = encoderSpinControlLeft.getSpeed(-drivetrain.getEncoderLeft().getRate());
             spinSpeedRight = encoderSpinControlRight.getSpeed(-drivetrain.getEncoderRight().getRate());

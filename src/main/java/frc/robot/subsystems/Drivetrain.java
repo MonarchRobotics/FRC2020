@@ -27,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
     public VictorSPX left1, left2, right1, right2;
     private Encoder encoderLeft = new Encoder(0,1);
     private Encoder encoderRight = new Encoder(2, 3);
-    private Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    private ADXRS450_Gyro gyro;
     private DigitalInput autoSwitch = new DigitalInput(9);
 
     private LidarLite lidar = new LidarLite(I2C.Port.kOnboard);
@@ -54,6 +54,7 @@ public class Drivetrain extends SubsystemBase {
 
         //link the command to the subsystem
         setDefaultCommand(new DriveTank(this));
+        gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
         gyro.calibrate();
 
@@ -113,8 +114,12 @@ public class Drivetrain extends SubsystemBase {
         return encoderRight;
     }
 
-    public Gyro getGyro() {
+    public ADXRS450_Gyro getGyro() {
         return gyro;
+    }
+
+    public boolean gyroConnected(){
+        return gyro.isConnected();
     }
 
     public DigitalInput getAutoSwitch() {

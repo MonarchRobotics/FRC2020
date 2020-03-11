@@ -52,8 +52,8 @@ public class Climb extends CommandBase {
   @Override
   public void execute() {
 
-    if (time.getMatchTime() <= 30)
-    {
+    // if (time.getMatchTime() <= 30)
+    // {
       if (OI.leftJoystick.getRawButtonPressed(11) || OI.xboxController.getStartButtonPressed()) {
         System.out.println("Pressing button");
         if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
@@ -63,7 +63,7 @@ public class Climb extends CommandBase {
           pullUp.retractClimb();
         }
       }
-    }
+    // }
   }
 
   

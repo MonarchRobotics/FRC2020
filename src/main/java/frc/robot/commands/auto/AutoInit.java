@@ -54,6 +54,7 @@ public class AutoInit extends CommandBase {
     public void initialize() {
         timer.start();
         // drivetrain.getGyro().calibrate();
+        drivetrain.getGyro().reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
