@@ -27,6 +27,10 @@ public class DriveStraight extends CommandBase {
     double distanceToTravel;
     double travelSpeed;
 
+    double startDirection;
+
+    private MotorControlPID gyro;
+
     private MotorControlPID leftPid;
     private MotorControlPID rightPid;
 
@@ -56,6 +60,8 @@ public class DriveStraight extends CommandBase {
         leftPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
         rightPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
 
+        gyro = new MotorControlPID(0, 1.0, 1.0, 0.0015);
+
     }
 
     // Called when the command is initially scheduled.
@@ -66,6 +72,12 @@ public class DriveStraight extends CommandBase {
         //reset the values of the encoders to zero.
         subsystem.getEncoderRight().reset();
         subsystem.getEncoderLeft().reset();
+
+        startDirection = subsystem.getGyro().getAngle();
+
+        
+        gyro = new MotorControlPID(startDirection, 1.0, 1.0, 0.0015);
+
         leftPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
         rightPid = new MotorControlPID(0.0,1.0,1.0,0.0015,0.00025);
     }
@@ -97,7 +109,8 @@ public class DriveStraight extends CommandBase {
         System.out.println("Target:"+leftPid.getTarget());
         
         double leftSpeed = leftPid.getSpeed(subsystem.getEncoderLeft().getRate());
-        double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate());
+        double rightSpeed = rightPid.getSpeed(subsystem.getEncoderRight().getRate())
+                            + gyro.getSpeed(startDirection - subsystem.getGyro().getAngle());
 
         SmartDashboard.putNumber("leftSpeed", leftSpeed);
         SmartDashboard.putNumber("rightSpeed", rightSpeed);
