@@ -54,7 +54,7 @@ public class Climb extends CommandBase {
 
     // if (time.getMatchTime() <= 30)
     // {
-      if (OI.leftJoystick.getRawButtonPressed(11) && OI.xboxController.getStartButtonPressed()) {
+      if (OI.leftJoystick.getRawButtonPressed(11) || OI.xboxController.getStartButtonPressed()) {
         System.out.println("Pressing button");
         if (pullUp.getValue() != DoubleSolenoid.Value.kForward) {
           pullUp.extendClimb();
