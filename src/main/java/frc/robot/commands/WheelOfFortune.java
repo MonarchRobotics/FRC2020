@@ -159,6 +159,12 @@ public class WheelOfFortune extends CommandBase {
         }
       }
     }
+    else if(OI.leftJoystick.getRawButtonPressed(8) || OI.xboxController.getAButtonPressed()){
+      subsystem.spinWheel();
+    }
+    else if(OI.leftJoystick.getRawButtonReleased(8) || OI.xboxController.getAButtonReleased()){
+      subsystem.stopSpinWheel();
+    }
 
   }
 

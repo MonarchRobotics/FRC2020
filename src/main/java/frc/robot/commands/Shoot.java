@@ -28,7 +28,7 @@ public class Shoot extends CommandBase {
     private MotorControlPID motorControl;
     //the target revolutions per second on the encoders.
     final double targetSpinSpeedAuto = 28.00;
-    final double targetSpinSpeedTrench = 25.5;
+    final double targetSpinSpeedTrench = 26.0;
     final double error = 10.0;
 
 
